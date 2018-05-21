@@ -4,14 +4,6 @@
 #include "libft.h"
 #include "op.h"
 
-/*
-* ERROR HANDLING DEFINES
-*/
-
-#define MALLOC_ERR		1
-#define CHAMP_LEN_ERR	2
-#define OPT_ERR			3
-
 typedef struct  s_champ
 {
 	int				id;
@@ -27,16 +19,31 @@ typedef struct  s_process
 	int					alive;
 	int					pc;
 	int					carry;
+	int					reg[REG_SIZE];
 	struct s_process	*next;
 }				t_process;
 
 typedef struct 	s_vm
 {
-	int				opt;
-	int				processes;
-	int				cycle;
-	unsigned char	*map;
-	struct s_champ	*champ;
+	int					opt;
+	int					processes_nbr;
+	int					cycle;
+	unsigned char		*map;
+	struct s_champ		*champ;
+	struct s_process	*processes;
 }				t_vm;
+
+//free.c
+
+int			free_vm(t_vm *vm);
+
+//init_champs.c
+
+t_champs	*init_champs(int ac, char **av);
+
+//error.c
+
+int		usage(void);
+int		error_mall(int err);
 
 #endif
