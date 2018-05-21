@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/21 13:12:01 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/21 16:05:46 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,45 +21,73 @@ static int 		check_champ_ext(char *name)
 	return (0);
 }
 
+int				get_champ_len(char *fn)
+{
+	int		fd;
+	int		ret;
+	char	buff;
+	int		len;
+
+	len = 0;
+	if (!(fd = open(fn, O_RDONLY)))
+		return (-1);
+	while ((ret = read(fd, buff, 1)))
+		len++;
+	close(fd);
+
+	return (len);
+}
+
+char			*get_name(unsigned char *file)
+{
+	int		*
+}
+
 char			*get_header(char *file, int nc)
 {
-	
+	unsigned char	buff;
+	int				ret;
+
 }
 
 static char		*get_champ(char *file_name)
 {
-	int 	fd;
-	int 	ret;
-	char	*content;
+	int 			fd;
+	int 			ret;
+	unsigned char	*content;
+	int				len;
+	int				i;
 
+	i = 0;
+	if ((len = get_champ_len(file_name)) == -1)
+		return (NULL);
 	content = NULL;
+	if (!(content = (unsigned char *)ft_memalloc(sizeof(char) * (len + 1))))
+		return (error_mall(0));
 	if (!(fd = open(file_name, O_RDONLY)))
 		return (NULL);
-	ret = get_next_line(fd, &content);
-	if (ret == 0 || ret == -1)
-	{
-		ft_putstr_fd("Le champion ", 2);
-		ft_putstr_fd(file_name, 2);
-		ft_putstr_fd(" est vide ou invalide\n", 2);
-		return (NULL);
-	}
+	while (read(fd, content[i++], 1));
+	content[i] = '\0';
+	close(fd);
 	return (content);
 }
 
-static t_champs	*fill_new_champ(t_champs *champ, char *file)
+static t_champs	*fill_new_champ(t_champs *champ, unsigned char *file)
 {
 	champ->id = 0;
 	champ->size = 0;
 	champ->lives = 0;
 	champ->next = NULL;
-	champ->name = get_header(file, 1);
-	champ->comment = get_header(file, 2);
-	ft_memdel((void**)&file);
+	if (!(champ->name = get_name(file))
+		return (NULL);
+	if (!(champ->comment = get_comment(file)))
+		return (NULL);
+	champ->code = get_code(file);
 
 	return (champ);
 }
 
-static t_champs *champs_push_fr(t_champs *champ, char *file)
+static t_champs *champs_push_fr(t_champs *champ, unsigned char *file)
 {
 	t_champs	*new;
 
@@ -75,9 +103,9 @@ static t_champs *champs_push_fr(t_champs *champ, char *file)
 
 t_champs	*init_champs(int ac, char **av)
 {
-	int 		i;
-	char		*file;
-	t_champs	*champs;
+	int 				i;
+	unsigned char		*file;
+	t_champs			*champs;
 
 	i = -1;
 	file = NULL;
@@ -94,6 +122,7 @@ t_champs	*init_champs(int ac, char **av)
 			return (NULL);
 		if (!(champs = champs_push_fr(champs, file)))
 			return (NULL);
+		ft_memdel((void**)&file);
 	} 
 	return (champs);
 }
