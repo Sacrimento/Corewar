@@ -22,9 +22,19 @@ typedef struct  s_champ
 	struct s_champ	*next;
 }				t_champ;
 
+typedef struct  s_process
+{
+	int					alive;
+	int					pc;
+	int					carry;
+	struct s_process	*next;
+}				t_process;
+
 typedef struct 	s_vm
 {
 	int				opt;
+	int				processes;
+	int				cycle;
 	unsigned char	*map;
 	struct s_champ	*champ;
 }				t_vm;
