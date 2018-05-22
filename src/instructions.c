@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/22 13:39:34 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/22 13:55:48 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ int live(t_champ *champ_list, int champ_num)
 	champ->lives++;
 }
 
-int ld(t_process *process, unsigned char value, unsigned char *reg)
+int ld(t_process *process, int value, int *reg)
 {
 	if (!reg)
 		return (process->carry = 0);
+	
 	
 }
