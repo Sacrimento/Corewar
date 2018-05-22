@@ -1,7 +1,7 @@
 #ifndef __COREWAR_H__
 #define __COREWAR_H__
 
-#include "../printf/includes/libft.h"
+#include "../libft/includes/libft.h"
 #include "op.h"
 
 typedef struct  s_champ
