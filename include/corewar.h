@@ -1,7 +1,7 @@
 #ifndef __COREWAR_H__
 #define __COREWAR_H__
 
-#include "libft.h"
+#include "../printf/includes/libft.h"
 #include "op.h"
 
 typedef struct  s_champ
@@ -45,5 +45,11 @@ t_champs	*init_champs(int ac, char **av);
 
 int		usage(void);
 int		error_mall(int err);
+
+//getters.c
+t_champ	*get_champ_by_num(t_champ *list, int num);
+
+//display.c
+void he_lives (t_champ *champ, int display_flag);
 
 #endif
