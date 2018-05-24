@@ -3,12 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init_champs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/21 16:05:46 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/24 15:02:45 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "../include/corewar.h"
 
 static int 		check_champ_ext(char *name)
 {
@@ -72,7 +74,7 @@ static char		*get_champ(char *file_name)
 	return (content);
 }
 
-static t_champs	*fill_new_champ(t_champs *champ, unsigned char *file)
+static t_champ	*fill_new_champ(t_champ *champ, unsigned char *file)
 {
 	champ->id = 0;
 	champ->size = 0;
@@ -87,11 +89,11 @@ static t_champs	*fill_new_champ(t_champs *champ, unsigned char *file)
 	return (champ);
 }
 
-static t_champs *champs_push_fr(t_champs *champ, unsigned char *file)
+static t_champ *champs_push_fr(t_champ *champ, unsigned char *file)
 {
-	t_champs	*new;
+	t_champ	*new;
 
-	if (!(new = (t_champs *)ft_memalloc(sizeof(t_champs))))
+	if (!(new = (t_champ *)ft_memalloc(sizeof(t_champ))))
 		return (error_mall(0));
 	new = fill_new_champ(new, file);
 	if (!champ)
@@ -101,11 +103,11 @@ static t_champs *champs_push_fr(t_champs *champ, unsigned char *file)
 	return (new);
 }
 
-t_champs	*init_champs(int ac, char **av)
+t_champ	*init_champs(int ac, char **av)
 {
 	int 				i;
 	unsigned char		*file;
-	t_champs			*champs;
+	t_champ			*champs;
 
 	i = -1;
 	file = NULL;
