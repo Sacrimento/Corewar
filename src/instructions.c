@@ -6,21 +6,24 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/24 16:08:40 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/24 17:17:41 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //TODO: fonction qui dechiffre l'encodage des parametres
 #include "../include/corewar.h"
 
-int live(t_champ *champ_list, int champ_num, t_vm *vm)
+int live(t_champ *champions, int champ_num, t_vm *vm)
 {
-	t_champ *champ;
+	t_champ *thischamp;
 
-	if (!champ_list || !(champ = get_champ_by_num(champ_list, champ_num)))
+	if (!vm || !champions
+	|| !(thischamp = get_champ_by_num(champions, champ_num)))
 		return (0);
-	champ->lives++;
-	he_lives(champ, vm);
+	thischamp->lives++;
+	if (vm->display_live)
+		ft_printf("[%d]{BLUE}Champion %s(id:%d) is alive{EOC}",
+		thischamp->lives, thischamp->name, thischamp->id);
 	return (1);
 }
 //not sure about this one :

@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/24 16:03:14 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/24 16:51:19 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct  s_process
 	int					pc;
 	int					carry;
 	int					reg[REG_SIZE];
+	unsigned char		*start;
 	struct s_process	*next;
 }				t_process;
 
@@ -61,7 +62,5 @@ int		error_mall(int err);
 //getters.c
 t_champ	*get_champ_by_num(t_champ *list, int num);
 
-//display.c
-void he_lives (t_champ *champ, vm *flags);
 
 #endif
