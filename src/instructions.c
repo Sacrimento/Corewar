@@ -6,14 +6,15 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/24 17:17:41 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/24 19:43:05 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//si c'est un registre c'est 1 octet direct ca doit etre 2 et ind 4
 //TODO: fonction qui dechiffre l'encodage des parametres
 #include "../include/corewar.h"
 
-int live(t_champ *champions, int champ_num, t_vm *vm)
+int live(t_process *process, t_champ *champions, t_vm *vm)
 {
 	t_champ *thischamp;
 
@@ -57,9 +58,6 @@ int zjmp(t_process *process, unsigned char *addr)
 {
 	if (!process || process->carry == 0)
 		return (0);
-	
-	
-
 }
 // prend 2 index et 1 registre, additionne les 2 premiers, 
 // traite ca comme une adresse, y lit une valeur de la taille d’un 
