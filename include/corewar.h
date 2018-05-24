@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/24 16:51:19 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/24 17:21:01 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include "op.h"
 #include <fcntl.h>
 
-typedef struct  s_champ
+typedef struct	s_champ
 {
 	int				id;
 	int				size;
@@ -28,7 +28,7 @@ typedef struct  s_champ
 	struct s_champ	*next;
 }				t_champ;
 
-typedef struct  s_process
+typedef struct	s_process
 {
 	int					alive;
 	int					pc;
@@ -38,7 +38,7 @@ typedef struct  s_process
 	struct s_process	*next;
 }				t_process;
 
-typedef struct 	s_vm
+typedef struct	s_vm
 {
 	int					opt;
 	int					processes_nbr;
@@ -50,17 +50,17 @@ typedef struct 	s_vm
 }				t_vm;
 
 //free.c
-int			free_vm(t_vm *vm);
+int				free_vm(t_vm *vm);
 
 //init_champs.c
-t_champ	*init_champs(int ac, char **av);
+t_champ			*init_champs(int ac, char **av);
 
 //error.c
-int		usage(void);
-int		error_mall(int err);
+int				usage(void);
+int				error_mall(int err);
 
 //getters.c
-t_champ	*get_champ_by_num(t_champ *list, int num);
+t_champ			*get_champ_by_num(t_champ *list, int num);
 
 
 #endif
