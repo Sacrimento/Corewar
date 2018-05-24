@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/24 14:45:29 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/24 16:03:14 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "../libft/includes/libft.h"
 #include "op.h"
+#include <fcntl.h>
 
 typedef struct  s_champ
 {
@@ -23,6 +24,7 @@ typedef struct  s_champ
 	int				lives;
 	char 			*name;
 	char 			*comment;
+	unsigned char	*code;
 	struct s_champ	*next;
 }				t_champ;
 
@@ -40,6 +42,7 @@ typedef struct 	s_vm
 	int					opt;
 	int					processes_nbr;
 	int					cycle;
+	int					display_live;
 	unsigned char		*map;
 	struct s_champ		*champ;
 	struct s_process	*processes;
@@ -59,6 +62,6 @@ int		error_mall(int err);
 t_champ	*get_champ_by_num(t_champ *list, int num);
 
 //display.c
-void he_lives (t_champ *champ, int display_flag);
+void he_lives (t_champ *champ, vm *flags);
 
 #endif

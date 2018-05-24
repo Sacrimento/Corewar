@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/24 15:02:45 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/24 15:14:21 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,11 @@ static t_champ	*fill_new_champ(t_champ *champ, unsigned char *file)
 	champ->size = 0;
 	champ->lives = 0;
 	champ->next = NULL;
-	if (!(champ->name = get_name(file))
+	if (!(champ->name = get_name(file)))
 		return (NULL);
 	if (!(champ->comment = get_comment(file)))
 		return (NULL);
 	champ->code = get_code(file);
-
 	return (champ);
 }
 
@@ -94,7 +93,10 @@ static t_champ *champs_push_fr(t_champ *champ, unsigned char *file)
 	t_champ	*new;
 
 	if (!(new = (t_champ *)ft_memalloc(sizeof(t_champ))))
-		return (error_mall(0));
+	{
+		error_mall(0);
+		return (NULL);
+	}
 	new = fill_new_champ(new, file);
 	if (!champ)
 		return (new);

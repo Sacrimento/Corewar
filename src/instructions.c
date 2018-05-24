@@ -6,23 +6,21 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/24 13:48:54 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/24 16:08:40 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //TODO: fonction qui dechiffre l'encodage des parametres
 #include "../include/corewar.h"
 
-int live(t_champ *champ_list, int champ_num, int display_flag)
+int live(t_champ *champ_list, int champ_num, t_vm *vm)
 {
 	t_champ *champ;
 
-	if (!champ_list)
-		return (0);
-	if (!(champ = get_champ_by_num(champ_list, champ_num)))
+	if (!champ_list || !(champ = get_champ_by_num(champ_list, champ_num)))
 		return (0);
 	champ->lives++;
-	he_lives(champ, display_flag);
+	he_lives(champ, vm);
 	return (1);
 }
 //not sure about this one :
@@ -52,10 +50,12 @@ int sti()
 
 }
 
-int zjmp(t_process *process)
+int zjmp(t_process *process, unsigned char *addr)
 {
 	if (!process || process->carry == 0)
 		return (0);
+	
+	
 
 }
 // prend 2 index et 1 registre, additionne les 2 premiers, 

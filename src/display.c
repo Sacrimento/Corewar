@@ -6,14 +6,15 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/22 15:21:31 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/24 16:03:14 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-void he_lives (t_champ *champ, int display_flag)
+void he_lives (t_champ *champ, t_vm *vm)
 {
-	if (display_flag && champ)
-		ft_printf("[%d]{BLUE}Champion %d is alive{EOC}", champ->lives, champ->id);
+	if (vm && vm->display_live && champ)
+		ft_printf("[%d]{BLUE}Champion %s(id:%d) is alive{EOC}",
+		champ->lives, champ->name, champ->id);
 }
