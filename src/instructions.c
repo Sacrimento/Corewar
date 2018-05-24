@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/23 14:17:36 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/24 13:48:54 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,12 @@ int sti()
 {
 
 }
-//Elle prendra un index, et fait un saut à cette adresse si le carry est à 1.
-//TODO: What do they mean by "jump" ? Do we have to move the PC ?
-int zjmp()
+
+int zjmp(t_process *process)
 {
-	
+	if (!process || process->carry == 0)
+		return (0);
+
 }
 // prend 2 index et 1 registre, additionne les 2 premiers, 
 // traite ca comme une adresse, y lit une valeur de la taille d’un 
