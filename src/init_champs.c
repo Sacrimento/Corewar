@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/25 16:23:02 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/25 16:35:01 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static int 		check_champ_ext(char *name)
 	int 	len;
 
 	len = ft_strlen(name);
-	if (name[len - 1] == 'r' && name[len - 2] == 'o' &&
-		name[len - 3] == 'c' && name[len - 4] == '.')
+	if (len > 4 && name[len - 1] == 'r' && name[len - 2] == 'o' &&
+					name[len - 3] == 'c' && name[len - 4] == '.')
 		return (1);
 	return (0);
 }
