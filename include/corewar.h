@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/24 17:21:01 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/25 14:59:03 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ typedef struct	s_champ
 	int				id;
 	int				size;
 	int				lives;
-	char 			*name;
-	char 			*comment;
+	char 			name[PROG_NAME_LENGTH + 1];
+	char 			comment[COMMENT_LENGTH + 1];
 	unsigned char	*code;
 	struct s_champ	*next;
 }				t_champ;

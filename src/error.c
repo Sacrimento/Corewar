@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/22 13:47:30 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/25 16:02:42 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ int		error_mall(int err)
 {
 	ft_putstr_fd("Erreur d'allocation memoire\n", 2);
 	return (err); 
+}
+
+int		error_file(char *str, char *file, int ret)
+{
+	return (ft_printf(str, file) ? ret : 0)
 }
 
 int		usage(void)
