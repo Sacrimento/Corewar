@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/25 17:25:16 by abouvero         ###   ########.fr       */
+/*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
+/*   Updated: 2018/05/25 17:36:21 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/corewar.h"
+#include "corewar.h"
 
 int			check_inputs(int argc, char **argv)
 {

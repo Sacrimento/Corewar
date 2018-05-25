@@ -6,11 +6,11 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/25 16:35:01 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/25 17:36:14 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/corewar.h"
+#include "corewar.h"
 
 static int 		check_champ_ext(char *name)
 {
