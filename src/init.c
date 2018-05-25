@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/25 16:52:57 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/25 17:25:16 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,26 @@ int			check_inputs(int argc, char **argv)
 static int	list_length(t_champ *champ)
 {
 	return (champ ? 1 + list_length(champ->next) : 0);
+}
+
+void		load_champs(t_vm *vm, int index)
+{
+	t_champ *ch;
+	int 	size;
+	int 	i;
+	int 	sta;
+
+	sta = 0;
+	ch = vm->champ;
+	while (ch)
+	{
+		i = 0;
+		size = ch->size;
+		while (i < size)
+			vm->map[sta + i] = ch->code[i++];
+		sta += index;
+		ch = ch->next;
+	}
 }
 
 t_vm		*init_vm(int argc, char **argv)
@@ -41,6 +61,6 @@ t_vm		*init_vm(int argc, char **argv)
 	vm->cycle = 0;
 	vm->champ = champs;
 	vm->processes= NULL;
-	if (!load_champs(vm), list_length(vm->champ));
+	load_champs(vm, MEM_SIZE / list_length(vm->champ));
 	return (vm);
 }
