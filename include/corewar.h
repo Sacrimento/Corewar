@@ -6,15 +6,19 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/25 17:51:37 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/25 18:01:29 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __COREWAR_H__
-#define __COREWAR_H__
+#ifndef COREWAR_H
+#define COREWAR_H
 
 #include "../libft/includes/libft.h"
 #include "op.h"
+#include <fcntl.h>
+#include <sys/types.h>
+#include <unistd.h>
+
 
 typedef struct	s_champ
 {
