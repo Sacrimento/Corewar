@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/25 16:25:16 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/25 17:13:46 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ typedef struct	s_vm
 	struct s_champ		*champ;
 	struct s_process	*processes;
 }				t_vm;
+
+typedef struct	s_instr
+{
+	int value;
+	int *adress;
+}				t_instr;
+
+
 
 //free.c
 int				free_vm(t_vm *vm);

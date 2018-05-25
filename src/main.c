@@ -3,14 +3,29 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/22 13:48:11 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/25 17:33:48 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
+
+void 	mem_dump(unsigned char *map)
+{
+	int 	i;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		if (i % 16 && i != 0)
+			ft_putchar('\n');
+		else if (i % 8 && i != 0)
+			ft_putchar(' ');
+		ft_printf("%x ", map[i++]);
+	}
+}
 
 int		main(int argc, char **argv)
 {
@@ -21,6 +36,7 @@ int		main(int argc, char **argv)
 		return (1);
 	if (!(vm = init_vm(argc, argv, opt)))
 		return (free_vm(vm));
+	mem_dump(vm->map);
 	free_vm(vm);
 	return (0);
 }
