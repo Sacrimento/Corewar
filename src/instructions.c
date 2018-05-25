@@ -6,13 +6,29 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/24 19:43:05 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/25 13:25:54 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //si c'est un registre c'est 1 octet direct ca doit etre 2 et ind 4
 //TODO: fonction qui dechiffre l'encodage des parametres
 #include "../include/corewar.h"
+
+void    decode_OCP(t_instr *instr, unsigned char byte)
+{
+    int        i;
+    
+    i = 0;
+    while (++i < 4)
+    {
+        if ((byte >> (i * 2)) & 0x0000000F)
+            instr->param.reg[i] = 1;
+        else if ((byte >> (i * 2)) & 0x000000F0)
+            instr->param.dir[i] = 1;
+        else if ((byte >> (i * 2)) & 0x000000FF)
+            instr->param.indir[i] = 1;
+    }
+}
 
 int live(t_process *process, t_champ *champions, t_vm *vm)
 {
