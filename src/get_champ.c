@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 10:35:19 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 14:53:25 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 17:00:58 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,20 @@ t_champ			*parse_champ(char *file_name, t_champ *champ)
 	int		fd;
 
 	if (!(fd = open(file_name, O_RDONLY)) || fd < 0)
-		return (error_file("Le ficher %s n'a pas pu etre ouvert\n", file_name));
+		return (error_file("Le ficher %s n'a pas pu etre ouvert\n", file_name, champ));
 	if (!(check_magic(fd)) || !fill_header(fd, champ))
 		return (error_file("Le header du fichier %s est invalide\n",
-															file_name));
+															file_name, champ));
 	if (champ->size > CHAMP_MAX_SIZE)
-		return (ft_printf("Le fichier %s est trop gros : %d bytes au lieu de \
-		%d bytes\n", file_name, champ->size, CHAMP_MAX_SIZE) ? NULL : NULL);
+	{
+		ft_printf("Le fichier %s est trop gros : %d bytes au lieu de %d bytes.\n"\
+						, file_name, champ->size, CHAMP_MAX_SIZE);
+		return (rec_free_champs(champ));
+	}
 	if (!(champ->code = (unsigned char *)ft_memalloc(sizeof(char) * \
 			champ->size)) || read(fd, champ->code, champ->size) != champ->size)
-		return (NULL);
+		return (error_file("%s : header invalide\n", file_name, champ));
 	if (close(fd))
-		return (error_file("Le fichier %s n'a pu etre ferme\n", file_name));
+		return (error_file("Le fichier %s n'a pu etre ferme\n", file_name, champ));
 	return (champ);
 }

@@ -6,20 +6,21 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:14:11 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 16:36:23 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 17:00:32 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-void	rec_free_champs(t_champ *champs)
+t_champ	*rec_free_champs(t_champ *champs)
 {
 	if (!champs)
-		return ;
+		return (NULL);
 	if (champs->next)
 		rec_free_champs(champs->next);
 	ft_memdel((void**)&champs->code);
 	ft_memdel((void**)&champs);
+	return (NULL);
 }
 
 void	rec_free_processes(t_process *processes)

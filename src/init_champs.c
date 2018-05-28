@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 16:08:04 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 17:09:03 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,28 +47,30 @@ static t_champ	*fill_new_champ(t_champ *champ, char *file)
 	champ->lives = 0;
 	champ->next = NULL;
 	if (!(parse_champ(file, champ)))
-		return (NULL);
+		return (rec_free_champs(champ));
 	return (champ);
 }
 
 static t_champ	*champs_push(t_champ *champ, char *file)
 {
 	t_champ	*new;
+	t_champ	*beg;
 
+	beg = champ;
 	if (!(new = (t_champ *)ft_memalloc(sizeof(t_champ))))
 	{
 		error_mall(0);
 		return (NULL);
 	}
 	if (!(new = fill_new_champ(new, file)))
-		return (NULL);
+		return (rec_free_champs(champ));
 	if (!champ)
 		return (new);
 	while (champ->next)
 		champ = champ->next;
 	new->id = champ->id + 1;
 	champ->next = new;
-	return (champ);
+	return (beg);
 }
 
 int				init_champs(int ac, char **av, t_vm *vm)
