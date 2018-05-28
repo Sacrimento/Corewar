@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/28 18:38:04 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/28 18:58:44 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ typedef struct	s_instr
 
 //free.c
 t_vm			*free_vm(t_vm *vm);
+t_champ			*rec_free_champs(t_champ *champs);
+
 //init_champs.c
 int				init_champs(int ac, char **av, t_vm *vm);
 
@@ -81,7 +83,7 @@ t_champ			*parse_champ(char *file_name , t_champ *champ);
 
 //error.c
 int				usage(void);
-t_champ			*error_file(char *str, char *file);
+t_champ			*error_file(char *str, char *file, t_champ *champ);
 int				error_mall(int err);
 
 //getters.c
