@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 10:35:19 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 13:36:31 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 14:20:22 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,12 @@ static int		fill_header(int fd, t_champ *champ)
 {
 	unsigned char	size_b[4];
 
-	if (read(fd, champ->name, PROG_NAME_LENGTH) != PROG_NAME_LENGTH)
+	if (read(fd, champ->name, PROG_NAME_LENGTH + 4) != PROG_NAME_LENGTH + 4)
 		return (0);
-	read(fd, size_b, 4); //MAGIC TRICK
 	if (read(fd, size_b, 4) != 4)
 		return (0);
 	champ->size = get_b_size(size_b);
-	ft_printf("SIZE : %d\n", champ->size);
-	if (read(fd, champ->comment, COMMENT_LENGTH) != COMMENT_LENGTH)
+	if (read(fd, champ->comment, COMMENT_LENGTH + 4) != COMMENT_LENGTH + 4)
 		return (0);
 	return (1);
 }
