@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/28 15:25:21 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/28 17:05:14 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,31 @@
 //TODO: fonction qui dechiffre l'encodage des parametres
 #include "../include/corewar.h"
 
-int		decode_OCP(t_instr *instr, t_vm *vm, unsigned char byte)
+int		decode_OCP(t_instr *instr, t_vm *vm, unsigned char byte, int i)
 {
-	int i;
+	int cursor;
 
-	i = 0;
 	ft_bzero(instr->params, sizeof(t_instr) * 3);
 	while (++i < 4)
 	{
+		cursor = instr->process->pc + i;
 		if ((byte >> (i * 2)) & 0x0000000F)
 		{
-			//register
-			if (instr->process->pc + i > REG_SIZE)
+			if (vm->map[cursor] > REG_NUMBER)
 				return (0);
-			instr->params[i].value = instr->process->reg[vm->map[instr->process->pc + i]];
-			instr->params[i].address = &instr->process->reg[vm->map[instr->process->pc + i]];
-			instr->params[i].active = 1;
+			instr->params[i].value = instr->process->reg[vm->map[cursor]];
+			instr->params[i].address = &instr->process->reg[vm->map[cursor]];
 		}
 		else if ((byte >> (i * 2)) & 0x000000F0)
 		{
-			//direct
-			instr->params[i].value = vm->map[instr->process->pc + i];
-			instr->params[i].address = &vm->map[instr->process->pc + i];
-			instr->params[i].active = 1;
+			instr->params[i].value = vm->map[cursor];
+			instr->params[i].address = &vm->map[cursor];
 		}
 		else if ((byte >> (i * 2)) & 0x000000FF)
 		{
-			//indir
-			instr->param.indir[i] = 1;
+			instr->params[i].value = vm->map[vm->map[cursor] % MEM_SIZE];
+			instr->params[i].address = &vm->map[vm->map[cursor] % MEM_SIZE];
 		}
-			
 	}
 	return (1);
 }

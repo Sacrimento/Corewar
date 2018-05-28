@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/28 17:00:47 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 17:28:47 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct	s_process
 	int					alive;
 	int					pc;
 	int					carry;
-	int					reg[REG_SIZE];
+	int					reg[REG_NUMBER];
 	unsigned char		*start;
 	struct s_process	*next;
 }				t_process;
@@ -58,7 +58,6 @@ typedef struct	s_param_instr
 {
 	int		value;
 	void	*address;
-	int		active;
 }				t_param_instr;
 
 typedef struct	s_instr
