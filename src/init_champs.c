@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 17:09:03 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 18:05:19 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_champ	*fill_new_champ(t_champ *champ, char *file)
 	champ->lives = 0;
 	champ->next = NULL;
 	if (!(parse_champ(file, champ)))
-		return (rec_free_champs(champ));
+		return (NULL);
 	return (champ);
 }
 
