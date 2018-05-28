@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 10:35:19 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 12:31:07 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 13:21:50 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ t_champ		*parse_champ(char *file_name , t_champ *champ)
 		return (1 || ft_printf("Le fichier %s est trop gros : %d bytes au lieu de %s bytes\n", file_name, champ->size, CHAMP_MAX_SIZE) ? NULL : NULL);
 	if (!(champ->code = (unsigned char *)ft_memalloc(sizeof(char) * champ->size)) || read(fd, champ->code, champ->size) != champ->size)
 		return (NULL);
-	if (!(close(fd)))
+	if (close(fd))
 		return (error_file("Le fichier %s n'a pu etre ferme\n", file_name));
 	return (champ);
 }

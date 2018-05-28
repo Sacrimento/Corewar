@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 12:38:02 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 13:22:27 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static t_champ	*fill_new_champ(t_champ *champ, char *file)
 	champ->size = 0;
 	champ->lives = 0;
 	champ->next = NULL;
-	parse_champ(file, champ);
+	if (!(parse_champ(file, champ)))
+		return (NULL);
 	return (champ);
 }
 
@@ -42,7 +43,8 @@ static t_champ *champs_push_fr(t_champ *champ, char *file)
 		error_mall(0);
 		return (NULL);
 	}
-	new = fill_new_champ(new, file);
+	if (!(new = fill_new_champ(new, file)))
+		return (NULL);
 	if (!champ)
 		return (new);
 	new->id = champ->id + 1;
@@ -55,17 +57,18 @@ t_champ			*init_champs(int ac, char **av)
 	int 				i;
 	t_champ				*champs;
 
-	i = -1;
+	i = 0;
 	champs = NULL;
 	while (++i < ac)
 	{
 		if (*av[i] == '-' && i + 1 < ac)
 			i++;
 		if (!check_champ_ext(av[i]))
-			ft_putstr_fd(av[i], 2);
-			ft_putstr_fd(" : fichier '.cor' attendu\n", 2);
+		{
+			ft_printf("%s : fichier '.cor' attendu\n", av[i]);
 			usage();
 			return (NULL);
+		}
 		if (!(champs = champs_push_fr(champs, av[i])))
 			return (NULL);
 	} 
