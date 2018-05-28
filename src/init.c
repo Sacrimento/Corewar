@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 12:45:04 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 14:33:46 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,17 @@ int			check_inputs(void)
 {
 	//Check des defsines d'op.h
 	return (0);
+}
+
+static void	introduce_champs(t_champ *champs)
+{
+	ft_printf("Introducing contestants...\n");
+	while (champs)
+	{
+		ft_printf("* Player %d, weighing %d bytes, ", champs->id, champs->size);
+		ft_printf("\"%s\" (\"%s\") !\n", champs->name, champs->comment);
+		champs = champs->next;
+	}
 }
 
 static int	list_length(t_champ *champ)
@@ -63,5 +74,6 @@ t_vm		*init_vm(int argc, char **argv, int opt)
 	vm->champ = champs;
 	vm->processes= NULL;
 	load_champs(vm, MEM_SIZE / list_length(vm->champ));
+	introduce_champs(vm->champ);
 	return (vm);
 }
