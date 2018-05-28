@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 14:41:22 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 16:37:46 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		main(int argc, char **argv)
 	//if ((opt = set_opt(argc, argv)) == -1 || check_inputs(argc, argv))
 	//	return (1);
 	if (!(vm = init_vm(argc, argv, opt)))
-		return (free_vm(vm));
+		return (1);
 	mem_dump(vm->map);
 	free_vm(vm);
 	return (0);

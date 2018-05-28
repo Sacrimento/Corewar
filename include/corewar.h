@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/28 16:21:08 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/28 17:24:19 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct	s_process
 	int					alive;
 	int					pc;
 	int					carry;
-	int					reg[REG_SIZE];
+	int					reg[REG_NUMBER];
 	unsigned char		*start;
 	struct s_process	*next;
 }				t_process;
@@ -69,10 +69,9 @@ typedef struct	s_instr
 }				t_instr;
 
 //free.c
-int				free_vm(t_vm *vm);
-
+t_vm			*free_vm(t_vm *vm);
 //init_champs.c
-t_champ			*init_champs(int ac, char **av);
+int				init_champs(int ac, char **av, t_vm *vm);
 
 //init.c
 t_vm			*init_vm(int argc, char **argv, int opt);

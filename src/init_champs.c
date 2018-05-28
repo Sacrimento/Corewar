@@ -6,11 +6,28 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 14:47:48 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 16:08:04 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
+
+static int		check_header(t_champ *champs, char *file)
+{
+	while (champs->next)
+		champs = champs->next;
+	if (!*champs->name)
+	{
+		ft_printf("Header invalide dans %s : nom inexistant.\n", file);
+		return (0);
+	}
+	if (!*champs->comment)
+	{
+		ft_printf("Header invalide dans %s : commentaire inexistant.\n", file);
+		return (0);
+	}
+	return (1);
+}
 
 static int		check_champ_ext(char *name)
 {
@@ -54,13 +71,11 @@ static t_champ	*champs_push(t_champ *champ, char *file)
 	return (champ);
 }
 
-t_champ			*init_champs(int ac, char **av)
+int				init_champs(int ac, char **av, t_vm *vm)
 {
 	int					i;
-	t_champ				*champs;
 
 	i = 0;
-	champs = NULL;
 	while (++i < ac)
 	{
 		if (*av[i] == '-' && i + 1 < ac)
@@ -69,10 +84,12 @@ t_champ			*init_champs(int ac, char **av)
 		{
 			ft_printf("%s : fichier '.cor' attendu\n", av[i]);
 			usage();
-			return (NULL);
+			return (0);
 		}
-		if (!(champs = champs_push(champs, av[i])))
-			return (NULL);
+		if (!(vm->champ = champs_push(vm->champ, av[i])))
+			return (0);
+		if (!(check_header(vm->champ, av[i])))
+			return (0);
 	}
-	return (champs);
+	return (1);
 }
