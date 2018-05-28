@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/28 15:42:29 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/28 16:21:08 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ typedef struct	s_param_instr
 {
 	int		value;
 	void	*address;
-	int		active;
 }				t_param_instr;
 
 typedef struct	s_instr
