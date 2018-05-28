@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 10:35:19 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 12:30:10 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 12:31:07 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int		get_b_size(unsigned char *b_size)
 	int 			i;
 
 	i = -1;
+	size = 0;
 	while (++i < 4)
 	{
 		size |= b_size[i];

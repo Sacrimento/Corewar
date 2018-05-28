@@ -6,13 +6,13 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/25 17:52:39 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 12:45:04 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-int			check_inputs(int argc, char **argv)
+int			check_inputs(void)
 {
 	//Check des defsines d'op.h
 	return (0);
@@ -34,10 +34,10 @@ void		load_champs(t_vm *vm, int index)
 	ch = vm->champ;
 	while (ch)
 	{
-		i = 0;
+		i = -1;
 		size = ch->size;
-		while (i < size)
-			vm->map[sta + i] = ch->code[i++];
+		while (++i < size)
+			vm->map[sta + i] = ch->code[i];
 		sta += index;
 		ch = ch->next;
 	}
@@ -52,10 +52,11 @@ t_vm		*init_vm(int argc, char **argv, int opt)
 	champs = NULL;
 	if (!(champs = init_champs(argc, argv)))
 		return (0); 
-	if (!(vm = (t_vm*)ft_memalloc(sizeof(t_vm))))
-		return (error_mall(0));
-	if (!(vm->map = (unsigned char *)ft_memalloc(MEM_SIZE)))
-		return (error_mall(0));
+	if (!(vm = (t_vm*)ft_memalloc(sizeof(t_vm))) || !(vm->map = (unsigned char *)ft_memalloc(MEM_SIZE)))
+	{
+		error_mall(0);
+		return (NULL);
+	}
 	vm->opt = opt;
 	vm->processes_nbr = 0;
 	vm->cycle = 0;

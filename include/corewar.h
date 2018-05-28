@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/25 18:01:29 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 12:41:10 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ int				free_vm(t_vm *vm);
 t_champ			*init_champs(int ac, char **av);
 
 //init.c
-t_vm		*init_vm(int argc, char **argv, int opt);
+t_vm			*init_vm(int argc, char **argv, int opt);
 
 //get_champ.c
-t_champ		*parse_champ(char *file_name , t_champ *champ);
+t_champ			*parse_champ(char *file_name , t_champ *champ);
 
 //error.c
 int				usage(void);
