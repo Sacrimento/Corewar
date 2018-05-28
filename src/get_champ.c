@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 10:35:19 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 13:21:50 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 13:36:31 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,14 @@ static int		fill_header(int fd, t_champ *champ)
 {
 	unsigned char	size_b[4];
 
-	if (read(fd, champ->name, PROG_NAME_LENGTH + 1) != PROG_NAME_LENGTH + 1)
+	if (read(fd, champ->name, PROG_NAME_LENGTH) != PROG_NAME_LENGTH)
 		return (0);
+	read(fd, size_b, 4); //MAGIC TRICK
 	if (read(fd, size_b, 4) != 4)
 		return (0);
 	champ->size = get_b_size(size_b);
-	if (read(fd, champ->comment, COMMENT_LENGTH + 1) != COMMENT_LENGTH + 1)
+	ft_printf("SIZE : %d\n", champ->size);
+	if (read(fd, champ->comment, COMMENT_LENGTH) != COMMENT_LENGTH)
 		return (0);
 	return (1);
 }
@@ -64,7 +66,7 @@ t_champ		*parse_champ(char *file_name , t_champ *champ)
 	if (!(check_magic(fd)) || !fill_header(fd, champ))
 		return (error_file("Le header du fichier %s est invalide\n", file_name));
 	if (champ->size > CHAMP_MAX_SIZE)
-		return (1 || ft_printf("Le fichier %s est trop gros : %d bytes au lieu de %s bytes\n", file_name, champ->size, CHAMP_MAX_SIZE) ? NULL : NULL);
+		return (ft_printf("Le fichier %s est trop gros : %d bytes au lieu de %d bytes\n", file_name, champ->size, CHAMP_MAX_SIZE) ? NULL : NULL);
 	if (!(champ->code = (unsigned char *)ft_memalloc(sizeof(char) * champ->size)) || read(fd, champ->code, champ->size) != champ->size)
 		return (NULL);
 	if (close(fd))
