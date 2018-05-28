@@ -6,11 +6,28 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 14:47:48 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 15:48:31 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
+
+static int		check_header(t_champ *champs, char *file)
+{
+	while (champs->next)
+		champs = champs->next;
+	if (!*champs->name)
+	{
+		ft_printf("Header invalide dans %s : nom inexistant.\n", file);
+		return (0);
+	}
+	if (!*champs->comment)
+	{
+		ft_printf("Header invalide dans %s : commentaire inexistant.\n", file);
+		return (0);
+	}
+	return (1);
+}
 
 static int		check_champ_ext(char *name)
 {
@@ -72,6 +89,8 @@ t_champ			*init_champs(int ac, char **av)
 			return (NULL);
 		}
 		if (!(champs = champs_push(champs, av[i])))
+			return (NULL);
+		if (!(check_header(champs, av[i])))
 			return (NULL);
 	}
 	return (champs);
