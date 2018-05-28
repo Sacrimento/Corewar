@@ -6,15 +6,15 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 14:35:23 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 14:41:22 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-void 	mem_dump(unsigned char *map)
+void	mem_dump(unsigned char *map)
 {
-	int 	i;
+	int		i;
 
 	i = 0;
 	while (i < MEM_SIZE)
@@ -30,7 +30,7 @@ void 	mem_dump(unsigned char *map)
 int		main(int argc, char **argv)
 {
 	t_vm	*vm;
-	int 	opt;
+	int		opt;
 
 	opt = 0; //RM
 	//if ((opt = set_opt(argc, argv)) == -1 || check_inputs(argc, argv))

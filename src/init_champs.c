@@ -6,15 +6,15 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 14:30:09 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 14:47:48 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-static int 		check_champ_ext(char *name)
+static int		check_champ_ext(char *name)
 {
-	int 	len;
+	int		len;
 
 	len = ft_strlen(name);
 	if (len > 4 && name[len - 1] == 'r' && name[len - 2] == 'o' &&
@@ -34,7 +34,7 @@ static t_champ	*fill_new_champ(t_champ *champ, char *file)
 	return (champ);
 }
 
-static t_champ *champs_push(t_champ *champ, char *file)
+static t_champ	*champs_push(t_champ *champ, char *file)
 {
 	t_champ	*new;
 
@@ -56,7 +56,7 @@ static t_champ *champs_push(t_champ *champ, char *file)
 
 t_champ			*init_champs(int ac, char **av)
 {
-	int 				i;
+	int					i;
 	t_champ				*champs;
 
 	i = 0;
@@ -73,6 +73,6 @@ t_champ			*init_champs(int ac, char **av)
 		}
 		if (!(champs = champs_push(champs, av[i])))
 			return (NULL);
-	} 
+	}
 	return (champs);
 }

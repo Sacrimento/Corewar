@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 14:33:46 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 14:43:45 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ static int	list_length(t_champ *champ)
 void		load_champs(t_vm *vm, int index)
 {
 	t_champ *ch;
-	int 	size;
-	int 	i;
-	int 	sta;
+	int		size;
+	int		i;
+	int		sta;
 
 	sta = 0;
 	ch = vm->champ;
@@ -62,8 +62,13 @@ t_vm		*init_vm(int argc, char **argv, int opt)
 	(void)opt; //RM
 	champs = NULL;
 	if (!(champs = init_champs(argc, argv)))
-		return (0); 
-	if (!(vm = (t_vm*)ft_memalloc(sizeof(t_vm))) || !(vm->map = (unsigned char *)ft_memalloc(MEM_SIZE)))
+		return (0);
+	if (!(vm = (t_vm*)ft_memalloc(sizeof(t_vm))))
+	{
+		error_mall(0);
+		return (NULL);
+	}
+	else if (!(vm->map = (unsigned char *)ft_memalloc(MEM_SIZE)))
 	{
 		error_mall(0);
 		return (NULL);
@@ -72,7 +77,7 @@ t_vm		*init_vm(int argc, char **argv, int opt)
 	vm->processes_nbr = 0;
 	vm->cycle = 0;
 	vm->champ = champs;
-	vm->processes= NULL;
+	vm->processes = NULL;
 	load_champs(vm, MEM_SIZE / list_length(vm->champ));
 	introduce_champs(vm->champ);
 	return (vm);
