@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/05/28 12:41:10 by abouvero         ###   ########.fr       */
+=======
+/*   Updated: 2018/05/28 12:32:24 by mfonteni         ###   ########.fr       */
+>>>>>>> e2246affe18770b301afacbeb8725109351a9825
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +60,7 @@ typedef struct	s_instr
 {
 	int value;
 	int *adress;
+	int active;
 }				t_instr;
 
 

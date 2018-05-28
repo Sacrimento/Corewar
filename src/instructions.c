@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/25 13:25:54 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/28 12:31:49 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,21 @@
 //TODO: fonction qui dechiffre l'encodage des parametres
 #include "../include/corewar.h"
 
-void    decode_OCP(t_instr *instr, unsigned char byte)
+void	decode_OCP(t_instr *instr, unsigned char byte)
 {
-    int        i;
+	int i;
+	t_instr params[3];
     
     i = 0;
+	while (i++ < 3)
+	{
+		params[i].value;
+
+	}
     while (++i < 4)
     {
         if ((byte >> (i * 2)) & 0x0000000F)
-            instr->param.reg[i] = 1;
+            params[i] = ;
         else if ((byte >> (i * 2)) & 0x000000F0)
             instr->param.dir[i] = 1;
         else if ((byte >> (i * 2)) & 0x000000FF)
