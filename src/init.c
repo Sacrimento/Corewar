@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 15:53:37 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 16:36:08 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,26 +57,23 @@ void		load_champs(t_vm *vm, int index)
 t_vm		*init_vm(int argc, char **argv, int opt)
 {
 	t_vm		*vm;
-	t_champ		*champs;
 
 	(void)opt; //RM
-	champs = NULL;
-	if (!(champs = init_champs(argc, argv)))
-		return (0);
 	if (!(vm = (t_vm*)ft_memalloc(sizeof(t_vm))))
 	{
 		error_mall(0);
 		return (NULL);
 	}
+	if (!(init_champs(argc, argv, vm)))
+		return (free_vm(vm));
 	else if (!(vm->map = (unsigned char *)ft_memalloc(MEM_SIZE)))
 	{
 		error_mall(0);
-		return (NULL);
+		return (free_vm(vm));
 	}
 	vm->opt = opt;
 	vm->processes_nbr = 0;
 	vm->cycle = 0;
-	vm->champ = champs;
 	vm->processes = NULL;
 	load_champs(vm, MEM_SIZE / list_length(vm->champ));
 	introduce_champs(vm->champ);

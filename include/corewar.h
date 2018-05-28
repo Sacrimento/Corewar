@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/28 15:42:29 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/28 16:36:34 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ typedef struct	s_instr
 }				t_instr;
 
 //free.c
-int				free_vm(t_vm *vm);
+t_vm			*free_vm(t_vm *vm);
 
 //init_champs.c
-t_champ			*init_champs(int ac, char **av);
+int				init_champs(int ac, char **av, t_vm *vm);
 
 //init.c
 t_vm			*init_vm(int argc, char **argv, int opt);

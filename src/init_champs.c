@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 15:48:31 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 16:08:04 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,13 +71,11 @@ static t_champ	*champs_push(t_champ *champ, char *file)
 	return (champ);
 }
 
-t_champ			*init_champs(int ac, char **av)
+int				init_champs(int ac, char **av, t_vm *vm)
 {
 	int					i;
-	t_champ				*champs;
 
 	i = 0;
-	champs = NULL;
 	while (++i < ac)
 	{
 		if (*av[i] == '-' && i + 1 < ac)
@@ -86,12 +84,12 @@ t_champ			*init_champs(int ac, char **av)
 		{
 			ft_printf("%s : fichier '.cor' attendu\n", av[i]);
 			usage();
-			return (NULL);
+			return (0);
 		}
-		if (!(champs = champs_push(champs, av[i])))
-			return (NULL);
-		if (!(check_header(champs, av[i])))
-			return (NULL);
+		if (!(vm->champ = champs_push(vm->champ, av[i])))
+			return (0);
+		if (!(check_header(vm->champ, av[i])))
+			return (0);
 	}
-	return (champs);
+	return (1);
 }

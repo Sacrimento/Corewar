@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:14:11 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 14:40:27 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 16:36:23 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	rec_free_champs(t_champ *champs)
 		return ;
 	if (champs->next)
 		rec_free_champs(champs->next);
+	ft_memdel((void**)&champs->code);
 	ft_memdel((void**)&champs);
 }
 
@@ -30,10 +31,10 @@ void	rec_free_processes(t_process *processes)
 	ft_memdel((void**)&processes);
 }
 
-int		free_vm(t_vm *vm)
+t_vm	*free_vm(t_vm *vm)
 {
 	if (!vm)
-		return (1);
+		return (NULL);
 	if (vm->map)
 		ft_memdel((void**)&vm->map);
 	if (vm->champ)
@@ -41,5 +42,5 @@ int		free_vm(t_vm *vm)
 	if (vm->processes)
 		rec_free_processes(vm->processes);
 	ft_memdel((void**)&vm);
-	return (1);
+	return (0);
 }
