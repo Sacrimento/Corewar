@@ -6,11 +6,11 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/25 17:36:06 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/25 17:52:23 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "../include/corewar.h"
 
 int		error_mall(int err)
 {
@@ -18,9 +18,9 @@ int		error_mall(int err)
 	return (err); 
 }
 
-int		error_file(char *str, char *file, int ret)
+t_champ	*error_file(char *str, char *file)
 {
-	return (ft_printf(str, file) ? ret : 0)
+	return (ft_printf(str, file) ? NULL : 0);
 }
 
 int		usage(void)

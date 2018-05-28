@@ -6,11 +6,11 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/25 17:36:21 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/25 17:52:39 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "../include/corewar.h"
 
 int			check_inputs(int argc, char **argv)
 {
@@ -43,15 +43,15 @@ void		load_champs(t_vm *vm, int index)
 	}
 }
 
-t_vm		*init_vm(int argc, char **argv)
+t_vm		*init_vm(int argc, char **argv, int opt)
 {
 	t_vm		*vm;
-	int			opt;
 	t_champ		*champs;
 
+	(void)opt; //RM
 	champs = NULL;
 	if (!(champs = init_champs(argc, argv)))
-		return (0); //Pas forcement malloc
+		return (0); 
 	if (!(vm = (t_vm*)ft_memalloc(sizeof(t_vm))))
 		return (error_mall(0));
 	if (!(vm->map = (unsigned char *)ft_memalloc(MEM_SIZE)))

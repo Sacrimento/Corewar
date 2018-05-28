@@ -6,16 +6,19 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/25 18:25:30 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/28 12:32:24 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef __COREWAR_H__
-#define __COREWAR_H__
+#ifndef COREWAR_H
+#define COREWAR_H
 
 #include "../libft/includes/libft.h"
 #include "op.h"
 #include <fcntl.h>
+#include <sys/types.h>
+#include <unistd.h>
+
 
 typedef struct	s_champ
 {
@@ -64,12 +67,15 @@ int				free_vm(t_vm *vm);
 //init_champs.c
 t_champ			*init_champs(int ac, char **av);
 
+//init.c
+t_vm		*init_vm(int argc, char **argv, int opt);
+
 //get_champ.c
 t_champ		*parse_champ(char *file_name , t_champ *champ);
 
 //error.c
 int				usage(void);
-int				error_file(char *str, char *file, int ret);
+t_champ			*error_file(char *str, char *file);
 int				error_mall(int err);
 
 //getters.c
