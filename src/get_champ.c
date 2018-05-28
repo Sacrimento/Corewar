@@ -6,13 +6,25 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 10:35:19 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/25 18:32:11 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 12:30:10 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-static int		
+static int		get_b_size(unsigned char *b_size)
+{
+	unsigned int	size;
+	int 			i;
+
+	i = -1;
+	while (++i < 4)
+	{
+		size |= b_size[i];
+		size <<= 8;
+	}
+	return (size >> 8);
+}
 
 static int		check_magic(int fd)
 {
@@ -30,10 +42,13 @@ static int		check_magic(int fd)
 
 static int		fill_header(int fd, t_champ *champ)
 {
+	unsigned char	size_b[4];
+
 	if (read(fd, champ->name, PROG_NAME_LENGTH + 1) != PROG_NAME_LENGTH + 1)
 		return (0);
-	if (read(fd, champ->size, 4) != 4)
+	if (read(fd, size_b, 4) != 4)
 		return (0);
+	champ->size = get_b_size(size_b);
 	if (read(fd, champ->comment, COMMENT_LENGTH + 1) != COMMENT_LENGTH + 1)
 		return (0);
 	return (1);
@@ -47,7 +62,7 @@ t_champ		*parse_champ(char *file_name , t_champ *champ)
 		return (error_file("Le ficher %s n'a pas pu etre ouvert\n", file_name));
 	if (!(check_magic(fd)) || !fill_header(fd, champ))
 		return (error_file("Le header du fichier %s est invalide\n", file_name));
-	if (champ->size > CHAMP_MAX_SIZE || champ->size < 0)
+	if (champ->size > CHAMP_MAX_SIZE)
 		return (1 || ft_printf("Le fichier %s est trop gros : %d bytes au lieu de %s bytes\n", file_name, champ->size, CHAMP_MAX_SIZE) ? NULL : NULL);
 	if (!(champ->code = (unsigned char *)ft_memalloc(sizeof(char) * champ->size)) || read(fd, champ->code, champ->size) != champ->size)
 		return (NULL);

@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/25 17:52:45 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 10:46:00 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void 	mem_dump(unsigned char *map)
 	i = 0;
 	while (i < MEM_SIZE)
 	{
-		if (i % 16 && i != 0)
+		ft_printf("%x", map[i++]);
+		if (!(i % 16) && i != 0)
 			ft_putchar('\n');
-		else if (i % 8 && i != 0)
+		else
 			ft_putchar(' ');
-		ft_printf("%x ", map[i++]);
 	}
 }
 
