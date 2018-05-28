@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/28 12:31:49 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/28 15:25:21 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,41 @@
 //TODO: fonction qui dechiffre l'encodage des parametres
 #include "../include/corewar.h"
 
-void	decode_OCP(t_instr *instr, unsigned char byte)
+int		decode_OCP(t_instr *instr, t_vm *vm, unsigned char byte)
 {
 	int i;
-	t_instr params[3];
-    
-    i = 0;
-	while (i++ < 3)
-	{
-		params[i].value;
 
+	i = 0;
+	ft_bzero(instr->params, sizeof(t_instr) * 3);
+	while (++i < 4)
+	{
+		if ((byte >> (i * 2)) & 0x0000000F)
+		{
+			//register
+			if (instr->process->pc + i > REG_SIZE)
+				return (0);
+			instr->params[i].value = instr->process->reg[vm->map[instr->process->pc + i]];
+			instr->params[i].address = &instr->process->reg[vm->map[instr->process->pc + i]];
+			instr->params[i].active = 1;
+		}
+		else if ((byte >> (i * 2)) & 0x000000F0)
+		{
+			//direct
+			instr->params[i].value = vm->map[instr->process->pc + i];
+			instr->params[i].address = &vm->map[instr->process->pc + i];
+			instr->params[i].active = 1;
+		}
+		else if ((byte >> (i * 2)) & 0x000000FF)
+		{
+			//indir
+			instr->param.indir[i] = 1;
+		}
+			
 	}
-    while (++i < 4)
-    {
-        if ((byte >> (i * 2)) & 0x0000000F)
-            params[i] = ;
-        else if ((byte >> (i * 2)) & 0x000000F0)
-            instr->param.dir[i] = 1;
-        else if ((byte >> (i * 2)) & 0x000000FF)
-            instr->param.indir[i] = 1;
-    }
+	return (1);
 }
 
-int live(t_process *process, t_champ *champions, t_vm *vm)
+int live(t_instr instr, t_champ *champions, t_vm *vm)
 {
 	t_champ *thischamp;
 

@@ -3,22 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/28 13:00:15 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/28 15:42:29 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 #define COREWAR_H
+#define REG 10
+#define DIRECT 20
+#define INDIRECT 30
 
 #include "../libft/includes/libft.h"
 #include "op.h"
 #include <fcntl.h>
 #include <sys/types.h>
 #include <unistd.h>
-
 
 typedef struct	s_champ
 {
@@ -52,14 +54,20 @@ typedef struct	s_vm
 	struct s_process	*processes;
 }				t_vm;
 
+typedef struct	s_param_instr
+{
+	int		value;
+	void	*address;
+	int		active;
+}				t_param_instr;
+
 typedef struct	s_instr
 {
-	int value;
-	int *adress;
-	int active;
+	t_process		*process;
+	int				opcode;
+	t_param_instr	params[3];
+	int				cycles_left;
 }				t_instr;
-
-
 
 //free.c
 int				free_vm(t_vm *vm);
@@ -80,6 +88,5 @@ int				error_mall(int err);
 
 //getters.c
 t_champ			*get_champ_by_num(t_champ *list, int num);
-
 
 #endif
