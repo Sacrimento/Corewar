@@ -8,8 +8,7 @@ main.c
 *.swo
 *.ghc
 *.dSYM/
-lem_in
-lem-in
+corewar
 *.trace
 out
 log
