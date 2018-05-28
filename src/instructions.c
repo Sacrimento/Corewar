@@ -6,11 +6,10 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/28 17:05:14 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/28 18:46:45 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//si c'est un registre c'est 1 octet direct ca doit etre 2 et ind 4
 //TODO: fonction qui dechiffre l'encodage des parametres
 #include "../include/corewar.h"
 
@@ -21,13 +20,13 @@ int		decode_OCP(t_instr *instr, t_vm *vm, unsigned char byte, int i)
 	ft_bzero(instr->params, sizeof(t_instr) * 3);
 	while (++i < 4)
 	{
-		cursor = instr->process->pc + i;
-		if ((byte >> (i * 2)) & 0x0000000F)
+		if ((cursor = instr->process->pc + i) && (byte >> (i * 2)) & 0x0000000F)
 		{
 			if (vm->map[cursor] > REG_NUMBER)
 				return (0);
 			instr->params[i].value = instr->process->reg[vm->map[cursor]];
 			instr->params[i].address = &instr->process->reg[vm->map[cursor]];
+			instr->params[i].is_reg = 1;
 		}
 		else if ((byte >> (i * 2)) & 0x000000F0)
 		{
@@ -43,26 +42,26 @@ int		decode_OCP(t_instr *instr, t_vm *vm, unsigned char byte, int i)
 	return (1);
 }
 
-int live(t_instr instr, t_champ *champions, t_vm *vm)
+int		live(t_instr *instr, t_champ *champions, t_vm *vm)
 {
 	t_champ *thischamp;
 
 	if (!vm || !champions
-	|| !(thischamp = get_champ_by_num(champions, champ_num)))
+	|| !(thischamp = get_champ_by_num(champions, (instr->params[1]).value)))
 		return (0);
 	thischamp->lives++;
-	if (vm->display_live)
-		ft_printf("[%d]{BLUE}Champion %s(id:%d) is alive{EOC}",
+	ft_printf("[%d]{BLUE}Champion %s(id:%d) is alive{EOC}",
 		thischamp->lives, thischamp->name, thischamp->id);
 	return (1);
 }
 //not sure about this one :
-int ld(t_process *process, int value, int *reg)
+int		ld(t_instr *instr, t_champ *champions, t_vm *vm)
 {
-	if (!reg)
-		return (process->carry = 0);
-	*reg = value;
-	return (process->carry = 1);
+	if (!(instr->params[1]).is_reg || (instr->params[0]).is_reg
+	|| (instr->params[0]).value == 0)
+		return (instr->process->carry = 0);
+	*(int*)(instr->params[1]).address = (instr->params[0]).value;
+	return (instr->process->carry = 1);
 }
 
 int lld()

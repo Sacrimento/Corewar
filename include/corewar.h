@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/28 17:24:19 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/28 18:38:04 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct	s_vm
 	int					opt;
 	int					processes_nbr;
 	int					cycle;
-	int					display_live;
 	unsigned char		*map;
 	struct s_champ		*champ;
 	struct s_process	*processes;
@@ -58,6 +57,7 @@ typedef struct	s_param_instr
 {
 	int		value;
 	void	*address;
+	int		is_reg;
 }				t_param_instr;
 
 typedef struct	s_instr
