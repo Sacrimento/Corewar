@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/05/28 12:34:07 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/29 12:57:10 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@
 **
 */
 
-typedef char	t_arg_type;
+typedef char					t_arg_type;
 
 #define T_REG					1
 #define T_DIR					2
@@ -67,10 +67,10 @@ typedef char	t_arg_type;
 # define COMMENT_LENGTH			(2048)
 # define COREWAR_EXEC_MAGIC		0xea83f3
 
-typedef struct		header_s
+typedef struct					header_s
 {
-  unsigned int		magic;
-  char				prog_name[PROG_NAME_LENGTH + 1];
-  unsigned int		prog_size;
-  char				comment[COMMENT_LENGTH + 1];
-}					header_t;
+  unsigned int					magic;
+  char							prog_name[PROG_NAME_LENGTH + 1];
+  unsigned int					prog_size;
+  char							comment[COMMENT_LENGTH + 1];
+}								header_t;

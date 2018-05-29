@@ -6,15 +6,12 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/28 18:58:44 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/29 12:55:48 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
 #define COREWAR_H
-#define REG 10
-#define DIRECT 20
-#define INDIRECT 30
 
 #include "../libft/includes/libft.h"
 #include "op.h"
@@ -58,6 +55,8 @@ typedef struct	s_param_instr
 	int		value;
 	void	*address;
 	int		is_reg;
+	int		is_direct;
+	int		is_indirect;
 }				t_param_instr;
 
 typedef struct	s_instr

@@ -12,9 +12,12 @@
 
 #include "../include/corewar.h"
 
-int and (t_process *process, int *reg1, int *reg2, int *reg3)
+int and (t_instr *instr, t_champ *champions, t_vm *vm)
 {
-	if (!reg1 || !reg2 || !reg3)
+	int cursor;
+
+	cursor = 0;
+	while ()
 		return (process->carry = 0);
 	*reg3 = *reg1 & *reg2;
 	return (process->carry = 1);
