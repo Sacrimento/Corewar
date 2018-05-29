@@ -6,14 +6,14 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/29 14:49:36 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/29 15:43:32 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 //TODO: fonction qui dechiffre l'encodage des parametres
 #include "../include/corewar.h"
 
-int		decode_param_type(t_instr *instr, t_vm *vm, unsigned char byte, int i)
+void	decode_param_type(t_instr *instr, t_vm *vm, unsigned char byte, int i)
 {
 	ft_bzero(instr->params, sizeof(t_instr) * 3);
 	while (++i < 4)

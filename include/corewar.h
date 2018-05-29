@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/29 12:55:48 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/29 15:38:40 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct	s_process
 	int					carry;
 	int					reg[REG_NUMBER];
 	unsigned char		*start;
+	t_champ				*champ;
 	struct s_process	*next;
 }				t_process;
 
