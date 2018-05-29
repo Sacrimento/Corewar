@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/29 15:43:32 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/29 17:07:15 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ void	decode_param_type(t_instr *instr, t_vm *vm, unsigned char byte, int i)
 	while (++i < 4)
 	{
 		if ((byte >> (i * 2)) & 0x0000000F)
-			instr->params[i].is_reg = 1;
+			instr->params[i].type = REG_CODE;
 		else if ((byte >> (i * 2)) & 0x000000F0)
-			instr->params[i].is_direct = 1;
+			instr->params[i].type = DIR_CODE;
 		else if ((byte >> (i * 2)) & 0x000000FF)
-			instr->params[i].is_indirect = 1;
+			instr->params[i].type = IND_CODE;
 	}
 }
 
@@ -70,10 +70,16 @@ int		live(t_instr *instr, t_champ *champions, t_vm *vm)
 //not sure about this one :
 int		ld(t_instr *instr, t_champ *champions, t_vm *vm)
 {
-	if (!(instr->params[1]).is_reg || (instr->params[0]).is_reg
+	if ((instr->params[1]).type != REG_CODE
+	|| !((instr->params[0]).type == IND_CODE
+	|| (instr->params[0]).type == DIR_CODE)
 	|| (instr->params[0]).value == 0)
 		return (instr->process->carry = 0);
-	*(int*)(instr->params[1]).address = (instr->params[0]).value;
+	if ((instr->params[0]).type == IND_CODE)
+		*(int*)(instr->params[1]).address
+		= vm->map[((instr->params[0]).value % IDX_MOD) % MEM_SIZE];
+	else
+		*(int*)(instr->params[1]).address = (instr->params[0]).value;
 	return (instr->process->carry = 1);
 }
 
