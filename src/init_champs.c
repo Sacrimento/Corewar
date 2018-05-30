@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/30 19:33:38 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/30 20:28:34 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,20 @@ static t_champ	*champs_push(t_champ *champ, char *file, int num)
 	if (!(new = (t_champ *)ft_memalloc(sizeof(t_champ))))
 	{
 		error_mall(0);
-		return (NULL);
+		return (rec_free_champs(champ));
 	}
 	if (!(new = fill_new_champ(new, file)))
 		return (rec_free_champs(champ));
+	if (!check_num(champ, num))
+	{
+		ft_printf("%s : %d already taken\n", file, num);
+		return (rec_free_champs(champ));
+	}
+	new->id = num;
 	if (!champ)
 		return (new);
 	while (champ->next)
 		champ = champ->next;
-	new->id = num;
 	champ->next = new;
 	return (beg);
 }
@@ -85,7 +90,7 @@ int				init_champs(int ac, char **av, t_vm *vm)
 		if (*av[i] == '-')
 		{
 			if (known_opt(av[i]))
-				if (is_opt(av[i], (i + 1 == ac || !ft_isdigit(*av[i + 1]) ? 0 : av[i + 1]),vm, &num) != -1)
+				if (is_opt(av[i], (i + 1 == ac || !ft_isdigit(*av[i + 1]) ? 0 : av[i + 1]), vm, &num) != -1)
 					if (i + 2 == ac)
 						return (1);
 					else
@@ -93,7 +98,7 @@ int				init_champs(int ac, char **av, t_vm *vm)
 				else
 					return (0);
 			else
-				return (illegal_opt(av[i], -1));
+				return (illegal_opt(av[i], 0));
 		}
 		if (!check_champ_ext(av[i]))
 		{
@@ -105,5 +110,6 @@ int				init_champs(int ac, char **av, t_vm *vm)
 		if (!(check_header(vm->champ, av[i])))
 			return (0);
 	}
+	//return (fill_id_champs(vm));
 	return (1);
 }

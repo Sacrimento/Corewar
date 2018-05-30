@@ -6,11 +6,22 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/30 18:18:44 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/30 20:28:22 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
+
+int		check_num(t_champ *ch, int num)
+{
+	while (ch)
+	{
+		if (ch->id == num)
+			return (0);
+		ch = ch->next;
+	}
+	return (1);
+}
 
 int		error_mall(int err)
 {

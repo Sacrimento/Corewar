@@ -6,16 +6,39 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/30 18:07:31 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/30 20:08:46 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-int			check_inputs(void)
+int			sort_champs(t_vm *vm)
 {
-	//Check des defsines d'op.h
-	return (0);
+	t_champ		*ch;
+	t_champ		*prev;
+
+	ch = vm->champ->next;
+	prev = vm->champ;
+	if (prev->id > ch->id)
+	{
+		prev->next = ch->next;
+		ch->next = prev;
+		vm->champ = prev;
+	}
+	prev= vm->champ;
+	ch = prev->next;
+	while (ch)
+	{
+		if (prev->id > ch->id)
+		{
+			prev->next = ch->next;
+			ch->next = prev;
+			prev = ch;
+			ch = prev->next;
+		}
+		ch = ch->next;
+	}
+	return (1);
 }
 
 static void	introduce_champs(t_champ *champs)

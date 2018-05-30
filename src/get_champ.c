@@ -6,11 +6,27 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 10:35:19 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 17:00:58 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/30 19:58:17 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
+
+int				fill_id_champs(t_vm *vm)
+{
+	t_champ		*ch;
+	int			i;
+
+	ch = vm->champ;
+	i = 1;
+	while (ch)
+	{
+		if (!ch->id)
+			ch->id = i++;
+		ch = ch->next;
+	}
+	return (sort_champs(vm));
+}
 
 static int		get_b_size(unsigned char *b_size)
 {

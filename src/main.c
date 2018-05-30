@@ -6,13 +6,20 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/30 16:21:17 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/30 20:30:53 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-void	mem_dump(unsigned char *map)
+// static int			check_inputs(void)
+// {
+// 	//Check des defsines d'op.h
+// 	return (0);
+// }
+
+
+void				mem_dump(unsigned char *map)
 {
 	int		i;
 
@@ -27,7 +34,7 @@ void	mem_dump(unsigned char *map)
 	}
 }
 
-int		main(int argc, char **argv)
+int					main(int argc, char **argv)
 {
 	t_vm	*vm;
 
@@ -36,6 +43,7 @@ int		main(int argc, char **argv)
 	if (!(vm = init_vm(argc, argv)))
 		return (1);
 	mem_dump(vm->map);
+	ft_printf("DUMP : %d\n", vm->dump);
 	free_vm(vm);
 	return (0);
 }
