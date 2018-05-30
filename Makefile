@@ -6,7 +6,7 @@
 #    By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/25 17:38:12 by abouvero          #+#    #+#              #
-#    Updated: 2018/05/28 18:05:56 by abouvero         ###   ########.fr        #
+#    Updated: 2018/05/30 16:11:35 by abouvero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ SRC_NAME = main.c \
 	   free.c \
 	   get_champ.c \
 	   init_champs.c \
-	   init.c
+	   init.c \
+	   process.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj
 CPPFLAGS = -Iinclude

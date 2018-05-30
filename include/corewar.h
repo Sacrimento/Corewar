@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/30 17:47:16 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/30 18:20:25 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct			s_process
 	int					alive;
 	int					pc;
 	int					carry;
+	int					to_wait;
 	int					reg[REG_NUMBER];
 	int					cycles_left;
 	struct s_process	*next;
@@ -65,7 +66,7 @@ t_champ					*rec_free_champs(t_champ *champs);
 int						init_champs(int ac, char **av, t_vm *vm);
 
 //init.c
-t_vm					*init_vm(int argc, char **argv, int opt);
+t_vm					*init_vm(int argc, char **argv);
 
 //get_champ.c
 t_champ					*parse_champ(char *file_name , t_champ *champ);
@@ -77,5 +78,8 @@ int						error_mall(int err);
 
 //getters.c
 t_champ					*get_champ_by_num(t_champ *list, int num);
+
+//process.c
+int						add_process(t_vm *vm, int pc, int id);
 
 #endif

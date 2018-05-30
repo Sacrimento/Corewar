@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 16:36:08 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/30 16:13:51 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	list_length(t_champ *champ)
 	return (champ ? 1 + list_length(champ->next) : 0);
 }
 
-void		load_champs(t_vm *vm, int index)
+static int	load_champs(t_vm *vm, int index)
 {
 	t_champ *ch;
 	int		size;
@@ -46,19 +46,21 @@ void		load_champs(t_vm *vm, int index)
 	while (ch)
 	{
 		i = -1;
+		if (!(add_process(vm, sta % MEM_SIZE, ch->id)))
+			return (0);
 		size = ch->size;
 		while (++i < size)
 			vm->map[sta + i] = ch->code[i];
 		sta += index;
 		ch = ch->next;
 	}
+	return (1);
 }
 
-t_vm		*init_vm(int argc, char **argv, int opt)
+t_vm		*init_vm(int argc, char **argv)
 {
 	t_vm		*vm;
 
-	(void)opt; //RM
 	if (!(vm = (t_vm*)ft_memalloc(sizeof(t_vm))))
 	{
 		error_mall(0);
@@ -71,11 +73,11 @@ t_vm		*init_vm(int argc, char **argv, int opt)
 		error_mall(0);
 		return (free_vm(vm));
 	}
-	vm->opt = opt;
 	vm->processes_nbr = 0;
 	vm->cycle = 0;
 	vm->processes = NULL;
-	load_champs(vm, MEM_SIZE / list_length(vm->champ));
+	if (!(load_champs(vm, MEM_SIZE / list_length(vm->champ))))
+		return (free_vm(vm));
 	introduce_champs(vm->champ);
 	return (vm);
 }
