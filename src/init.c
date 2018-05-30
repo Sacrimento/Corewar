@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/30 16:13:51 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/30 18:07:31 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ t_vm		*init_vm(int argc, char **argv)
 		return (free_vm(vm));
 	}
 	vm->processes_nbr = 0;
+	vm->dump = -1;
 	vm->cycle = 0;
 	vm->processes = NULL;
 	if (!(load_champs(vm, MEM_SIZE / list_length(vm->champ))))

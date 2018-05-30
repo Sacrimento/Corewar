@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 16:53:51 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/30 18:18:44 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,14 @@ t_champ	*error_file(char *str, char *file, t_champ *champ)
 	return (ft_printf(str, file) ? NULL : 0);
 }
 
-int		usage(void)
+int		usage(int ret)
 {
-	ft_putstr_fd("Coucou c'est l'usage\n", 2);
-	return (0);
+	ft_printf("usage : ./corewar [-dump nbr_cycles] [[-n number] champion1.cor] ...\n");
+	return (ret);
+}
+
+int 	illegal_opt(char *opt, int ret)
+{
+	ft_printf("Illegal option : %s\n", opt);
+	return (usage(ret));
 }
