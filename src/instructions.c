@@ -6,14 +6,17 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/30 15:33:04 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/30 17:07:59 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* Toi qui passe sur ce fichier, rien n'est definitif pour l'instant,
  * j'experimente pour chercher a comprendre certains points qui sont encore
  * flous dans ma tete, la structure de données est susceptible de changer
- * encore un peu, mais l'idée est la
+ * encore un peu, mais l'idée est la.
+ * 
+ * Glosssaire :
+ * OCP = Octet de Codage des Parametres
  * ***********************************************************
  * TODO: 
  * - Define a defnitive data structure for instructions
@@ -22,24 +25,26 @@
 
 #include "../include/corewar.h"
 
-t_instr	new_instr(int opcode, )
-
-void	decode_param_type(t_instr *instr, t_vm *vm, unsigned char byte, int i)
+t_param	*decode_param_type(t_vm *vm, unsigned char ocp)
 {
-	
-	ft_bzero(instr->params, sizeof(t_instr) * 3);
-	while (++i < 4)
+	int cursor;
+	t_param *parameters;
+
+	cursor = 0;
+	parameters = ft_memalloc(sizeof(t_param) * 3);
+	while (++cursor < 4)
 	{
-		if ((byte >> (i * 2)) & 0x0000000F)
-			instr->params[i].type = T_REG;
-		else if ((byte >> (i * 2)) & 0x000000F0)
-			instr->params[i].type = T_IND;
-		else if ((byte >> (i * 2)) & 0x000000FF)
-			instr->params[i].type = T_DIR;
+		if ((ocp >> (cursor * 2)) & 0x0000000F)
+			parameters[cursor].type = T_REG;
+		else if ((ocp >> (cursor * 2)) & 0x000000F0)
+			parameters[cursor].type = T_IND;
+		else if ((ocp >> (cursor * 2)) & 0x000000FF)
+			parameters[cursor].type = T_DIR;
 	}
+	return (parameters);
 }
 
-int		decode_OCP(t_instr *instr, t_vm *vm, unsigned char byte, int i)
+int		decode_OCP(t_vm *vm, unsigned char byte, int i)
 {
 	int cursor;
 

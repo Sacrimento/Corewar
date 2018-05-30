@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfonteni <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 11:15:51 by mfonteni          #+#    #+#              #
-#    Updated: 2018/05/22 13:44:32 by mfonteni         ###   ########.fr        #
+#    Updated: 2018/05/30 18:09:58 by mfonteni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,7 @@ SRC = ft_atoi.c \
 	  $(PRINTFUNC)colorparser.c \
 	  ft_putwchar.c \
 	  ft_putwstr.c
-COPYPATH = ~/Projects/corewar2/libft
+COPYPATH = ~/Projects/printf
 
 OBJ = $(SRC:.c=.o)
 FLAGS = -Wall -Wextra -Werror
