@@ -6,11 +6,20 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/30 14:05:20 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/30 15:33:04 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//TODO: fonction qui dechiffre l'encodage des parametres
+/* Toi qui passe sur ce fichier, rien n'est definitif pour l'instant,
+ * j'experimente pour chercher a comprendre certains points qui sont encore
+ * flous dans ma tete, la structure de données est susceptible de changer
+ * encore un peu, mais l'idée est la
+ * ***********************************************************
+ * TODO: 
+ * - Define a defnitive data structure for instructions
+ *
+*/
+
 #include "../include/corewar.h"
 
 t_instr	new_instr(int opcode, )
