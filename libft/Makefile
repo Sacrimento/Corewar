@@ -6,7 +6,7 @@
 #    By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 11:15:51 by mfonteni          #+#    #+#              #
-#    Updated: 2018/05/30 18:09:58 by mfonteni         ###   ########.fr        #
+#    Updated: 2018/05/30 18:26:25 by mfonteni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,7 +108,7 @@ $(NAME): $(OBJ)
 	@$(CC) $(FLAGS) -o $@ -c $<
 
 copy:
-	@mkdir $(COPYPATH)
+#	@mkdir $(COPYPATH)
 	@cp *.c $(COPYPATH)
 	@cp Makefile $(COPYPATH)
 	@cp -R $(PRINTFUNC) $(COPYPATH)/$(PRINTFUNC)

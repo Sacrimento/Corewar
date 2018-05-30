@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 11:11:55 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/30 18:04:33 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/30 19:35:19 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,7 @@ char			*ft_strlowcase(char *str);
 char			*ft_strupcase(char *str);
 int				ft_sqrt(int nb);
 int				ft_printf(const char *format, ...);
+int				ft_dprintf(int fd, const char *format, ...);
 
 typedef struct	s_plist
 {
