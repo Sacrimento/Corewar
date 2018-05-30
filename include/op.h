@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/05/29 14:07:26 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/30 19:23:49 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,3 +74,15 @@ typedef struct					header_s
 	unsigned int				prog_size;
 	char						comment[COMMENT_LENGTH + 1];
 }								header_t;
+
+typedef struct					s_op
+{
+	char						*name;
+	int							nb_param;
+	int							type_param[MAX_ARGS_NUMBER];
+	int							opcode;
+	int							nb_cycle;
+	char						*desc;
+	int							instr: 2;
+	int							oct: 2;
+}								t_op;

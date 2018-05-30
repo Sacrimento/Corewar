@@ -6,73 +6,50 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/30 15:33:04 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/30 19:24:57 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* Toi qui passe sur ce fichier, rien n'est definitif pour l'instant,
  * j'experimente pour chercher a comprendre certains points qui sont encore
  * flous dans ma tete, la structure de données est susceptible de changer
- * encore un peu, mais l'idée est la
+ * encore un peu, mais l'idée est la.
+ * 
+ * Glosssaire :
+ * OCP = Octet de Codage des Parametres
  * ***********************************************************
  * TODO: 
  * - Define a defnitive data structure for instructions
  *
-*/
+**/
 
 #include "../include/corewar.h"
 
-t_instr	new_instr(int opcode, )
-
-void	decode_param_type(t_instr *instr, t_vm *vm, unsigned char byte, int i)
-{
-	
-	ft_bzero(instr->params, sizeof(t_instr) * 3);
-	while (++i < 4)
-	{
-		if ((byte >> (i * 2)) & 0x0000000F)
-			instr->params[i].type = T_REG;
-		else if ((byte >> (i * 2)) & 0x000000F0)
-			instr->params[i].type = T_IND;
-		else if ((byte >> (i * 2)) & 0x000000FF)
-			instr->params[i].type = T_DIR;
-	}
-}
-
-int		decode_OCP(t_instr *instr, t_vm *vm, unsigned char byte, int i)
+t_param	*decode_param_type(t_vm *vm, unsigned char ocp)
 {
 	int cursor;
+	t_param *parameters;
 
-	decode_param_type(instr, vm, byte, 0);
-	while (++i < 4)
+	cursor = 0;
+	parameters = ft_memalloc(sizeof(t_param) * 3);
+	while (++cursor < 4)
 	{
-		if ((cursor = instr->process->pc + i) && (byte >> (i * 2)) & 0x0000000F)
-		{
-			if (vm->map[cursor] > REG_NUMBER)
-				return (0);
-			instr->params[i].value = instr->process->reg[vm->map[cursor]];
-			instr->params[i].address = &instr->process->reg[vm->map[cursor]];
-		}
-		else if ((byte >> (i * 2)) & 0x000000F0)
-		{
-			instr->params[i].value = vm->map[cursor];
-			instr->params[i].address = &vm->map[cursor];
-		}
-		else if ((byte >> (i * 2)) & 0x000000FF)
-		{
-			instr->params[i].value = vm->map[vm->map[cursor] % MEM_SIZE];
-			instr->params[i].address = &vm->map[vm->map[cursor] % MEM_SIZE];
-		}
+		if ((ocp >> (cursor * 2)) & 0x0000000F)
+			parameters[cursor].type = T_REG;
+		else if ((ocp >> (cursor * 2)) & 0x000000F0)
+			parameters[cursor].type = T_IND;
+		else if ((ocp >> (cursor * 2)) & 0x000000FF)
+			parameters[cursor].type = T_DIR;
 	}
-	return (1);
+	return (parameters);
 }
 
-int		live(t_instr *instr, t_champ *champions, t_vm *vm)
+int		live(t_vm *vm, t_process *process)
 {
 	t_champ *thischamp;
 
-	if (!vm || !champions
-	|| !(thischamp = get_champ_by_num(champions, (instr->params[1]).value)))
+	if (!vm || !vm->champ
+	|| !(thischamp = get_champ_by_num(vm->champ, (instr->params[1]).value)))
 		return (0);
 	thischamp->lives++;
 	ft_printf("[%d]{BLUE}Champion %s(id:%d) is alive{EOC}",
@@ -80,7 +57,7 @@ int		live(t_instr *instr, t_champ *champions, t_vm *vm)
 	return (1);
 }
 //not sure about this one :
-int		ld(t_instr *instr, t_champ *champions, t_vm *vm)
+int		ld(t_vm *vm, t_process *process)
 {
 	if ((instr->params[1]).type != REG_CODE)
 		return (-1);
@@ -96,7 +73,7 @@ int		ld(t_instr *instr, t_champ *champions, t_vm *vm)
 	return (instr->process->carry = 1);
 }
 
-int lld(t_instr *instr, t_champ *champions, t_vm *vm)
+int lld(t_vm *vm)
 {
 	if ((instr->params[1]).type != REG_CODE
 	|| !((instr->params[0]).type == IND_CODE
@@ -112,7 +89,7 @@ int lld(t_instr *instr, t_champ *champions, t_vm *vm)
 	return (instr->process->carry = 1);
 }
 
-int st(t_instr *instr, t_champ *champions, t_vm *vm)
+int st(t_vm *vm, t_process *process)
 {
 	if ((instr->params[0])->type != T_REG)
 		return (process->carry = 0);
@@ -120,31 +97,8 @@ int st(t_instr *instr, t_champ *champions, t_vm *vm)
 	return (process->carry = 1);
 }
 
-int sti()
-{
 
-}
-
-int zjmp(t_process *process, unsigned char *addr)
-{
-	if (!process || process->carry == 0)
-		return (0);
-}
-
-// prend 2 index et 1 registre, additionne les 2 premiers, 
-// traite ca comme une adresse, y lit une valeur de la taille d’un 
-// registre et la met dans le 3eme.
-int ldi()
-{
-
-}
-
-int lldi()
-{
-	
-}
-
-int aff(t_instr *instr, t_champ *champions, t_vm *vm)
+int aff(t_vm *vm, t_process *process)
 {
 	if ((instr->params[0]).value > REG_NUMBER || !(instr->params[0]).is_reg)
 		return (instr->process->carry = 0);

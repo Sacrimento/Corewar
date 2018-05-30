@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/08 11:11:55 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/25 18:00:42 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/30 19:35:19 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ char			**ft_strsplit(char const *s, char c);
 char			*ft_itoa(int n);
 void			ft_putchar(char c);
 void			ft_putstr(char const *s);
-int				ft_putstrn(char const *s, int n);
+int				ft_putstrn(char const *s, int n, int fd);
 void			ft_putendl(char const *s);
 void			ft_putnbr(int n);
 void			ft_putchar_fd(char c, int fd);
@@ -108,6 +108,7 @@ char			*ft_strlowcase(char *str);
 char			*ft_strupcase(char *str);
 int				ft_sqrt(int nb);
 int				ft_printf(const char *format, ...);
+int				ft_dprintf(int fd, const char *format, ...);
 
 typedef struct	s_plist
 {
@@ -135,9 +136,10 @@ void			printflstadd(t_plist **alst, t_plist *new);
 t_plist			*printfaddstr(const char *str, int start, int end);
 t_plist			*parse_input(const char *format, va_list ap);
 int				ft_putwchar(wchar_t c);
+int				ft_putwchar_fd(wchar_t c, int fd);
 char			*ft_getwchar(wchar_t c);
-int				ft_putwstr(wchar_t *s);
-int				ft_putwstrn(wchar_t *s, int n);
+int				ft_putwstr(wchar_t *s, int fd);
+int				ft_putwstrn(wchar_t *s, int n, int fd);
 char			*ft_max_itoabase(int base, intmax_t n, int isupper);
 char			*ft_umax_itoabase(int base, uintmax_t n, int isupper);
 int				check_hconv(t_plist *list);
@@ -147,10 +149,10 @@ char			*printf_type_unsigned(t_plist *list);
 int				ischartype(char c);
 void			printf_flag_hash(t_plist *list);
 void			printf_flags_num(t_plist *list);
-int				printf_flags_chars(t_plist *list);
-int				printf_flags_char(t_plist *list);
+int				printf_flags_chars(t_plist *list, int fd);
+int				printf_flags_char(t_plist *list, int fd);
 int				ft_getbyteslength(wchar_t c);
-int				colorprinter(char *str);
+int				colorprinter(char *str, int fd);
 int				get_next_line(const int fd, char **line);
 int				noleaks_get_next_line(const int fd, char **line);
 typedef struct	s_fd

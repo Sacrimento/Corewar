@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/30 18:58:57 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/30 19:42:23 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,6 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <unistd.h>
-
-typedef struct			s_op
-{
-	char				*name;
-	int					nb_param;
-	int					type_param[MAX_ARGS_NUMBER];
-	int					opcode;
-	int					nb_cycle;
-	char				*desc;
-	int					instr: 2;
-	int					oct: 2;
-}						t_op;
 
 typedef struct			s_champ
 {
@@ -49,6 +37,7 @@ typedef struct			s_process
 	int					carry;
 	int					to_wait;
 	int					reg[REG_NUMBER];
+	int					cycles_left;
 	struct s_process	*next;
 }						t_process;
 
@@ -62,20 +51,12 @@ typedef struct			s_vm
 	struct s_process	*processes;
 }						t_vm;
 
-typedef struct			s_param_instr
+typedef struct			s_param
 {
 	int					value;
 	void				*address;
 	int					type;
-}						t_param_instr;
-
-typedef struct			s_instr
-{
-	t_process			*process;
-	int					opcode;
-	t_param_instr		params[3];
-	int					cycles_left;
-}						t_instr;
+}						t_param;
 
 //free.c
 t_vm					*free_vm(t_vm *vm);
