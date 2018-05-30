@@ -6,24 +6,36 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/29 17:07:15 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/30 15:33:04 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//TODO: fonction qui dechiffre l'encodage des parametres
+/* Toi qui passe sur ce fichier, rien n'est definitif pour l'instant,
+ * j'experimente pour chercher a comprendre certains points qui sont encore
+ * flous dans ma tete, la structure de données est susceptible de changer
+ * encore un peu, mais l'idée est la
+ * ***********************************************************
+ * TODO: 
+ * - Define a defnitive data structure for instructions
+ *
+*/
+
 #include "../include/corewar.h"
+
+t_instr	new_instr(int opcode, )
 
 void	decode_param_type(t_instr *instr, t_vm *vm, unsigned char byte, int i)
 {
+	
 	ft_bzero(instr->params, sizeof(t_instr) * 3);
 	while (++i < 4)
 	{
 		if ((byte >> (i * 2)) & 0x0000000F)
-			instr->params[i].type = REG_CODE;
+			instr->params[i].type = T_REG;
 		else if ((byte >> (i * 2)) & 0x000000F0)
-			instr->params[i].type = DIR_CODE;
+			instr->params[i].type = T_IND;
 		else if ((byte >> (i * 2)) & 0x000000FF)
-			instr->params[i].type = IND_CODE;
+			instr->params[i].type = T_DIR;
 	}
 }
 
@@ -70,8 +82,9 @@ int		live(t_instr *instr, t_champ *champions, t_vm *vm)
 //not sure about this one :
 int		ld(t_instr *instr, t_champ *champions, t_vm *vm)
 {
-	if ((instr->params[1]).type != REG_CODE
-	|| !((instr->params[0]).type == IND_CODE
+	if ((instr->params[1]).type != REG_CODE)
+		return (-1);
+	if (!((instr->params[0]).type == IND_CODE
 	|| (instr->params[0]).type == DIR_CODE)
 	|| (instr->params[0]).value == 0)
 		return (instr->process->carry = 0);
@@ -83,14 +96,25 @@ int		ld(t_instr *instr, t_champ *champions, t_vm *vm)
 	return (instr->process->carry = 1);
 }
 
-int lld()
+int lld(t_instr *instr, t_champ *champions, t_vm *vm)
 {
-	
+	if ((instr->params[1]).type != REG_CODE
+	|| !((instr->params[0]).type == IND_CODE
+	|| (instr->params[0]).type == DIR_CODE))
+		return (-1);
+	if ((instr->params[0]).value == 0)
+		return (instr->process->carry = 0);
+	if ((instr->params[0]).type == IND_CODE)
+		*(int*)(instr->params[1]).address
+		= vm->map[(instr->params[0]).value % MEM_SIZE];
+	else
+		*(int*)(instr->params[1]).address = (instr->params[0]).value;
+	return (instr->process->carry = 1);
 }
 
-int st(t_process *process, int *reg1, int *reg2)
+int st(t_instr *instr, t_champ *champions, t_vm *vm)
 {
-	if (!reg1 || !reg2)
+	if ((instr->params[0])->type != T_REG)
 		return (process->carry = 0);
 	*reg2 = *reg1;
 	return (process->carry = 1);
