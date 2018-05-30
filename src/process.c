@@ -1,41 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/30 13:43:28 by abouvero         ###   ########.fr       */
+/*   Created: 2018/05/30 15:22:38 by abouvero          #+#    #+#             */
+/*   Updated: 2018/05/30 16:00:21 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-void	mem_dump(unsigned char *map)
+int		add_process(t_vm *vm, int pc)
 {
-	int		i;
+	t_process	*pro;
+	t_process	*new;
 
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		ft_printf("%2.2x", map[i++]);
-		if (!(i % 32) && i != 0)
-			ft_putchar('\n');
-		else
-			ft_putchar(' ');
-	}
-}
-
-int		main(int argc, char **argv)
-{
-	t_vm	*vm;
-
-	//if ((opt = set_opt(argc, argv)) == -1 || check_inputs(argc, argv))
-	//	return (1);
-	if (!(vm = init_vm(argc, argv)))
-		return (1);
-	mem_dump(vm->map);
-	free_vm(vm);
-	return (0);
+	pro = vm->processes;
+	if (!(new = ft_memalloc(sizeof(t_process))))
+		return (error_mall(0));
+	new->alive = 1;
+	new->pc = pc;
+	new->carry = 0;
+	bzero((void *)new->reg, sizeof(new->reg));
+	new->next = NULL;
+	if (!(pro))
+		vm->processes = new;
+	while (pro->next)
+		pro = pro->next;
+	pro->next = new;
+	return (1);
 }

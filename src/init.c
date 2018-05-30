@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 16:36:08 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/30 16:01:02 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,10 @@ void		load_champs(t_vm *vm, int index)
 	}
 }
 
-t_vm		*init_vm(int argc, char **argv, int opt)
+t_vm		*init_vm(int argc, char **argv)
 {
 	t_vm		*vm;
 
-	(void)opt; //RM
 	if (!(vm = (t_vm*)ft_memalloc(sizeof(t_vm))))
 	{
 		error_mall(0);
@@ -71,7 +70,6 @@ t_vm		*init_vm(int argc, char **argv, int opt)
 		error_mall(0);
 		return (free_vm(vm));
 	}
-	vm->opt = opt;
 	vm->processes_nbr = 0;
 	vm->cycle = 0;
 	vm->processes = NULL;
