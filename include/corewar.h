@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/31 13:28:33 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/31 14:45:26 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ typedef struct			s_vm
 typedef struct			s_param
 {
 	int					value;
-	void				*address;
 	int					type;
 }						t_param;
 
@@ -89,5 +88,10 @@ int						add_process(t_vm *vm, int pc, int id);
 //option.c
 int						known_opt(char *opt);
 int						is_opt(char *opt, char *nbr, t_vm *vm, int *ch_num);
+
+//instr_params.c
+t_param					*decode_param_type(t_vm *vm, unsigned char ocp);
+t_param					*get_params(t_vm *vm, t_process *process);
+int						comtinue_process(t_vm *vm, t_process *process);
 
 #endif
