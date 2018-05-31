@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/31 16:42:49 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/31 18:34:41 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ t_param		*get_params(t_vm *vm, t_process *process)
 
 	i = -1;
 	cursor = process->pc + 2;
-	if (!(parameters = decode_param_type(vm->map[process->pc]))
-	|| (parameters[0]).type == 0)
+	if (!vm || !vm->map || !process
+	|| !(parameters = decode_param_type(vm->map[process->pc]))
+	|| !parameters[0].type)
 		return (NULL);
 	while (++i < 3 && parameters[i].type != 0)
 	{

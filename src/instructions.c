@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/31 16:12:20 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/31 17:56:17 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@
 
 #include "../include/corewar.h"
 
-int		live(t_vm *vm, t_process *process, t_param *params)
+int		live(t_instr instr)
 {
 	t_champ *thischamp;
 
-	if (!vm || !vm->champ
-	|| !(thischamp = get_champ_by_num(vm->champ, (params[1]).value)))
+	if (!instr.vm || !instr.vm->champ
+	|| !(thischamp = get_champ_by_num(instr.vm->champ, instr.params[1].value)))
 		return (0);
 	thischamp->lives++;
 	ft_printf("[%d]{BLUE}Champion %s(id:%d) is alive{EOC}",
@@ -47,7 +47,7 @@ int		ld(t_vm *vm, t_process *process, t_param *params)
 	|| (params[0]).value == 0)
 		return (process->carry = 0);
 	if ((params[0]).type == IND_CODE)
-		*(int*)(params[1]).address
+		*(int*)params[1].address
 		= vm->map[((params[0]).value % IDX_MOD) % MEM_SIZE];
 	else
 		*(int*)(params[1]).address = (params[0]).value;

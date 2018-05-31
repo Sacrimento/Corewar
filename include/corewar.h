@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/31 16:42:42 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/31 18:29:38 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@
 #include <unistd.h>
 
 /********************DEBUG KINGDOM*********************/
-#define ERROR(message) ft_printf("{RED}%s{EOC}", message)
+#define ERROR(message) ft_printf("{RED}%s{EOC}\n", message)
+#define INFO(message) ft_printf("{BLUE}%s{EOC}\n", message)
 
 
 /******************************************************/

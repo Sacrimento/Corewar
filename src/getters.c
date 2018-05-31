@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/22 13:34:16 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/31 18:29:53 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ t_champ	*get_champ_by_num(t_champ *list, int num)
 		return (NULL);
 	current = list;
 	while (current && current->id != num)
+	{
+		ft_printf("%d\n", current->id);
 		current = current->next;
+	}
 	return (current);
 }

@@ -14,7 +14,10 @@ int		live(t_vm *vm, t_process *process, t_param *params)
 
 	if (!vm || !vm->champ
 	|| !(thischamp = get_champ_by_num(vm->champ, (params[1]).value)))
+	{
+		ERROR("no champ");
 		return (0);
+	}
 	thischamp->lives++;
 	ft_printf("[%d]{BLUE}Champion %s(id:%d) is alive{EOC}",
 		thischamp->lives, thischamp->name, thischamp->id);
@@ -23,18 +26,21 @@ int		live(t_vm *vm, t_process *process, t_param *params)
 
 int main(void)
 {
+	t_instr instr;
 	t_vm *vm = ft_memalloc(sizeof(t_vm));
 	t_champ *cham🅱️ion = ft_memalloc(sizeof(t_champ));
 	t_process *process = ft_memalloc(sizeof(t_process));
 
-	if (!(vm->map = (unsigned char *)ft_memalloc(MEM_SIZE)))
+	if (!vm || !(vm->map = (unsigned char *)ft_memalloc(MEM_SIZE)))
 		ERROR("Cannot initiate test");
-	vm->map[0] = 01;
-	inttounsignedchar(1, &vm->map[1]);
 	cham🅱️ion->id = 1;
-	ft_strcat("tamere", cham🅱️ion->name);
-
-	
-	live(vm, process, get_params(vm, process));
+	instr.vm = vm;
+	instr.process = process;
+	instr.params = get_params(vm, process);
+	vm->map[0] = 1;
+	inttounsignedchar(1, &vm->map[1]);
+	ft_strcat(cham🅱️ion->name, "tamere");
+	if (!live(vm, process, get_params(vm, process)))
+		ERROR("FAIL");
 }
 
