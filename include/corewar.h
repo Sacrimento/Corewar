@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/05/31 14:45:26 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/31 16:42:42 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,12 @@
 #include <fcntl.h>
 #include <sys/types.h>
 #include <unistd.h>
+
+/********************DEBUG KINGDOM*********************/
+#define ERROR(message) ft_printf("{RED}%s{EOC}", message)
+
+
+/******************************************************/
 
 typedef struct			s_champ
 {
@@ -57,6 +63,13 @@ typedef struct			s_param
 	int					type;
 }						t_param;
 
+typedef struct			s_instr
+{
+	t_vm				*vm;
+	t_process			*process;
+	t_param				*params;
+}						t_instr;
+
 //free.c
 t_vm					*free_vm(t_vm *vm);
 t_champ					*rec_free_champs(t_champ *champs);
@@ -90,8 +103,8 @@ int						known_opt(char *opt);
 int						is_opt(char *opt, char *nbr, t_vm *vm, int *ch_num);
 
 //instr_params.c
-t_param					*decode_param_type(t_vm *vm, unsigned char ocp);
+t_param					*decode_param_type(unsigned char ocp);
 t_param					*get_params(t_vm *vm, t_process *process);
-int						comtinue_process(t_vm *vm, t_process *process);
+int						continue_process(t_vm *vm, t_process *process);
 
 #endif

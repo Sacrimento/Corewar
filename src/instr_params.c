@@ -6,13 +6,13 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/31 14:52:44 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/31 16:42:49 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-t_param		*decode_param_type(t_vm *vm, unsigned char ocp)
+t_param		*decode_param_type(unsigned char ocp)
 {
 	int cursor;
 	t_param *parameters;
@@ -51,7 +51,7 @@ t_param		*get_params(t_vm *vm, t_process *process)
 
 	i = -1;
 	cursor = process->pc + 2;
-	if (!(parameters = decode_param_type(vm, vm->map[process->pc]))
+	if (!(parameters = decode_param_type(vm->map[process->pc]))
 	|| (parameters[0]).type == 0)
 		return (NULL);
 	while (++i < 3 && parameters[i].type != 0)
@@ -59,14 +59,19 @@ t_param		*get_params(t_vm *vm, t_process *process)
 		parameters[i].value = bytetoint(&vm->map[cursor], parameters[i].type);
 		cursor += parameters[i].type;
 	}
+	process->pc = cursor;
 	return (parameters);
 }
 
 int		continue_process(t_vm *vm, t_process *process)
 {
 	t_param *parameters;
+	t_instr instr;
 
-	if (!(parameters = get_params(vm, process)))
+	instr.vm = vm;
+	instr.process = process;
+	instr.params = get_params(vm, process);
+	if (!instr.params)
 		return (0);
 	//blablablacode
 	ft_memdel((void**)&parameters);
