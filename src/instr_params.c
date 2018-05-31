@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/31 14:45:53 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/05/31 14:52:44 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,19 +46,18 @@ static int	bytetoint(unsigned char *ram, int ammount_of_bytes)
 t_param		*get_params(t_vm *vm, t_process *process)
 {
 	t_param	*parameters;
-	int		iterator;
+	int		i;
 	int		cursor;
 
-	iterator = -1;
+	i = -1;
 	cursor = process->pc + 2;
 	if (!(parameters = decode_param_type(vm, vm->map[process->pc]))
 	|| (parameters[0]).type == 0)
 		return (NULL);
-	while (++iterator < 3 && parameters[iterator].type != 0)
+	while (++i < 3 && parameters[i].type != 0)
 	{
-		parameters[iterator].value
-		= bytetoint(&vm->map[cursor], parameters[iterator].type);
-		cursor += parameters[iterator].type;
+		parameters[i].value = bytetoint(&vm->map[cursor], parameters[i].type);
+		cursor += parameters[i].type;
 	}
 	return (parameters);
 }
