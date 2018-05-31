@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 18:05:19 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/30 20:28:34 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int		check_champ_ext(char *name)
 
 static t_champ	*fill_new_champ(t_champ *champ, char *file)
 {
-	champ->id = 1;
+	champ->id = 0;
 	champ->size = 0;
 	champ->lives = 0;
 	champ->next = NULL;
@@ -51,7 +51,7 @@ static t_champ	*fill_new_champ(t_champ *champ, char *file)
 	return (champ);
 }
 
-static t_champ	*champs_push(t_champ *champ, char *file)
+static t_champ	*champs_push(t_champ *champ, char *file, int num)
 {
 	t_champ	*new;
 	t_champ	*beg;
@@ -60,38 +60,56 @@ static t_champ	*champs_push(t_champ *champ, char *file)
 	if (!(new = (t_champ *)ft_memalloc(sizeof(t_champ))))
 	{
 		error_mall(0);
-		return (NULL);
+		return (rec_free_champs(champ));
 	}
 	if (!(new = fill_new_champ(new, file)))
 		return (rec_free_champs(champ));
+	if (!check_num(champ, num))
+	{
+		ft_printf("%s : %d already taken\n", file, num);
+		return (rec_free_champs(champ));
+	}
+	new->id = num;
 	if (!champ)
 		return (new);
 	while (champ->next)
 		champ = champ->next;
-	new->id = champ->id + 1;
 	champ->next = new;
 	return (beg);
 }
 
 int				init_champs(int ac, char **av, t_vm *vm)
 {
-	int					i;
+	int		i;
+	int		num;
 
 	i = 0;
 	while (++i < ac)
 	{
-		if (*av[i] == '-' && i + 1 < ac)
-			i++;
+		num = 0;
+		if (*av[i] == '-')
+		{
+			if (known_opt(av[i]))
+				if (is_opt(av[i], (i + 1 == ac || !ft_isdigit(*av[i + 1]) ? 0 : av[i + 1]), vm, &num) != -1)
+					if (i + 2 == ac)
+						return (1);
+					else
+						i += 2;
+				else
+					return (0);
+			else
+				return (illegal_opt(av[i], 0));
+		}
 		if (!check_champ_ext(av[i]))
 		{
 			ft_printf("%s : fichier '.cor' attendu\n", av[i]);
-			usage();
-			return (0);
+			return (usage(0));
 		}
-		if (!(vm->champ = champs_push(vm->champ, av[i])))
+		if (!(vm->champ = champs_push(vm->champ, av[i], num)))
 			return (0);
 		if (!(check_header(vm->champ, av[i])))
 			return (0);
 	}
+	//return (fill_id_champs(vm));
 	return (1);
 }
