@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/01 13:10:52 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/01 14:40:59 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,7 @@ t_champ					*get_champ_by_num(t_champ *list, int num);
 int						add_process(t_vm *vm, int pc, int id);
 
 //option.c
-int						known_opt(char *opt);
-int						is_opt(char *opt, char *nbr, t_vm *vm, int *ch_num);
+int						opt(char **av, int ac, int *i, t_vm *vm);
 
 //instr_params.c
 t_param					*decode_param_type(unsigned char ocp);

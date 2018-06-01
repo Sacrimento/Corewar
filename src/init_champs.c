@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/30 20:34:22 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/01 14:39:04 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,16 +89,10 @@ int				init_champs(int ac, char **av, t_vm *vm)
 		num = 0;
 		if (*av[i] == '-')
 		{
-			if (known_opt(av[i]))
-				if (is_opt(av[i], (i + 1 == ac || !ft_isdigit(*av[i + 1]) ? 0 : av[i + 1]), vm, &num) != -1)
-					if (i + 2 == ac)
-						return (1);
-					else
-						i += 2;
-				else
-					return (0);
-			else
-				return (illegal_opt(av[i], 0));
+			if ((num = opt(av, ac, &i, vm)) == -1)
+				return (0);
+			else if (num == -2)
+				return (1);
 		}
 		if (!check_champ_ext(av[i]))
 		{
