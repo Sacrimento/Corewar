@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/01 16:40:41 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/01 17:57:40 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 /********************DEBUG KINGDOM*********************/
 #define ERROR(message) ft_printf("{RED}%s{EOC}\n", message)
+#define SUCCESS(message) ft_printf("{GREEN}%s{EOC}\n", message)
 #define INFO(message) ft_printf("{BLUE}%s{EOC}\n", message)
 #define INFONUM(message) ft_printf("{BLUE}%d{EOC}\n", message)
 /******************************************************/
@@ -109,5 +110,5 @@ int						continue_process(t_vm *vm, t_process *process);
 //instructions.c
 int						live(t_instr instr);
 int						continue_process(t_vm *vm, t_process *process);
-
+unsigned int 			bytetoint(unsigned char *ram, int ammount_of_bytes);
 #endif
