@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 10:35:19 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/30 19:58:17 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/01 15:20:44 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,17 @@ int				fill_id_champs(t_vm *vm)
 
 	ch = vm->champ;
 	i = 1;
+	ft_printf("PATAPROUT\n");
 	while (ch)
 	{
+		while (!check_num(vm->champ, i))
+			i++;
 		if (!ch->id)
 			ch->id = i++;
 		ch = ch->next;
 	}
-	return (sort_champs(vm));
+	//return (sort_champs(vm));
+	return (1);
 }
 
 static int		get_b_size(unsigned char *b_size)
