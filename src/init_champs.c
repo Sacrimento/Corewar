@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/01 14:39:04 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/01 15:49:40 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int				init_champs(int ac, char **av, t_vm *vm)
 	i = 0;
 	while (++i < ac)
 	{
-		num = 0;
 		if (*av[i] == '-')
 		{
 			if ((num = opt(av, ac, &i, vm)) == -1)
