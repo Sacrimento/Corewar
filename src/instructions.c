@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/01 14:25:59 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/01 15:57:27 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
  * OCP = Octet de Codage des Parametres
  * ***********************************************************
  * TODO: 
- * - Define a defnitive data structure for instructions
+ * - Define a definitive data structure for instructions
  *
 **/
 
@@ -37,7 +37,7 @@ int		live(t_instr instr)
 		thischamp->lives, thischamp->name, thischamp->id);
 	return (1);
 }
-//not sure about this one :
+/* //not sure about this one :
 int		ld(t_instr instr)
 {
 	if (instr.params[1].type != REG_CODE)
@@ -104,4 +104,4 @@ int lfork()
 int st()
 {
 	
-}
+} */
