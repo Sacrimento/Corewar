@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 10:35:19 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/01 15:20:44 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/01 17:45:22 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,9 @@ int				fill_id_champs(t_vm *vm)
 
 	ch = vm->champ;
 	i = 1;
-	ft_printf("PATAPROUT\n");
 	while (ch)
 	{
-		while (!check_num(vm->champ, i))
+		while (!check_num(vm->champ, i, 0))
 			i++;
 		if (!ch->id)
 			ch->id = i++;
@@ -67,11 +66,13 @@ static int		fill_header(int fd, t_champ *champ)
 
 	if (read(fd, champ->name, PROG_NAME_LENGTH + 4) != PROG_NAME_LENGTH + 4)
 		return (0);
+	champ->name[PROG_NAME_LENGTH] = '\0';
 	if (read(fd, size_b, 4) != 4)
 		return (0);
 	champ->size = get_b_size(size_b);
 	if (read(fd, champ->comment, COMMENT_LENGTH + 4) != COMMENT_LENGTH + 4)
 		return (0);
+	champ->comment[COMMENT_LENGTH] = '\0';
 	return (1);
 }
 

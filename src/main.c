@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/01 14:31:52 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/01 17:03:42 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int					main(int argc, char **argv)
 	if (!(vm = init_vm(argc, argv)))
 		return (1);
 	//mem_dump(vm->map);
-	ft_printf("DUMP : %d\n", vm->dump);
 	free_vm(vm);
 	return (0);
 }
