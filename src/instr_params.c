@@ -6,13 +6,13 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/01 16:44:29 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/01 17:57:41 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-t_param		*decode_param_type(unsigned char ocp)
+t_param			*decode_param_type(unsigned char ocp)
 {
 	int cursor;
 	t_param *parameters;
@@ -33,7 +33,7 @@ t_param		*decode_param_type(unsigned char ocp)
 	return (parameters);
 }
 
-static int	bytetoint(unsigned char *ram, int ammount_of_bytes)
+unsigned int	bytetoint(unsigned char *ram, int ammount_of_bytes)
 {
 	if (ammount_of_bytes == 1)
 		return (ram[0]);
@@ -44,7 +44,7 @@ static int	bytetoint(unsigned char *ram, int ammount_of_bytes)
 	return (0);
 }
 
-t_param		*get_params(t_vm *vm, t_process *process)
+t_param			*get_params(t_vm *vm, t_process *process)
 {
 	t_param	*parameters;
 	int		i;
@@ -52,10 +52,15 @@ t_param		*get_params(t_vm *vm, t_process *process)
 
 	i = -1;
 	cursor = process->pc + 2;
+	parameters = NULL;
 	if (!vm || !vm->map || !process
 	|| !(parameters = decode_param_type(vm->map[process->pc + 1]))
 	|| !parameters[0].type)
+	{
+		if (!parameters)
+		ERROR("incorrect vm");
 		return (NULL);
+	}
 	while (++i < 3 && parameters[i].type != 0)
 	{
 		parameters[i].value = bytetoint(&vm->map[cursor], parameters[i].type);
@@ -71,7 +76,7 @@ t_instr	instr_params(t_vm *vm, t_process *process)
 
 	instr.vm = vm;
 	instr.process = process;
-	instr.params = get_params(vm, process);
+	instr.params = NULL;
 	return (instr);
 }
 
@@ -81,14 +86,11 @@ int		continue_process(t_vm *vm, t_process *process)
 	t_instr instr;
 
 	instr = instr_params(vm, process);
-	ft_printf("%d\n", instr.process->pc);
-	if (!instr.params)
-		return (0);
+	// get_params(vm, process);
 	if (vm->map[process->pc] == 1)
 	{
 		return (live(instr));
 	}
-		
 	//blablablacode
 	ft_memdel((void**)&parameters);
 	return (1);

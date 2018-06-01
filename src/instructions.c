@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/01 15:57:27 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/01 18:06:09 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,12 @@ int		live(t_instr instr)
 	t_champ *thischamp;
 
 	if (!instr.vm || !instr.vm->champ
-	|| !(thischamp = get_champ_by_num(instr.vm->champ, instr.params[1].value)))
+	|| !(thischamp = get_champ_by_num(instr.vm->champ,
+	//bytetoint(&instr.vm->map[instr.process->pc + 1], 4))))
+	1)))
 		return (0);
 	thischamp->lives++;
+	instr.process->alive++;
 	ft_printf("[%d]{BLUE}Champion %s(id:%d) is alive{EOC}",
 		thischamp->lives, thischamp->name, thischamp->id);
 	return (1);
