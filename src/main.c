@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/01 17:03:42 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/01 18:17:44 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int					main(int argc, char **argv)
 {
 	t_vm	*vm;
 
+	if (argc == 1)
+		return (usage(1));
 	//if ((opt = set_opt(argc, argv)) == -1 || check_inputs(argc, argv))
 	//	return (1);
 	if (!(vm = init_vm(argc, argv)))
