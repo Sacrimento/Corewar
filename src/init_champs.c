@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/30 20:28:34 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/05/30 20:34:22 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,6 @@ int				init_champs(int ac, char **av, t_vm *vm)
 		if (!(check_header(vm->champ, av[i])))
 			return (0);
 	}
-	//return (fill_id_champs(vm));
-	return (1);
+	return (fill_id_champs(vm));
+	//return (1);
 }
