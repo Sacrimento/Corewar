@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/31 18:34:41 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/01 14:54:22 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_param		*decode_param_type(unsigned char ocp)
 	t_param *parameters;
 
 	cursor = 0;
-	if (!(parameters = ft_memalloc(sizeof(t_param) * 3)))
+	if (!(parameters = (t_param*)ft_memalloc(sizeof(t_param) * 3)))
 		return (NULL);
 	while (++cursor < 4)
 	{
@@ -64,14 +64,22 @@ t_param		*get_params(t_vm *vm, t_process *process)
 	return (parameters);
 }
 
-int		continue_process(t_vm *vm, t_process *process)
+t_instr	instr_params(t_vm *vm, t_process *process)
 {
-	t_param *parameters;
 	t_instr instr;
 
 	instr.vm = vm;
 	instr.process = process;
 	instr.params = get_params(vm, process);
+	return (instr);
+}
+
+int		continue_process(t_vm *vm, t_process *process)
+{
+	t_param *parameters;
+	t_instr instr;
+
+	instr = instr_params(vm, process);
 	if (!instr.params)
 		return (0);
 	//blablablacode
