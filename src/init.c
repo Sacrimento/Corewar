@@ -12,30 +12,40 @@
 
 #include "../include/corewar.h"
 
+int 		swap_ch(t_champ *fchamp, t_champ *schamp)
+{
+	t_champ	*tmp;
+
+	if (!(tmp = (t_champ*)ft_memalloc(sizeof(t_champ))))
+		return (error_mall(0));
+	tmp->id = fchamp->id;
+	tmp->size = fchamp->size;
+	tmp->name = fchamp->name;
+	tmp->comment = fchamp->comment;
+	tmp->code = fchamp->code;
+	fchamp->id = schamp->id;
+	fchamp->size = schamp->size;
+	fchamp->name = schamp->name;
+	fchamp->comment = schamp->comment;
+	fchamp->code = schamp->code;
+	schamp->id = tmp->id;
+	schamp->size = tmp->size;
+	schamp->name = tmp->name;
+	schamp->comment = tmp->comment;
+	schamp->code = tmp->code;
+	ft_memdel((void**)&tmp);
+	return (1); 
+}
+
 int			sort_champs(t_vm *vm)
 {
-	t_champ		*ch;
-	t_champ		*prev;
+	t_champ *ch;
 
-	ch = vm->champ->next;
-	prev = vm->champ;
-	if (prev->id > ch->id)
+	ch = vm->champ;
+	while  (ch->next)
 	{
-		prev->next = ch->next;
-		ch->next = prev;
-		vm->champ = prev;
-	}
-	prev= vm->champ;
-	ch = prev->next;
-	while (ch)
-	{
-		if (prev->id > ch->id)
-		{
-			prev->next = ch->next;
-			ch->next = prev;
-			prev = ch;
-			ch = prev->next;
-		}
+		if (ch->id > ch->next->id)
+			swap_ch(ch, ch->next);
 		ch = ch->next;
 	}
 	return (1);
