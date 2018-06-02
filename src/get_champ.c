@@ -81,20 +81,19 @@ t_champ			*parse_champ(char *file_name, t_champ *champ)
 	int		fd;
 
 	if (!(fd = open(file_name, O_RDONLY)) || fd < 0)
-		return (error_file("Le ficher %s n'a pas pu etre ouvert\n", file_name, champ));
+		return (error_file("Couldn't open file \"%s\"\n", file_name, champ));
 	if (!(check_magic(fd)) || !fill_header(fd, champ))
-		return (error_file("Le header du fichier %s est invalide\n",
-															file_name, champ));
+		return (error_file("Invalid header in \"%s\"\n", file_name, champ));
 	if (champ->size > CHAMP_MAX_SIZE)
 	{
-		ft_printf("Le fichier %s est trop gros : %d bytes au lieu de %d bytes.\n"\
+		ft_dprintf(2, "File \"%s\" is too large : %d bytes instead of %d bytes.\n"\
 						, file_name, champ->size, CHAMP_MAX_SIZE);
 		return (rec_free_champs(champ));
 	}
 	if (!(champ->code = (unsigned char *)ft_memalloc(sizeof(char) * \
 			champ->size)) || read(fd, champ->code, champ->size) != champ->size)
-		return (error_file("%s : header invalide\n", file_name, champ));
+		return (error_file("Invalid header in \"%s\"\n", file_name, champ));
 	if (close(fd))
-		return (error_file("Le fichier %s n'a pu etre ferme\n", file_name, champ));
+		return (error_file("Couldn't close file \"%s\"\n", file_name, champ));
 	return (champ);
 }

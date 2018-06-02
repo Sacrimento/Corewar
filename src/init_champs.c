@@ -18,12 +18,12 @@ static int		check_header(t_champ *champs, char *file)
 		champs = champs->next;
 	if (!*champs->name)
 	{
-		ft_printf("Header invalide dans %s : nom inexistant.\n", file);
+		ft_dprintf(2, "Invalid header in \"%s\" : unnamed champion\n", file);
 		return (0);
 	}
 	if (!*champs->comment)
 	{
-		ft_printf("Header invalide dans %s : commentaire inexistant.\n", file);
+		ft_dprintf(2, "Invalid header in \"%s\" : uncommented champion\n", file);
 		return (0);
 	}
 	return (1);
@@ -66,7 +66,7 @@ static t_champ	*champs_push(t_champ *champ, char *file, int num)
 		return (rec_free_champs(champ));
 	if (!check_num(champ, num, 1))
 	{
-		ft_printf("%s : %d already taken\n", file, num);
+		ft_dprintf(2, "\"%s\" : %d already taken\n", file, num);
 		return (rec_free_champs(champ));
 	}
 	new->id = num;
@@ -96,7 +96,7 @@ int				init_champs(int ac, char **av, t_vm *vm)
 		}
 		if (!check_champ_ext(av[i]))
 		{
-			ft_printf("%s : fichier '.cor' attendu\n", av[i]);
+			ft_dprintf(2, "\"%s\" : '.cor' file expected\n", av[i]);
 			return (usage(0));
 		}
 		if (!(vm->champ = champs_push(vm->champ, av[i], num)))

@@ -14,12 +14,12 @@
 
 static int	incorrect_arg(char *opt, char *str, int err)
 {
-	ft_printf("%s", opt);
-	ft_printf(" %s : incorrect argument ", str);
+	ft_dprintf(2, "\"%s\"", opt);
+	ft_dprintf(2, " \"%s\" : incorrect argument ", str);
 	if (err == 1)
-		ft_printf("(must be between 1 and 2147483647)\n");
+		ft_dprintf(2, "(must be between 1 and 2147483647)\n");
 	else if (err == 2)
-		ft_printf("(must contain digits only)\n");
+		ft_dprintf(2, "(must contain digits only)\n");
 	return (-1);
 }
 
@@ -55,7 +55,7 @@ static int	is_opt(char *opt, char *nbr, t_vm *vm, int *ch_num)
 
 	if (!nbr)
 	{
-		ft_printf("%s : missing argument\n", opt);
+		ft_dprintf(2, "\"%s\" : missing argument\n", opt);
 		return (usage(-1));
 	}
 	if ((num = ft_satoi(nbr, opt)) == -1)
