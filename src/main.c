@@ -22,6 +22,17 @@ static int			check_inputs(void)
 	return (1);
 }
 
+static void			winner(t_vm *vm)
+{
+	t_champ	*ch;
+
+	ch = get_champ_from_id(vm->last);
+	if (ch)
+		ft_printf("le joueur %d(%s) a gagne\n", ch->id, ch->name);
+	else
+		ft_printf("Les joueurs n'ont pas pu se departager, egalite !\n");
+}
+
 int					main(int argc, char **argv)
 {
 	t_vm	*vm;
