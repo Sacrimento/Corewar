@@ -30,7 +30,6 @@ typedef struct			s_champ
 {
 	int					id;
 	int					size;
-	int					lives;
 	char 				name[PROG_NAME_LENGTH + 1];
 	char 				comment[COMMENT_LENGTH + 1];
 	unsigned char		*code;
@@ -49,6 +48,8 @@ typedef struct			s_process
 
 typedef struct			s_vm
 {
+	int 				lives;
+	int 				last;
 	int					dump;
 	int					processes_nbr;
 	int					cycle;
@@ -71,7 +72,7 @@ typedef struct			s_instr
 }						t_instr;
 
 //run.c
-void					run(t_vm *vm);
+int 					run(t_vm *vm);
 
 //free.c
 t_vm					*free_vm(t_vm *vm);

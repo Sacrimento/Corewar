@@ -105,6 +105,7 @@ t_vm		*init_vm(int argc, char **argv)
 		error_mall(0);
 		return (NULL);
 	}
+	vm->lives = 0;
 	vm->processes_nbr = 0;
 	vm->dump = -1;
 	vm->cycle = 0;

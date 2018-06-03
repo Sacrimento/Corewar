@@ -16,26 +16,10 @@
 
 #include "../include/corewar.h"
 
-// static int			check_inputs(void)
-// {
-// 	//Check des defsines d'op.h
-// 	return (0);
-// }
-
-
-void				mem_dump(unsigned char *map)
+static int			check_inputs(void)
 {
-	int		i;
-
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		ft_printf("%2.2x", map[i++]);
-		if (!(i % 32) && i != 0)
-			ft_putchar('\n');
-		else
-			ft_putchar(' ');
-	}
+	ft_dprintf(2, "Invalid values in \"op.h\"\n");
+	return (1);
 }
 
 int					main(int argc, char **argv)
@@ -44,13 +28,12 @@ int					main(int argc, char **argv)
 
 	if (argc < 2)
 		return (usage(1));
-	//if ((opt = set_opt(argc, argv)) == -1 || check_inputs(argc, argv))
-	//	return (1);
+	if (!check_inputs(argc, argv))
+		return (1);
 	if (!(vm = init_vm(argc, argv)))
 		return (1);
 	run(vm);
-	//continue_process(vm, vm->processes);
-	//mem_dump(vm->map);
+	winner(vm);
 	free_vm(vm);
 	return (0);
 }
