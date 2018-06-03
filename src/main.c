@@ -42,13 +42,14 @@ int					main(int argc, char **argv)
 {
 	t_vm	*vm;
 
-	if (argc == 1)
+	if (argc < 2)
 		return (usage(1));
 	//if ((opt = set_opt(argc, argv)) == -1 || check_inputs(argc, argv))
 	//	return (1);
 	if (!(vm = init_vm(argc, argv)))
 		return (1);
-	continue_process(vm, vm->processes);
+	run(vm);
+	//continue_process(vm, vm->processes);
 	//mem_dump(vm->map);
 	free_vm(vm);
 	return (0);

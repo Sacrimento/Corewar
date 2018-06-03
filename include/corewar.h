@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/01 18:06:59 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/03 11:37:59 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,9 @@ typedef struct			s_instr
 	t_param				*params;
 }						t_instr;
 
+//run.c
+void					run(t_vm *vm);
+
 //free.c
 t_vm					*free_vm(t_vm *vm);
 t_champ					*rec_free_champs(t_champ *champs);
@@ -97,6 +100,8 @@ t_champ					*get_champ_by_num(t_champ *list, int num);
 
 //process.c
 int						add_process(t_vm *vm, int pc, int id);
+void					search_and_destroy_process(t_vm *vm);
+int						check_processes(t_process *pro);
 
 //option.c
 int						opt(char **av, int ac, int *i, t_vm *vm);

@@ -51,8 +51,13 @@ int			sort_champs(t_vm *vm)
 	return (1);
 }
 
-static void	introduce_champs(t_champ *champs)
+static int 	introduce_champs(t_champ *champs)
 {
+	if (list_length(champs) > MAX_CHAMPS)
+	{
+		ft_dprintf(2, "Too much champs loaded\n");
+		return (0);
+	}
 	ft_printf("Introducing contestants...\n");
 	while (champs)
 	{
@@ -60,6 +65,7 @@ static void	introduce_champs(t_champ *champs)
 		ft_printf("\"%s\" (\"%s\") !\n", champs->name, champs->comment);
 		champs = champs->next;
 	}
+	return (1);
 }
 
 static int	list_length(t_champ *champ)
@@ -112,6 +118,7 @@ t_vm		*init_vm(int argc, char **argv)
 	vm->processes = NULL;
 	if (!(load_champs(vm, MEM_SIZE / list_length(vm->champ))))
 		return (free_vm(vm));
-	introduce_champs(vm->champ);
+	if (!introduce_champs(vm->champ))
+		return (free_vm(vm));
 	return (vm);
 }

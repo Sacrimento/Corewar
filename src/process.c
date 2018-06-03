@@ -21,6 +21,7 @@ static void	del_process(t_vm *vm, t_process *del)
 	prev = curr;
 	if (!curr)
 		return ;
+	vm->processes_nbr--;
 	if (curr == del)
 	{
 		vm->process = beg->next;
@@ -74,7 +75,7 @@ int			add_process(t_vm *vm, int pc, int id)
 	t_process	*new;
 
 	pro = vm->processes;
-	if (!(new = ft_memalloc(sizeof(t_process))))
+	if (!(new = (t_process*)ft_memalloc(sizeof(t_process))))
 		return (error_mall(0));
 	new->alive = 1;
 	new->pc = pc;
