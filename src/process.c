@@ -12,7 +12,63 @@
 
 #include "../include/corewar.h"
 
-int		add_process(t_vm *vm, int pc, int id)
+static void	del_process(t_vm *vm, t_process *del)
+{
+	t_process	*prev;
+	t_process	*curr;
+
+	curr = vm->process;
+	prev = curr;
+	if (!curr)
+		return ;
+	if (curr == del)
+	{
+		vm->process = beg->next;
+		ft_memdel((void**)&del);
+	}
+	curr = curr->next;
+	while (curr)
+	{
+		if (curr == del)
+		{
+			prev->next = curr->next;
+			ft_memdel((void**)&curr);
+			return ;
+		}
+		curr = curr->next;
+	}
+}
+
+int			check_processes(t_process *pro)
+{
+	if (!pro)
+		return (0);
+	while (pro)
+	{
+		if (pro->alive)
+			return (1);
+		pro = pro->next;
+	}
+	return (0);
+}
+
+void		search_and_destroy_process(t_vm *vm)
+{
+	t_process *process;
+
+	process = vm->process;
+	if (!process)
+		return ;
+	while (process)
+	{
+		if (!process->alive)
+			del_process(vm, process);
+		process->alive = 0;
+		process = process->next;
+	}
+}
+
+int			add_process(t_vm *vm, int pc, int id)
 {
 	t_process	*pro;
 	t_process	*new;
