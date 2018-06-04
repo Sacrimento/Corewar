@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/04 16:57:46 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/04 17:48:17 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,14 @@ int				continue_process(t_vm *vm, t_process *process)
 	//blablablacode
 	ft_memdel((void**)&parameters);
 	return (1);
+}
+
+int				free_params(t_param **params, int ret)
+{
+	if (*params)
+	{
+		free(*params);
+		*params = NULL;
+	}
+	return (ret);
 }

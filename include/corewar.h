@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/04 16:14:25 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/04 17:47:50 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,8 @@ int						live(t_instr instr);
 int						ld(t_instr instr);
 int						lld(t_instr instr);
 int						st(t_instr instr);
+int						inttobytes(unsigned int n, unsigned char *map);
+int						free_params(t_param **params, int ret);
 
 
 #endif

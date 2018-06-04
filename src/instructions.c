@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/04 17:08:07 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/04 17:48:51 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ int		ld(t_instr instr)
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x02)
 	|| instr.params[1].value > REG_NUMBER)
-		return (0);
+		return (free_params(&instr.params, 0));
+		
 	if (instr.params[0].type == T_DIR)
 		instr.process->reg[instr.params[1].value] = instr.params[0].value;
 	else if (instr.params[0].value <= MEM_SIZE)
@@ -54,9 +55,9 @@ int		ld(t_instr instr)
 		= bytetoint(&instr.vm->map[instr.process->pc
 		+ (instr.params[0].value % IDX_MOD)], T_DIR);
 	else
-		return (0);
+		return (free_params(&instr.params, 0));
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
-	return (1);
+	return (free_params(&instr.params, 1));
 }
 
 int		st(t_instr instr)
@@ -70,7 +71,7 @@ int		st(t_instr instr)
 		= instr.process->reg[instr.params[0].value];
 	else if (instr.params[1].type == T_IND)
 	{
-		
+		inttobytes(instr.vm->map[pc + (instr.params[1].value % IDX_MOD)]);
 	}
 	
 }
