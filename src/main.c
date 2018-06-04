@@ -6,41 +6,44 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/01 18:17:44 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/04 14:49:23 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-static int			check_inputs(void)
-{
-	ft_dprintf(2, "Invalid values in \"op.h\"\n");
-	return (1);
-}
+// static int			check_inputs(void)
+// {
+// 	//Check des defsines d'op.h
+// 	return (0);
+// }
 
-static void			winner(t_vm *vm)
-{
-	t_champ	*ch;
 
-	ch = get_champ_from_id(vm->last);
-	if (ch)
-		ft_printf("le joueur %d(%s) a gagne\n", ch->id, ch->name);
-	else
-		ft_printf("Les joueurs n'ont pas pu se departager, egalite !\n");
+void				mem_dump(unsigned char *map)
+{
+	int		i;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		ft_printf("%2.2x", map[i++]);
+		if (!(i % 32) && i != 0)
+			ft_putchar('\n');
+		else
+			ft_putchar(' ');
+	}
 }
 
 int					main(int argc, char **argv)
 {
 	t_vm	*vm;
 
-	if (argc < 2)
-		return (usage(1));
-	if (!check_inputs(argc, argv))
-		return (1);
+	//if ((opt = set_opt(argc, argv)) == -1 || check_inputs(argc, argv))
+	//	return (1);
 	if (!(vm = init_vm(argc, argv)))
 		return (1);
-	run(vm);
-	winner(vm);
+	continue_process(vm, vm->processes);
+	//mem_dump(vm->map);
 	free_vm(vm);
 	return (0);
 }

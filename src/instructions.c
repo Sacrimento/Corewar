@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/04 13:23:35 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/04 15:12:17 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,17 @@ int		live(t_instr instr)
 int		ld(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
-	if (instr.params[1].type != REG_CODE)
+	if (!compare_params(instr.params, 1) || instr.params[1].value > REG_NUMBER)
 		return (0);
-	if (!(instr.params[0].type == IND_CODE
-	|| instr.params[0].type == DIR_CODE)
-	|| instr.params[0].value == 0)
-		return (instr.process->carry = 0);
-	if (instr.params[0].type == IND_CODE)
-		*(int*)instr.params[1].address
-		= vm->map[(instr.params[0].value % IDX_MOD) % MEM_SIZE];
+	if (instr.params[0].type == 4)
+		instr.process->reg[instr.params[1].value] = instr.params[0].value;
+	else if (instr.params[0].value < MEM_SIZE)
+		instr.process->reg[instr.params[1].value]
+		= bytetoint(&instr.vm->map[instr.params[0].value], 4);
 	else
-		*(int*)instr.params[1].address = instr.params[0].value;
-	return (instr.process->carry = 1);
+		return (0);
+	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
+	return (1);
 }
 /*
 int lld(t_vm *vm)

@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/04 13:19:25 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/04 14:49:08 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,9 @@ t_param					*decode_param_type(unsigned char ocp);
 t_param					*get_params(t_vm *vm, t_process *process);
 t_instr					instr_params(t_vm *vm, t_process *process);
 int						continue_process(t_vm *vm, t_process *process);
+
+//instr_params_checks.c
+int						compare_params(t_param *params, int opcode);
 
 //instructions.c
 int						live(t_instr instr);

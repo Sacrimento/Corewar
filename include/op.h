@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/05/30 19:23:49 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/04 14:29:08 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,3 +86,5 @@ typedef struct					s_op
 	int							instr: 2;
 	int							oct: 2;
 }								t_op;
+
+extern t_op						g_op_tab[17];
