@@ -1,28 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   getters.c                                          :+:      :+:    :+:   */
+/*   instr_params_check.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/04 12:45:43 by mfonteni         ###   ########.fr       */
+/*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
+/*   Updated: 2018/06/04 13:42:21 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-t_champ	*get_champ_by_num(t_champ *list, unsigned int num)
+int count_params(t_param *params)
 {
-	t_champ *current;
-
-	if (!list)
-		return (NULL);
-	current = list;
-	while (current && current->id != num)
-	{
-		ft_printf("%d\n", current->id);
-		current = current->next;
-	}
-	return (current);
+	if (params)
+		return (params[0].type != 0
+		+ params[1].type != 0
+		+ params[2].type != 0);
+	return (0);
 }

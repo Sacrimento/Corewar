@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/01 18:14:59 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/04 13:23:35 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,17 @@ int		live(t_instr instr)
 		return (0);
 	thischamp->lives++;
 	instr.process->alive++;
+	instr.vm->lives++;
 	ft_printf("[%d] - {BLUE}Champion %s(id:%d) is alive{EOC}",
 		thischamp->lives, thischamp->name, thischamp->id);
 	return (1);
 }
-/* //not sure about this one :
+
 int		ld(t_instr instr)
 {
+	instr.params = get_params(instr.vm, instr.process);
 	if (instr.params[1].type != REG_CODE)
-		return (-1);
+		return (0);
 	if (!(instr.params[0].type == IND_CODE
 	|| instr.params[0].type == DIR_CODE)
 	|| instr.params[0].value == 0)
@@ -55,7 +57,7 @@ int		ld(t_instr instr)
 		*(int*)instr.params[1].address = instr.params[0].value;
 	return (instr.process->carry = 1);
 }
-
+/*
 int lld(t_vm *vm)
 {
 	if ((params[1]).type != REG_CODE

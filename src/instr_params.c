@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/01 17:57:41 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/04 12:44:27 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_param			*get_params(t_vm *vm, t_process *process)
 	return (parameters);
 }
 
-t_instr	instr_params(t_vm *vm, t_process *process)
+t_instr			instr_params(t_vm *vm, t_process *process)
 {
 	t_instr instr;
 
@@ -80,7 +80,7 @@ t_instr	instr_params(t_vm *vm, t_process *process)
 	return (instr);
 }
 
-int		continue_process(t_vm *vm, t_process *process)
+int				continue_process(t_vm *vm, t_process *process)
 {
 	t_param *parameters;
 	t_instr instr;

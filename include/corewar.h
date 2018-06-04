@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/03 11:37:59 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/04 13:19:25 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct			s_champ
 {
 	int					id;
 	int					size;
+	unsigned int		lives;
 	char 				name[PROG_NAME_LENGTH + 1];
 	char 				comment[COMMENT_LENGTH + 1];
 	unsigned char		*code;
@@ -48,7 +49,7 @@ typedef struct			s_process
 
 typedef struct			s_vm
 {
-	int 				lives;
+	unsigned int		lives;
 	int 				last;
 	int					dump;
 	int					processes_nbr;
@@ -97,7 +98,7 @@ int 					illegal_opt(char *opt, int ret);
 int						check_num(t_champ *ch, int num, int env);
 
 //getters.c
-t_champ					*get_champ_by_num(t_champ *list, int num);
+t_champ					*get_champ_by_num(t_champ *list, unsigned int num);
 
 //process.c
 int						add_process(t_vm *vm, int pc, int id);
