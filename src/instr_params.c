@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/04 12:44:27 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/04 16:57:46 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,6 @@ t_param			*decode_param_type(unsigned char ocp)
 	}
 	INFONUM(ocp);
 	return (parameters);
-}
-
-unsigned int	bytetoint(unsigned char *ram, int ammount_of_bytes)
-{
-	if (ammount_of_bytes == 1)
-		return (ram[0]);
-	if (ammount_of_bytes == 2)
-		return (ram[0] | (ram[1] << 8));
-	if (ammount_of_bytes == 4)
-		return ((ram[0] << 24) | (ram[1] << 16) | (ram[2] << 8) | ram[3]);
-	return (0);
 }
 
 t_param			*get_params(t_vm *vm, t_process *process)

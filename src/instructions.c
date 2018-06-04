@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/04 15:12:17 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/04 17:08:07 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,67 +44,54 @@ int		live(t_instr instr)
 int		ld(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 1) || instr.params[1].value > REG_NUMBER)
+	if (!compare_params(instr.params, 0x02)
+	|| instr.params[1].value > REG_NUMBER)
 		return (0);
-	if (instr.params[0].type == 4)
+	if (instr.params[0].type == T_DIR)
 		instr.process->reg[instr.params[1].value] = instr.params[0].value;
-	else if (instr.params[0].value < MEM_SIZE)
+	else if (instr.params[0].value <= MEM_SIZE)
 		instr.process->reg[instr.params[1].value]
-		= bytetoint(&instr.vm->map[instr.params[0].value], 4);
+		= bytetoint(&instr.vm->map[instr.process->pc
+		+ (instr.params[0].value % IDX_MOD)], T_DIR);
 	else
 		return (0);
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (1);
 }
-/*
-int lld(t_vm *vm)
+
+int		st(t_instr instr)
 {
-	if ((params[1]).type != REG_CODE
-	|| !(instr.params[0].type == IND_CODE
-	|| instr.params[0].type == DIR_CODE))
-		return (-1);
-	if (instr.params[0].value == 0)
-		return (instr.process->carry = 0);
-	if (instr.params[0].type == IND_CODE)
-		*(int*)(params[1]).address
-		= vm->map[instr.params[0].value % MEM_SIZE];
+	instr.params = get_params(instr.vm, instr.process);
+	if (!compare_params(instr.params, 0x03)
+	|| instr.params[0].value > REG_NUMBER)
+		return (0);
+	if (instr.params[1].type == T_REG && instr.params[1].value <= REG_NUMBER)
+		instr.process->reg[instr.params[1].value]
+		= instr.process->reg[instr.params[0].value];
+	else if (instr.params[1].type == T_IND)
+	{
+		
+	}
+	
+}
+
+
+
+int		lld(t_instr instr)
+{
+	instr.params = get_params(instr.vm, instr.process);
+	if (!compare_params(instr.params, 0x0d)
+	|| instr.params[1].value > REG_NUMBER)
+		return (0);
+	if (instr.params[0].type == T_DIR)
+		instr.process->reg[instr.params[1].value] = instr.params[0].value;
+	else if (instr.params[0].value < MEM_SIZE)
+		instr.process->reg[instr.params[1].value]
+		= bytetoint(&instr.vm->map[instr.process->pc
+		+ instr.params[0].value], T_DIR);
 	else
-		*(int*)(params[1]).address = instr.params[0].value;
-	return (instr.process->carry = 1);
+		return (0);
+	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
+	return (1);
 }
 
-int st(t_vm *vm, t_instr.process *instr.process)
-{
-	if (instr.params[0]->type != T_REG)
-		return (instr.process->carry = 0);
-	*reg2 = *reg1;
-	return (instr.process->carry = 1);
-}
-
-
-int aff(t_vm *vm, t_instr.process *instr.process)
-{
-	if (instr.params[0].value > REG_NUMBER || !instr.params[0].is_reg)
-		return (instr.process->carry = 0);
-	//check if !char is the same NUL from the subject
-	if (!instr.process->reg[instr.params[0].value])
-		return (instr.process->carry = 1);
-	ft_printf("%s", instr.process->reg[instr.params[0].value] % 256);
-	return (instr.process->carry = 0);
-}
-
-//
-int fork()
-{
-
-}
-
-int lfork()
-{
-	
-}
-
-int st()
-{
-	
-} */
