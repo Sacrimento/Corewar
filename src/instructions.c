@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/05 11:50:30 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/05 12:56:31 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,74 @@ int		st(t_instr instr)
 		+ (instr.params[1].value % IDX_MOD)], instr.vm->map);
 	else
 		return (free_params(&instr.params, 0));
+	instr.process->carry = instr.params[0].value == 0;
+	return (free_params(&instr.params, 1));
+}
+
+int add(t_instr instr)
+{
+	instr.params = get_params(instr.vm, instr.process);
+	if (!compare_params(instr.params, 0x04)
+	|| instr.params[0].value > REG_NUMBER
+	|| instr.params[1].value > REG_NUMBER
+	|| instr.params[2].value > REG_NUMBER)
+		return (free_params(&instr.params, 0));
+	instr.process->reg[instr.params[2].value]
+	= instr.params[0].value + instr.params[1].value;
+	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
+	return (free_params(&instr.params, 1));
+}
+
+int sub(t_instr instr)
+{
+	instr.params = get_params(instr.vm, instr.process);
+	if (!compare_params(instr.params, 0x05)
+	|| instr.params[0].value > REG_NUMBER
+	|| instr.params[1].value > REG_NUMBER
+	|| instr.params[2].value > REG_NUMBER)
+		return (free_params(&instr.params, 0));
+	instr.process->reg[instr.params[2].value]
+	= instr.params[0].value - instr.params[1].value;
+	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
+	return (free_params(&instr.params, 1));
+}
+
+int and(t_instr instr)
+{
+	instr.params = get_params(instr.vm, instr.process);
+	if (!compare_params(instr.params, 0x06)
+	|| instr.params[2].value > REG_NUMBER)
+		return (free_params(&instr.params, 0));
+	convert_params(instr, 2);
+	instr.process->reg[instr.params[2].value]
+	= instr.params[0].value & instr.params[1].value;
+	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
+	return (free_params(&instr.params, 1));
+}
+
+int or(t_instr instr)
+{
+	instr.params = get_params(instr.vm, instr.process);
+	if (!compare_params(instr.params, 0x06)
+	|| instr.params[2].value > REG_NUMBER)
+		return (free_params(&instr.params, 0));
+	convert_params(instr, 2);
+	instr.process->reg[instr.params[2].value]
+	= instr.params[0].value | instr.params[1].value;
+	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
+	return (free_params(&instr.params, 1));
+}
+
+int xor(t_instr instr)
+{
+	instr.params = get_params(instr.vm, instr.process);
+	if (!compare_params(instr.params, 0x06)
+	|| instr.params[2].value > REG_NUMBER)
+		return (free_params(&instr.params, 0));
+	convert_params(instr, 2);
+	instr.process->reg[instr.params[2].value]
+	= instr.params[0].value ^ instr.params[1].value;
+	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
 	return (free_params(&instr.params, 1));
 }
 
