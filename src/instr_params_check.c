@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2018/06/05 12:55:03 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/05 14:37:59 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,24 @@ void convert_params(t_instr instr, int limit)
 		if (instr.params[i].type == T_REG)
 			instr.params[i].value = instr.process->reg[instr.params[i].value];
 		else if (instr.params[i].type == T_IND)
-			instr.params[i].value = bytetoint(&instr.vm->map[instr.process->pc
-			+ (instr.params[i].value % IDX_MOD)], 4);
+			instr.params[i].value = bytetoint(&instr.vm->map[(instr.process->pc
+			+ (instr.params[i].value % IDX_MOD)) % MEM_SIZE], 4);
 	}
 }
 
-int convert_params_unrestrained(t_instr instr, int limit)
+void convert_params_unrestrained(t_instr instr, int limit)
 {
 	int i;
 
 	i = -1;
 	if (!instr.params)
-		return (0);
+		return ;
 	while (++i < limit)
 	{
 		if (instr.params[i].type == T_REG)
 			instr.params[i].value = instr.process->reg[instr.params[i].value];
 		else if (instr.params[i].type == T_IND)
-			instr.params[i].value = bytetoint(&instr.vm->map[instr.process->pc
-			+ (instr.params[i].value % IDX_MOD)], 4);
+			instr.params[i].value = bytetoint(&instr.vm->map[(instr.process->pc
+			+ (instr.params[i].value)) & MEM_SIZE], 4);
 	}
-	return (1);
 }
