@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/04 17:48:51 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/05 11:50:30 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,16 @@ int		st(t_instr instr)
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x03)
 	|| instr.params[0].value > REG_NUMBER)
-		return (0);
+		return (free_params(&instr.params, 0));
 	if (instr.params[1].type == T_REG && instr.params[1].value <= REG_NUMBER)
 		instr.process->reg[instr.params[1].value]
 		= instr.process->reg[instr.params[0].value];
 	else if (instr.params[1].type == T_IND)
-	{
-		inttobytes(instr.vm->map[pc + (instr.params[1].value % IDX_MOD)]);
-	}
-	
+		inttobytes(instr.vm->map[instr.process->pc
+		+ (instr.params[1].value % IDX_MOD)], instr.vm->map);
+	else
+		return (free_params(&instr.params, 0));
+	return (free_params(&instr.params, 1));
 }
 
 
