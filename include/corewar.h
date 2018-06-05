@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/05 14:35:10 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/05 15:48:36 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,11 +119,12 @@ int						compare_params(t_param *params, int opcode);
 
 //instructions.c
 int						continue_process(t_vm *vm, t_process *process);
-unsigned int 			bytetoint(unsigned char *map, int ammount_of_bytes);
-int						inttobytes(unsigned int n, unsigned char *map);
+int 					bytetoint(unsigned char *map, int ammount_of_bytes);
+int						inttobytes(int n, unsigned char *map);
 int						free_params(t_param **params, int ret);
 void					convert_params(t_instr instr, int limit);
 void					convert_params_unrestrained(t_instr instr, int limit);
+int						get_address(int value);
 int						live(t_instr instr);
 int						ld(t_instr instr);
 int						lld(t_instr instr);

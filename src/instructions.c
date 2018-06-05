@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/05 14:31:47 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/05 15:53:21 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,9 @@ int		ld(t_instr instr)
 		instr.process->reg[instr.params[1].value] = instr.params[0].value;
 	else
 		instr.process->reg[instr.params[1].value]
-		= bytetoint(&instr.vm->map[(instr.process->pc
-		+ (instr.params[0].value % IDX_MOD)) % MEM_SIZE], T_DIR);
+		= bytetoint(&instr.vm->map
+		[get_address(instr.process->pc + (instr.params[0].value % IDX_MOD))],
+		T_DIR);
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(&instr.params, 1));
 }
@@ -69,8 +70,9 @@ int		st(t_instr instr)
 		instr.process->reg[instr.params[1].value]
 		= instr.process->reg[instr.params[0].value];
 	else if (instr.params[1].type == T_IND)
-		inttobytes(instr.vm->map[(instr.process->pc
-		+ (instr.params[1].value % IDX_MOD)) % MEM_SIZE], instr.vm->map);
+		inttobytes(instr.vm->map
+		[get_address(instr.process->pc + (instr.params[1].value % IDX_MOD))],
+		instr.vm->map);
 	else
 		return (free_params(&instr.params, 0));
 	instr.process->carry = instr.params[0].value == 0;
@@ -148,6 +150,7 @@ int zjmp(t_instr instr)
 {
 	if (!compare_params(instr.params, 0x09) || instr.process->carry == 0)
 		return (0);
+	
 
 	return (1);
 }
