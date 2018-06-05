@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/05 12:56:31 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/05 13:03:29 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int and(t_instr instr)
 int or(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 0x06)
+	if (!compare_params(instr.params, 0x07)
 	|| instr.params[2].value > REG_NUMBER)
 		return (free_params(&instr.params, 0));
 	convert_params(instr, 2);
@@ -135,7 +135,7 @@ int or(t_instr instr)
 int xor(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 0x06)
+	if (!compare_params(instr.params, 0x08)
 	|| instr.params[2].value > REG_NUMBER)
 		return (free_params(&instr.params, 0));
 	convert_params(instr, 2);
@@ -143,6 +143,11 @@ int xor(t_instr instr)
 	= instr.params[0].value ^ instr.params[1].value;
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
 	return (free_params(&instr.params, 1));
+}
+
+int zjmp(t_instr intr)
+{
+	
 }
 
 
