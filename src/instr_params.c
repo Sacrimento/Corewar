@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/05 14:47:45 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/05 16:37:01 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,24 @@ int				continue_process(t_vm *vm, t_process *process)
 	return (1);
 }
 
-int				free_params(t_param **params, int ret)
+int			decal_pc(t_process *process, int decal, int ret)
 {
-	if (*params)
+	process->pc += decal;
+	if (process->pc > MEM_SIZE)
+		process->pc = process->pc - MEM_SIZE;
+	return (1);
+}
+
+int				free_params(t_instr instr, int ret)
+{
+	if (instr.params)
 	{
-		free(*params);
-		*params = NULL;
+		decal_pc(instr.process,
+		instr.params[0].type
+		+ instr.params[1].type
+		+ instr.params[2].type, 1);
+		free(instr.params);
+		instr.params = NULL;
 	}
 	return (ret);
 }

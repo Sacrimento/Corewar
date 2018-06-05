@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/05 15:53:21 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/05 16:42:04 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int		live(t_instr instr)
 	if (!instr.vm || !instr.vm->champ
 	|| !(thischamp = get_champ_by_num(instr.vm->champ,
 	bytetoint(&instr.vm->map[instr.process->pc + 1], 4))))
-		return (0);
+		return (decal_pc(instr.process, T_DIR, 0));
 	thischamp->lives++;
 	instr.process->alive++;
 	instr.vm->lives++;
 	ft_printf("[%d] - {BLUE}Champion %s(id:%d) is alive{EOC}",
 		thischamp->lives, thischamp->name, thischamp->id);
-	return (1);
+	return (decal_pc(instr.process, T_DIR, 1));
 }
 
 int		ld(t_instr instr)
@@ -47,7 +47,7 @@ int		ld(t_instr instr)
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x02)
 	|| instr.params[1].value > REG_NUMBER)
-		return (free_params(&instr.params, 0));
+		return (free_params(instr, 0));
 		
 	if (instr.params[0].type == T_DIR)
 		instr.process->reg[instr.params[1].value] = instr.params[0].value;
@@ -57,7 +57,7 @@ int		ld(t_instr instr)
 		[get_address(instr.process->pc + (instr.params[0].value % IDX_MOD))],
 		T_DIR);
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
-	return (free_params(&instr.params, 1));
+	return (free_params(instr, 1));
 }
 
 int		st(t_instr instr)
@@ -65,7 +65,7 @@ int		st(t_instr instr)
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x03)
 	|| instr.params[0].value > REG_NUMBER)
-		return (free_params(&instr.params, 0));
+		return (free_params(instr, 0));
 	if (instr.params[1].type == T_REG && instr.params[1].value <= REG_NUMBER)
 		instr.process->reg[instr.params[1].value]
 		= instr.process->reg[instr.params[0].value];
@@ -74,9 +74,9 @@ int		st(t_instr instr)
 		[get_address(instr.process->pc + (instr.params[1].value % IDX_MOD))],
 		instr.vm->map);
 	else
-		return (free_params(&instr.params, 0));
+		return (free_params(instr, 0));
 	instr.process->carry = instr.params[0].value == 0;
-	return (free_params(&instr.params, 1));
+	return (free_params(instr, 1));
 }
 
 int add(t_instr instr)
@@ -86,11 +86,11 @@ int add(t_instr instr)
 	|| instr.params[0].value > REG_NUMBER
 	|| instr.params[1].value > REG_NUMBER
 	|| instr.params[2].value > REG_NUMBER)
-		return (free_params(&instr.params, 0));
+		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value + instr.params[1].value;
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
-	return (free_params(&instr.params, 1));
+	return (free_params(instr, 1));
 }
 
 int sub(t_instr instr)
@@ -100,11 +100,11 @@ int sub(t_instr instr)
 	|| instr.params[0].value > REG_NUMBER
 	|| instr.params[1].value > REG_NUMBER
 	|| instr.params[2].value > REG_NUMBER)
-		return (free_params(&instr.params, 0));
+		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value - instr.params[1].value;
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
-	return (free_params(&instr.params, 1));
+	return (free_params(instr, 1));
 }
 
 int and(t_instr instr)
@@ -112,12 +112,12 @@ int and(t_instr instr)
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x06)
 	|| instr.params[2].value > REG_NUMBER)
-		return (free_params(&instr.params, 0));
+		return (free_params(instr, 0));
 	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value & instr.params[1].value;
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
-	return (free_params(&instr.params, 1));
+	return (free_params(instr, 1));
 }
 
 int or(t_instr instr)
@@ -125,12 +125,12 @@ int or(t_instr instr)
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x07)
 	|| instr.params[2].value > REG_NUMBER)
-		return (free_params(&instr.params, 0));
+		return (free_params(instr, 0));
 	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value | instr.params[1].value;
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
-	return (free_params(&instr.params, 1));
+	return (free_params(instr, 1));
 }
 
 int xor(t_instr instr)
@@ -138,20 +138,20 @@ int xor(t_instr instr)
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x08)
 	|| instr.params[2].value > REG_NUMBER)
-		return (free_params(&instr.params, 0));
+		return (free_params(instr, 0));
 	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value ^ instr.params[1].value;
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
-	return (free_params(&instr.params, 1));
+	return (free_params(instr, 1));
 }
-
+//TODO: Check this one :
 int zjmp(t_instr instr)
 {
-	if (!compare_params(instr.params, 0x09) || instr.process->carry == 0)
-		return (0);
-	
-
+	if (instr.process->carry == 0)
+		return (decal_pc(instr.process, T_IND, 0));
+	instr.process->pc = get_address(
+		bytetoint(&instr.vm->map[instr.process->pc + 1], 2));
 	return (1);
 }
 
