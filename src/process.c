@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 11:09:08 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 14:28:14 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int			add_process(t_vm *vm, int pc, int id)
 	new->alive = 1;
 	new->pc = pc;
 	new->carry = 0;
-	new->cycles_left = 0;
+	new->cycles_left = -1;
 	bzero((void *)new->reg, sizeof(new->reg));
 	new->reg[0] = id;
 	new->next = pro;
