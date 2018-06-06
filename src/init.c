@@ -6,11 +6,16 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 10:40:58 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 10:45:14 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
+
+static int	list_length(t_champ *champ)
+{
+	return (champ ? 1 + list_length(champ->next) : 0);
+}
 
 int 		swap_ch(t_champ *fchamp, t_champ *schamp)
 {
@@ -20,18 +25,18 @@ int 		swap_ch(t_champ *fchamp, t_champ *schamp)
 		return (error_mall(0));
 	tmp->id = fchamp->id;
 	tmp->size = fchamp->size;
-	tmp->name = fchamp->name;
-	tmp->comment = fchamp->comment;
+	ft_strcpy(tmp->name, fchamp->name);
+	ft_strcpy(tmp->comment, fchamp->comment);
 	tmp->code = fchamp->code;
 	fchamp->id = schamp->id;
 	fchamp->size = schamp->size;
-	fchamp->name = schamp->name;
-	fchamp->comment = schamp->comment;
+	ft_strcpy(fchamp->name, schamp->name);
+	ft_strcpy(fchamp->comment, schamp->comment);
 	fchamp->code = schamp->code;
 	schamp->id = tmp->id;
 	schamp->size = tmp->size;
-	schamp->name = tmp->name;
-	schamp->comment = tmp->comment;
+	ft_strcpy(schamp->name, tmp->name);
+	ft_strcpy(schamp->comment, tmp->comment);
 	schamp->code = tmp->code;
 	ft_memdel((void**)&tmp);
 	return (1); 
@@ -53,7 +58,7 @@ int			sort_champs(t_vm *vm)
 
 static int 	introduce_champs(t_champ *champs)
 {
-	if (list_length(champs) > MAX_CHAMPS)
+	if (list_length(champs) > MAX_PLAYERS)
 	{
 		ft_dprintf(2, "Too much champs loaded\n");
 		return (0);
@@ -66,11 +71,6 @@ static int 	introduce_champs(t_champ *champs)
 		champs = champs->next;
 	}
 	return (1);
-}
-
-static int	list_length(t_champ *champ)
-{
-	return (champ ? 1 + list_length(champ->next) : 0);
 }
 
 static int	load_champs(t_vm *vm, int index)

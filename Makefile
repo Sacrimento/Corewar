@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+         #
+#    By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/25 17:38:12 by abouvero          #+#    #+#              #
-#    Updated: 2018/06/01 17:16:42 by mfonteni         ###   ########.fr        #
+#    Updated: 2018/06/06 10:50:00 by abouvero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,8 +19,8 @@ SRC_NAME = main.c \
 	   init_champs.c \
 	   init.c \
 	   process.c \
-	   option.c \
-	   instr_params.c \
+	   option.c
+	   #instr_params.c \
 	   instructions.c \
 	   getters.c
 OBJ_NAME = $(SRC_NAME:.c=.o)

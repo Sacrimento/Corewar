@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/06 10:41:19 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 10:47:43 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,7 @@ t_champ					*get_champ_by_num(t_champ *list, unsigned int num);
 
 //process.c
 int						add_process(t_vm *vm, int pc, int id);
-void					search_and_destroy_process(t_vm *vm);
-int						check_processes(t_process *pro);
+void					check_process(t_vm *vm);
 
 //option.c
 int						opt(char **av, int ac, int *i, t_vm *vm);

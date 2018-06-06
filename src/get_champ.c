@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 10:35:19 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/01 17:45:22 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 10:51:28 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,7 @@ int				fill_id_champs(t_vm *vm)
 			ch->id = i++;
 		ch = ch->next;
 	}
-	//return (sort_champs(vm));
-	return (1);
+	return (sort_champs(vm));
 }
 
 static int		get_b_size(unsigned char *b_size)

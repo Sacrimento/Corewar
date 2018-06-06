@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 10:40:01 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 10:47:55 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int			run(t_vm *vm)
 			return (mem_dump(vm->map));
 		if (!(vm->cycle % ctd) && vm->cycle)
 		{
-			search_and_destroy_process(vm);
+			check_process(vm);
 			if (++check == MAX_CHECKS || vm->lives >= NBR_LIVE)
 			{
 				vm->lives = 0;
