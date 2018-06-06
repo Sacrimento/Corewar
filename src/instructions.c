@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/06 14:58:44 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/06 15:45:52 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,8 +164,9 @@ int ldi(t_instr instr)
 		return (free_params(instr, 0));
 	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
-	= instr.params[0].value + instr.params[1].value;
-	
+	= instr.vm->map[get_address((instr.process->pc
+	+ (instr.params[0].value + instr.params[1].value)) % IDX_MOD)];
+	return (free_params(instr, 1));
 }
 
 int		lld(t_instr instr)
@@ -173,14 +174,13 @@ int		lld(t_instr instr)
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x0d)
 	|| instr.params[1].value > REG_NUMBER)
-		return (0);
+		return (free_params(instr, 0));
 	if (instr.params[0].type == T_DIR)
 		instr.process->reg[instr.params[1].value] = instr.params[0].value;
 	else
 		instr.process->reg[instr.params[1].value]
-		= bytetoint(&instr.vm->map[(instr.process->pc
-		+ instr.params[0].value) % MEM_SIZE], T_DIR);
+		= bytetoint(&instr.vm->map
+		[get_address(instr.process->pc + instr.params[0].value)], T_DIR);
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
-	return (1);
+	return (free_params(instr, 1));
 }
-
