@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process.c                                          :+:      :+:    :+:   */
+/*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/03 17:13:30 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 10:24:43 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,14 @@ int			run(t_vm *vm)
 
 	check = 0;
 	ctd = CYCLE_TO_DIE;
-	while (check_process(vm->process))
+	while (vm->processes_nbr)
 	{
 		if (vm->dump != -1 && vm->cycle == vm->dump - 1)
 			return (mem_dump(vm->map));
 		if (!(vm->cycle % ctd) && vm->cycle)
 		{
 			search_and_destroy_process(vm);
-			if (++check == MAX_CHECK || vm->lives >= NBR_LIVE)
+			if (++check == MAX_CHECKS || vm->lives >= NBR_LIVE)
 			{
 				vm->lives = 0;
 				check = 0;
