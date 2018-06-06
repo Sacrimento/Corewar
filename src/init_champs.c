@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 10:55:01 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 11:05:26 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static int		check_header(t_champ *champs, char *file)
 	}
 	if (!*champs->comment)
 	{
-		ft_dprintf(2, "Invalid header in \"%s\" : uncommented champion\n", file);
+		ft_dprintf(2, "Invalid header in \"%s\" : uncommented champion\n"\
+																	, file);
 		return (0);
 	}
 	return (1);

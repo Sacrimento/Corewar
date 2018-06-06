@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/06 10:54:36 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 11:14:32 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,11 @@ void					check_process(t_vm *vm);
 
 //option.c
 int						opt(char **av, int ac, int *i, t_vm *vm);
+
+//init_tools.c
+int						known_opt(char *opt);
+int						check_inputs(void);
+int						list_length(t_champ *champ);
 
 //instr_params.c
 t_param					*decode_param_type(unsigned char ocp);

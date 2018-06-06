@@ -6,7 +6,7 @@
 #    By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/25 17:38:12 by abouvero          #+#    #+#              #
-#    Updated: 2018/06/06 10:50:00 by abouvero         ###   ########.fr        #
+#    Updated: 2018/06/06 11:15:09 by abouvero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,8 @@ SRC_NAME = main.c \
 	   init_champs.c \
 	   init.c \
 	   process.c \
-	   option.c
+	   option.c \
+	   init_tools.c
 	   #instr_params.c \
 	   instructions.c \
 	   getters.c

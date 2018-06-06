@@ -6,18 +6,13 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 10:45:14 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 11:13:20 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-static int	list_length(t_champ *champ)
-{
-	return (champ ? 1 + list_length(champ->next) : 0);
-}
-
-int 		swap_ch(t_champ *fchamp, t_champ *schamp)
+int			swap_ch(t_champ *fchamp, t_champ *schamp)
 {
 	t_champ	*tmp;
 
@@ -39,7 +34,7 @@ int 		swap_ch(t_champ *fchamp, t_champ *schamp)
 	ft_strcpy(schamp->comment, tmp->comment);
 	schamp->code = tmp->code;
 	ft_memdel((void**)&tmp);
-	return (1); 
+	return (1);
 }
 
 int			sort_champs(t_vm *vm)
@@ -47,7 +42,7 @@ int			sort_champs(t_vm *vm)
 	t_champ *ch;
 
 	ch = vm->champ;
-	while  (ch->next)
+	while (ch->next)
 	{
 		if (ch->id > ch->next->id)
 			swap_ch(ch, ch->next);
@@ -56,7 +51,7 @@ int			sort_champs(t_vm *vm)
 	return (1);
 }
 
-static int 	introduce_champs(t_champ *champs)
+static int	introduce_champs(t_champ *champs)
 {
 	if (list_length(champs) > MAX_PLAYERS)
 	{

@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 17:17:57 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/01 15:58:36 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 11:12:11 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,6 @@ static int	ft_satoi(char *str, char *opt)
 	if (str[i])
 		return (incorrect_arg(opt, str, 2));
 	return (!final ? incorrect_arg(opt, str, 1) : (int)final);
-}
-
-static int	known_opt(char *opt)
-{
-	if (!ft_strcmp(opt, "-n") || !ft_strcmp(opt, "-dump"))
-		return (1);
-	return (0);
 }
 
 static int	is_opt(char *opt, char *nbr, t_vm *vm, int *ch_num)

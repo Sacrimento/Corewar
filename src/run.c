@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 10:47:55 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 11:08:53 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static int	mem_dump(unsigned char *map)
 	return (1);
 }
 
-static void	exec_processes(t_process *process)
+static void	exec_processes(t_process *process, t_vm *vm)
 {
 	if (!process)
 		return ;
@@ -37,7 +37,7 @@ static void	exec_processes(t_process *process)
 		if (process->cycles_left)
 			process->cycles_left--;
 		else
-			exec_process(process);
+			exec_process(process, vm);
 		process = process->next;
 	}
 }
@@ -63,7 +63,7 @@ int			run(t_vm *vm)
 				ctd -= CYCLE_DELTA;
 			}
 		}
-		exec_processes(vm->processes);
+		exec_processes(vm->processes, vm);
 		vm->cycle++;
 	}
 	return (1);
