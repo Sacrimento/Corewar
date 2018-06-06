@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/05 16:57:37 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/06 12:34:37 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct			s_process
 typedef struct			s_vm
 {
 	unsigned int		lives;
-	int 				last;
+	t_champ				*last;
 	int					dump;
 	int					processes_nbr;
 	int					cycle;
@@ -95,18 +95,22 @@ int						usage(int ret);
 t_champ					*error_file(char *str, char *file, t_champ *champ);
 int						error_mall(int err);
 int 					illegal_opt(char *opt, int ret);
-int						check_num(t_champ *ch, int num, int env);
+int						check_num(t_champ *ch, int num);
 
 //getters.c
 t_champ					*get_champ_by_num(t_champ *list, unsigned int num);
 
 //process.c
 int						add_process(t_vm *vm, int pc, int id);
-void					search_and_destroy_process(t_vm *vm);
-int						check_processes(t_process *pro);
+void					check_process(t_vm *vm);
 
 //option.c
 int						opt(char **av, int ac, int *i, t_vm *vm);
+
+//init_tools.c
+int						known_opt(char *opt);
+int						check_inputs(void);
+int						list_length(t_champ *champ);
 
 //instr_params.c
 t_param					*decode_param_type(unsigned char ocp);

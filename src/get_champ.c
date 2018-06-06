@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 10:35:19 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/01 17:45:22 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 11:04:18 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,13 @@ int				fill_id_champs(t_vm *vm)
 	i = 1;
 	while (ch)
 	{
-		while (!check_num(vm->champ, i, 0))
+		while (!check_num(vm->champ, i))
 			i++;
 		if (!ch->id)
 			ch->id = i++;
 		ch = ch->next;
 	}
-	//return (sort_champs(vm));
-	return (1);
+	return (sort_champs(vm));
 }
 
 static int		get_b_size(unsigned char *b_size)
@@ -86,8 +85,8 @@ t_champ			*parse_champ(char *file_name, t_champ *champ)
 		return (error_file("Invalid header in \"%s\"\n", file_name, champ));
 	if (champ->size > CHAMP_MAX_SIZE)
 	{
-		ft_dprintf(2, "File \"%s\" is too large : %d bytes instead of %d bytes.\n"\
-						, file_name, champ->size, CHAMP_MAX_SIZE);
+		ft_dprintf(2, "File \"%s\" is too large : %d bytes instead of\
+%d bytes.\n", file_name, champ->size, CHAMP_MAX_SIZE);
 		return (rec_free_champs(champ));
 	}
 	if (!(champ->code = (unsigned char *)ft_memalloc(sizeof(char) * \

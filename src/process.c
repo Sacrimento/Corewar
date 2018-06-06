@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/01 13:13:30 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 11:09:08 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,16 @@ static void	del_process(t_vm *vm, t_process *del)
 	t_process	*prev;
 	t_process	*curr;
 
-	curr = vm->process;
+	curr = vm->processes;
 	prev = curr;
 	if (!curr)
 		return ;
 	vm->processes_nbr--;
 	if (curr == del)
 	{
-		vm->process = beg->next;
+		vm->processes = del->next;
 		ft_memdel((void**)&del);
+		return ;
 	}
 	curr = curr->next;
 	while (curr)
@@ -40,24 +41,11 @@ static void	del_process(t_vm *vm, t_process *del)
 	}
 }
 
-int			check_processes(t_process *pro)
-{
-	if (!pro)
-		return (0);
-	while (pro)
-	{
-		if (pro->alive)
-			return (1);
-		pro = pro->next;
-	}
-	return (0);
-}
-
-void		search_and_destroy_process(t_vm *vm)
+void		check_process(t_vm *vm)
 {
 	t_process *process;
 
-	process = vm->process;
+	process = vm->processes;
 	if (!process)
 		return ;
 	while (process)
