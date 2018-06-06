@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/01 14:37:51 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 10:40:58 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,7 @@ t_vm		*init_vm(int argc, char **argv)
 		error_mall(0);
 		return (NULL);
 	}
+	vm->last = NULL;
 	vm->lives = 0;
 	vm->processes_nbr = 0;
 	vm->dump = -1;

@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 10:24:43 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 10:40:01 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			run(t_vm *vm)
 	ctd = CYCLE_TO_DIE;
 	while (vm->processes_nbr)
 	{
-		if (vm->dump != -1 && vm->cycle == vm->dump - 1)
+		if (vm->dump != -1 && vm->cycle == vm->dump)
 			return (mem_dump(vm->map));
 		if (!(vm->cycle % ctd) && vm->cycle)
 		{
