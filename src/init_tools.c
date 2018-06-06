@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 11:12:03 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 11:15:43 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 12:30:16 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,19 @@ int		known_opt(char *opt)
 
 int		check_inputs(void)
 {
-	if (0)
+	int		err;
+
+	err = 1;
+	if (MAX_PLAYERS < 1 || MEM_SIZE < 1 || CHAMP_MAX_SIZE < 1)
+		err = 0;
+	if (CYCLE_TO_DIE < 1 || CYCLE_DELTA < 1 || NBR_LIVE < 1
+											|| MAX_CHECKS < 1)
+		err = 0;
+	if (PROG_NAME_LENGTH < 1 || COMMENT_LENGTH < 1)
+		err = 0;
+	if (!err)
 		ft_dprintf(2, "Invalid values in \"op.h\"\n");
-	return (1);
+	return (err);
 }
 
 int		list_length(t_champ *champ)
