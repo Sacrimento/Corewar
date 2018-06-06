@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/06 15:45:52 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/06 15:47:59 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,11 @@ int ldi(t_instr instr)
 	= instr.vm->map[get_address((instr.process->pc
 	+ (instr.params[0].value + instr.params[1].value)) % IDX_MOD)];
 	return (free_params(instr, 1));
+}
+
+int sti(t_instr instr)
+{
+	
 }
 
 int		lld(t_instr instr)
