@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 10:35:19 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 10:51:28 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 10:54:45 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int				fill_id_champs(t_vm *vm)
 	i = 1;
 	while (ch)
 	{
-		while (!check_num(vm->champ, i, 0))
+		while (!check_num(vm->champ, i))
 			i++;
 		if (!ch->id)
 			ch->id = i++;

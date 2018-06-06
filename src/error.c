@@ -6,25 +6,18 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/01 18:16:28 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 10:54:29 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-int		check_num(t_champ *ch, int num, int env)
+int		check_num(t_champ *ch, int num)
 {
 	if (num == 0)
 		return (1);
 	while (ch)
 	{
-		while (ch->id == 0 && env)
-		{
-			if (ch->next)
-				ch = ch->next;
-			else
-				break ;
-		}
 		if (ch->id == num)
 			return (0);
 		ch = ch->next;

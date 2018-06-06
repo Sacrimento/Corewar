@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/01 17:45:05 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 10:55:01 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static t_champ	*champs_push(t_champ *champ, char *file, int num)
 	}
 	if (!(new = fill_new_champ(new, file)))
 		return (rec_free_champs(champ));
-	if (!check_num(champ, num, 1))
+	if (!check_num(champ, num))
 	{
 		ft_dprintf(2, "\"%s\" : %d already taken\n", file, num);
 		return (rec_free_champs(champ));
@@ -105,5 +105,4 @@ int				init_champs(int ac, char **av, t_vm *vm)
 			return (0);
 	}
 	return (fill_id_champs(vm));
-	//return (1);
 }

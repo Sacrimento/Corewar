@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/06 10:47:43 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 10:54:36 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int						usage(int ret);
 t_champ					*error_file(char *str, char *file, t_champ *champ);
 int						error_mall(int err);
 int 					illegal_opt(char *opt, int ret);
-int						check_num(t_champ *ch, int num, int env);
+int						check_num(t_champ *ch, int num);
 
 //getters.c
 t_champ					*get_champ_by_num(t_champ *list, unsigned int num);
