@@ -6,16 +6,14 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 15:46:08 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/06 18:11:38 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-static void	init_instr_tab(void)
+static void	init_instr_tab(int (*instr_tab[16])(t_instr))
 {
-	int (*instr_tab[16])(t_instr);
-
 	instr_tab[0] = live;
 	instr_tab[1] = ld;
 	instr_tab[2] = st;
@@ -32,10 +30,9 @@ static void	init_instr_tab(void)
 	//instr_tab[13] = lldi;
 	//instr_tab[14] = lfork;
 	//instr_tab[15] = aff;
-	return (instr_tab);
 }
 
-static int	exec_process(t_process *process, t_vm *vm)
+static int	exec_process(t_process *process, t_vm *vm, int (*instr_tab[16])(t_instr))
 {
 	unsigned char	opc;
 	t_instr			instr;
@@ -48,7 +45,7 @@ static int	exec_process(t_process *process, t_vm *vm)
 		process->cycles_left = g_op_tab[opc - 1].nb_cycle;
 		return (0);
 	}
-	//instr_tab[opc](instr);
+	instr_tab[opc](instr);
 	return (1);
 }
 
@@ -68,7 +65,7 @@ static int	mem_dump(unsigned char *map)
 	return (1);
 }
 
-static void	exec_processes(t_process *process, t_vm *vm)
+static void	exec_processes(t_process *process, t_vm *vm, int (*instr_tab[16])(t_instr))
 {
 	if (!process)
 		return ;
@@ -77,7 +74,7 @@ static void	exec_processes(t_process *process, t_vm *vm)
 		if (process->cycles_left > 0)
 			process->cycles_left--;
 		else
-			exec_process(process, vm);
+			exec_process(process, vm, instr_tab);
 		process = process->next;
 	}
 }
@@ -86,10 +83,10 @@ int			run(t_vm *vm)
 {
 	int		ctd;
 	int		check;
-	// int		(*instr_tab[16])(t_instr);
+	int		(*instr_tab[16])(t_instr);
 
 	check = 0;
-	// instr_tab = init_instr_tab();
+	init_instr_tab(instr_tab);
 	ctd = CYCLE_TO_DIE;
 	while (vm->processes_nbr)
 	{
@@ -105,7 +102,7 @@ int			run(t_vm *vm)
 				ctd -= CYCLE_DELTA;
 			}
 		}
-		exec_processes(vm->processes, vm/*, instr_tab*/);
+		exec_processes(vm->processes, vm, instr_tab);
 		vm->cycle++;
 	}
 	return (1);
