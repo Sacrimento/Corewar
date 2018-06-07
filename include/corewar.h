@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/06 18:07:25 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/07 12:41:02 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ void					convert_params_start(t_instr instr, int start,
 int						get_address(int value);
 int						live(t_instr instr);
 int						ld(t_instr instr);
-int						lld(t_instr instr);
 int						st(t_instr instr);
 int						add(t_instr instr);
 int						sub(t_instr instr);
@@ -143,7 +142,11 @@ int						or(t_instr instr);
 int						xor(t_instr instr);
 int						zjmp(t_instr instr);
 int						ldi(t_instr instr);
-
-
+int						sti(t_instr instr);
+int						core_fork(t_instr instr);
+int						lld(t_instr instr);
+int						lldi(t_instr instr);
+int						core_lfork(t_instr instr);
+int						aff(t_instr instr);
 
 #endif

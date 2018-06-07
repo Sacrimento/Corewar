@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/06 18:24:35 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/07 12:51:59 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 #include "../include/corewar.h"
 
-int		live(t_instr instr)
+int	live(t_instr instr)
 {
 	t_champ *thischamp;
 
@@ -44,7 +44,7 @@ int		live(t_instr instr)
 	return (decal_pc(instr.process, T_DIR, 1));
 }
 
-int		ld(t_instr instr)
+int	ld(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x02)
@@ -61,7 +61,7 @@ int		ld(t_instr instr)
 	return (free_params(instr, 1));
 }
 
-int		st(t_instr instr)
+int	st(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x03)
@@ -80,7 +80,7 @@ int		st(t_instr instr)
 	return (free_params(instr, 1));
 }
 
-int add(t_instr instr)
+int	add(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x04)
@@ -94,7 +94,7 @@ int add(t_instr instr)
 	return (free_params(instr, 1));
 }
 
-int sub(t_instr instr)
+int	sub(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x05)
@@ -108,7 +108,7 @@ int sub(t_instr instr)
 	return (free_params(instr, 1));
 }
 
-int and(t_instr instr)
+int	and(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x06)
@@ -121,7 +121,7 @@ int and(t_instr instr)
 	return (free_params(instr, 1));
 }
 
-int or(t_instr instr)
+int	or(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x07)
@@ -134,7 +134,7 @@ int or(t_instr instr)
 	return (free_params(instr, 1));
 }
 
-int xor(t_instr instr)
+int	xor(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x08)
@@ -147,7 +147,7 @@ int xor(t_instr instr)
 	return (free_params(instr, 1));
 }
 //TODO: Check this one :
-int zjmp(t_instr instr)
+int	zjmp(t_instr instr)
 {
 	if (instr.process->carry == 0)
 		return (decal_pc(instr.process, T_IND, 0));
@@ -156,7 +156,7 @@ int zjmp(t_instr instr)
 	return (1);
 }
 
-int ldi(t_instr instr)
+int	ldi(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x0a)
@@ -166,10 +166,11 @@ int ldi(t_instr instr)
 	instr.process->reg[instr.params[2].value]
 	= instr.vm->map[get_address((instr.process->pc
 	+ (instr.params[0].value + instr.params[1].value)) % IDX_MOD)];
+	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
 	return (free_params(instr, 1));
 }
 
-int sti(t_instr instr)
+int	sti(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x0b)
@@ -178,10 +179,16 @@ int sti(t_instr instr)
 	convert_params_start(instr, 1, 3);
 	inttobytes(instr.process->reg[instr.params[0].value],
 	&instr.vm->map[get_address(instr.params[1].value + instr.params[2].value)]);
+	instr.process->carry = instr.process->reg[instr.params[0].value] == 0;
 	return (free_params(instr, 1));
 }
 
-int		lld(t_instr instr)
+int	core_fork(t_instr instr)
+{
+	
+}
+
+int	lld(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x0d)
@@ -195,4 +202,27 @@ int		lld(t_instr instr)
 		[get_address(instr.process->pc + instr.params[0].value)], T_DIR);
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(instr, 1));
+}
+
+int	lldi(t_instr instr)
+{
+	instr.params = get_params(instr.vm, instr.process);
+	if (!compare_params(instr.params, 0x0e)
+	|| instr.params[2].value > REG_NUMBER)
+		return (free_params(instr, 0));
+	convert_params_unrestrained(instr, 2);
+	instr.process->reg[instr.params[2].value]
+	= instr.vm->map[get_address(instr.process->pc
+	+ (instr.params[0].value + instr.params[1].value))];
+	return (free_params(instr, 1));
+}
+
+int	core_lfork(t_instr instr)
+{
+	
+}
+
+int aff(t_instr instr)
+{
+	
 }
