@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/07 17:22:39 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/07 17:29:05 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_param			*get_params(t_vm *vm, t_process *process)
 	while (++i < 3 && parameters[i].type != 0)
 	{
 		parameters[i].value =
-		bytetoint(&vm->map[cursor % MEM_SIZE], parameters[i].type);
+		bytetoint(vm->map, cursor, parameters[i].type);
 		cursor += parameters[i].type;
 	}
 	process->pc = cursor;

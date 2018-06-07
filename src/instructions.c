@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/07 17:21:44 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/07 17:43:17 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	live(t_instr instr)
 
 	if (!instr.vm || !instr.vm->champ
 	|| !(thischamp = get_champ_by_num(instr.vm->champ,
-	bytetoint(&instr.vm->map[(instr.process->pc + 1) % MEM_SIZE], 4))))
+	bytetoint(instr.vm->map, instr.process->pc + 1, 4))))
 		return (decal_pc(instr.process, T_DIR, 0));
 	thischamp->lives++;
 	instr.process->alive++;
@@ -54,8 +54,8 @@ int	ld(t_instr instr)
 		instr.process->reg[instr.params[1].value] = instr.params[0].value;
 	else
 		instr.process->reg[instr.params[1].value]
-		= bytetoint(&instr.vm->map
-		[get_address(instr.process->pc + (instr.params[0].value % IDX_MOD))],
+		= bytetoint(instr.vm->map,
+		get_address(instr.process->pc + (instr.params[0].value % IDX_MOD)),
 		T_DIR);
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(instr, 1));
@@ -151,7 +151,7 @@ int	zjmp(t_instr instr)
 	if (instr.process->carry == 0)
 		return (decal_pc(instr.process, T_IND, 0));
 	instr.process->pc = get_address(
-		bytetoint(&instr.vm->map[(instr.process->pc + 1) % MEM_SIZE], 2));
+		bytetoint(instr.vm->map, instr.process->pc + 1, 2));
 	return (1);
 }
 
@@ -188,7 +188,7 @@ int	core_fork(t_instr instr)
 
 	i = -1;
 	add_process(instr.vm, get_address(instr.process->pc +
-	bytetoint(&instr.vm->map[(instr.process->pc + 1) % MEM_SIZE], 2) % IDX_MOD),
+	(bytetoint(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD)),
 	instr.process->reg[1]);
 	instr.vm->processes->carry = instr.process->carry;
 	instr.vm->processes->alive = instr.process->alive;
@@ -206,8 +206,8 @@ int	lld(t_instr instr)
 		instr.process->reg[instr.params[1].value] = instr.params[0].value;
 	else
 		instr.process->reg[instr.params[1].value]
-		= bytetoint(&instr.vm->map
-		[get_address(instr.process->pc + instr.params[0].value)], T_DIR);
+		= bytetoint(instr.vm->map,
+		get_address(instr.process->pc + instr.params[0].value), T_DIR);
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(instr, 1));
 }
@@ -231,7 +231,7 @@ int	core_lfork(t_instr instr)
 
 	i = -1;
 	add_process(instr.vm, get_address(instr.process->pc +
-	bytetoint(&instr.vm->map[(instr.process->pc + 1) % MEM_SIZE], 2)),
+	bytetoint(instr.vm->map, instr.process->pc + 1, 2)),
 	instr.process->reg[1]);
 	instr.vm->processes->carry = instr.process->carry;
 	instr.vm->processes->alive = instr.process->alive;
