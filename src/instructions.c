@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/07 17:58:12 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/07 18:06:30 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,5 +243,13 @@ int	core_lfork(t_instr instr)
 
 int	aff(t_instr instr)
 {
-	
+	instr.params = get_params(instr.vm, instr.process);
+	if (!compare_params(instr.params, 0x10)
+	|| instr.params[0].value > REG_NUMBER)
+		return (free_params(instr, 0));
+	ft_printf("{CYAN}[%d] - %s:%c{EOC}\n", instr.process->reg[1],
+	get_champ_by_num(instr.vm->champ, instr.process->reg[1]),
+	instr.process->reg[instr.params[0].value]);
+	instr.process->carry = instr.process->reg[instr.params[0].value] == 0;
+	free_params(instr, 1);
 }
