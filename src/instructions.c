@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/07 12:51:59 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/07 13:20:50 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	live(t_instr instr)
 
 	if (!instr.vm || !instr.vm->champ
 	|| !(thischamp = get_champ_by_num(instr.vm->champ,
-	bytetoint(&instr.vm->map[instr.process->pc + 1], 4))))
+	bytetoint(&instr.vm->map[(instr.process->pc + 1) % MEM_SIZE], 4))))
 		return (decal_pc(instr.process, T_DIR, 0));
 	thischamp->lives++;
 	instr.process->alive++;
@@ -60,7 +60,7 @@ int	ld(t_instr instr)
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(instr, 1));
 }
-
+// TODO: fix this !
 int	st(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
@@ -185,7 +185,9 @@ int	sti(t_instr instr)
 
 int	core_fork(t_instr instr)
 {
-	
+	bytetoint()
+	add_process(instr.vm, pc, instr.process->reg[1]);
+
 }
 
 int	lld(t_instr instr)
