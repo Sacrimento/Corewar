@@ -12,27 +12,27 @@
 
 #include "../include/corewar.h"
 
-static void	init_instr_tab(int (*instr_tab[16])(t_instr))
+static void	init_instr_tab(t_vm *vm)
 {
-	instr_tab[0] = live;
-	instr_tab[1] = ld;
-	instr_tab[2] = st;
-	instr_tab[3] = add;
-	instr_tab[4] = sub;
-	instr_tab[5] = and;
-	instr_tab[6] = or;
-	instr_tab[7] = xor;
-	instr_tab[8] = zjmp;
-	instr_tab[9] = ldi;
-	//instr_tab[10] = sti;
-	//instr_tab[11] = fork;
-	instr_tab[12] = lld;
-	//instr_tab[13] = lldi;
-	//instr_tab[14] = lfork;
-	//instr_tab[15] = aff;
+	vm->instr_tab[0] = live;
+	vm->instr_tab[1] = ld;
+	vm->instr_tab[2] = st;
+	vm->instr_tab[3] = add;
+	vm->instr_tab[4] = sub;
+	vm->instr_tab[5] = and;
+	vm->instr_tab[6] = or;
+	vm->instr_tab[7] = xor;
+	vm->instr_tab[8] = zjmp;
+	vm->instr_tab[9] = ldi;
+	//vm->instr_tab[10] = sti;
+	//vm->instr_tab[11] = fork;
+	vm->instr_tab[12] = lld;
+	//vm->instr_tab[13] = lldi;
+	//vm->instr_tab[14] = lfork;
+	//vm->instr_tab[15] = aff;
 }
 
-static int	exec_process(t_process *process, t_vm *vm, int (*instr_tab[16])(t_instr))
+static int	exec_process(t_process *process, t_vm *vm)
 {
 	unsigned char	opc;
 	t_instr			instr;
@@ -45,7 +45,7 @@ static int	exec_process(t_process *process, t_vm *vm, int (*instr_tab[16])(t_ins
 		process->cycles_left = g_op_tab[opc - 1].nb_cycle;
 		return (0);
 	}
-	instr_tab[opc](instr);
+	vm->instr_tab[opc](instr);
 	return (1);
 }
 
@@ -65,7 +65,7 @@ static int	mem_dump(unsigned char *map)
 	return (1);
 }
 
-static void	exec_processes(t_process *process, t_vm *vm, int (*instr_tab[16])(t_instr))
+static void	exec_processes(t_process *process, t_vm *vm)
 {
 	if (!process)
 		return ;
@@ -74,7 +74,7 @@ static void	exec_processes(t_process *process, t_vm *vm, int (*instr_tab[16])(t_
 		if (process->cycles_left > 0)
 			process->cycles_left--;
 		else
-			exec_process(process, vm, instr_tab);
+			exec_process(process, vm);
 		process = process->next;
 	}
 }
@@ -83,12 +83,11 @@ int			run(t_vm *vm)
 {
 	int		ctd;
 	int		check;
-	int		(*instr_tab[16])(t_instr);
 
 	check = 0;
-	init_instr_tab(instr_tab);
+	init_instr_tab(vm);
 	ctd = CYCLE_TO_DIE;
-	while (vm->processes_nbr)
+	while (vm->processes_nbr && ctd)
 	{
 		if (vm->cycle == vm->dump)
 			return (mem_dump(vm->map));

@@ -55,6 +55,7 @@ typedef struct			s_vm
 	int					processes_nbr;
 	int					cycle;
 	unsigned char		*map;
+	int 				(*instr_tab[16])(t_instr);
 	struct s_champ		*champ;
 	struct s_process	*processes;
 }						t_vm;
