@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/07 14:57:33 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/07 17:21:44 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ int	zjmp(t_instr instr)
 	if (instr.process->carry == 0)
 		return (decal_pc(instr.process, T_IND, 0));
 	instr.process->pc = get_address(
-		bytetoint(&instr.vm->map[instr.process->pc + 1], 2));
+		bytetoint(&instr.vm->map[(instr.process->pc + 1) % MEM_SIZE], 2));
 	return (1);
 }
 
@@ -184,9 +184,16 @@ int	sti(t_instr instr)
 
 int	core_fork(t_instr instr)
 {
-	bytetoint()
-	add_process(instr.vm, pc, instr.process->reg[1]);
+	int i;
 
+	i = -1;
+	add_process(instr.vm, get_address(instr.process->pc +
+	bytetoint(&instr.vm->map[(instr.process->pc + 1) % MEM_SIZE], 2) % IDX_MOD),
+	instr.process->reg[1]);
+	instr.vm->processes->carry = instr.process->carry;
+	instr.vm->processes->alive = instr.process->alive;
+	while (++i <= REG_NUMBER)
+		instr.vm->processes->reg[i] = instr.process->reg[i];
 }
 
 int	lld(t_instr instr)
@@ -220,10 +227,19 @@ int	lldi(t_instr instr)
 
 int	core_lfork(t_instr instr)
 {
-	
+	int i;
+
+	i = -1;
+	add_process(instr.vm, get_address(instr.process->pc +
+	bytetoint(&instr.vm->map[(instr.process->pc + 1) % MEM_SIZE], 2)),
+	instr.process->reg[1]);
+	instr.vm->processes->carry = instr.process->carry;
+	instr.vm->processes->alive = instr.process->alive;
+	while (++i <= REG_NUMBER)
+		instr.vm->processes->reg[i] = instr.process->reg[i];
 }
 
-int aff(t_instr instr)
+int	aff(t_instr instr)
 {
 	
 }
