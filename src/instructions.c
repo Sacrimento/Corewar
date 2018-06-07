@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/07 18:06:30 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/07 18:36:31 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@
  * OCP = Octet de Codage des Parametres
  * ***********************************************************
  * TODO: 
- * - Ask about the right thing to do with carry
- * (differences between epictech & 42 subjects)
+ * Tests, tests, tests and another tests
  * 
  *
 **/

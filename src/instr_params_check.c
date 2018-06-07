@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2018/06/06 18:07:52 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/07 18:40:34 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void convert_params(t_instr instr, int limit)
 			instr.params[i].value = instr.process->reg[instr.params[i].value];
 		else if (instr.params[i].type == T_IND)
 			instr.params[i].value =
-			bytetoint(&instr.vm->map[get_address((instr.process->pc
-			+ (instr.params[i].value % IDX_MOD)))], T_DIR);
+			bytetoint(instr.vm->map, get_address((instr.process->pc
+			+ (instr.params[i].value % IDX_MOD))), T_DIR);
 	}
 }
 
@@ -55,8 +55,8 @@ void convert_params_start(t_instr instr, int start, int limit)
 			instr.params[i].value = instr.process->reg[instr.params[i].value];
 		else if (instr.params[i].type == T_IND)
 			instr.params[i].value =
-			bytetoint(&instr.vm->map[get_address((instr.process->pc
-			+ (instr.params[i].value % IDX_MOD)))], T_DIR);
+			bytetoint(instr.vm->map, get_address((instr.process->pc
+			+ (instr.params[i].value % IDX_MOD))), T_DIR);
 	}
 }
 
@@ -73,7 +73,7 @@ void convert_params_unrestrained(t_instr instr, int limit)
 			instr.params[i].value = instr.process->reg[instr.params[i].value];
 		else if (instr.params[i].type == T_IND)
 			instr.params[i].value =
-			bytetoint(&instr.vm->map[get_address((instr.process->pc
-			+ instr.params[i].value))], T_DIR);
+			bytetoint(instr.vm->map, get_address((instr.process->pc
+			+ instr.params[i].value)), T_DIR);
 	}
 }
