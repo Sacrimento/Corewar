@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/07 17:44:05 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/07 17:55:12 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,16 @@ int get_address(int value)
 
 int	inttobytes(int n, int cursor, unsigned char *map)
 {
+	int decal;
+
 	if (!map)
 		return (0);
-	map[0] = (n >> 24) & 0xFF;
-	map[1] = (n >> 16) & 0xFF;
-	map[2] = (n >> 8) & 0xFF;
-	map[3] = n & 0xFF;
+	decal = -1;
+	while (++decal < 4)
+		map[(cursor + decal) % MEM_SIZE] = (n >> (24 - (decal * 8))) & 0xFF;
+/* 	map[cursor % MEM_SIZE] = (n >> 24) & 0xFF;
+	map[(cursor + 1) % MEM_SIZE] = (n >> 16) & 0xFF;
+	map[(cursor + 2) % MEM_SIZE] = (n >> 8) & 0xFF;
+	map[(cursor + 3) % MEM_SIZE] = n & 0xFF; */
 	return (1);
 }
