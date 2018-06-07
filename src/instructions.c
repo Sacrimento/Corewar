@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/07 13:20:50 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/07 14:57:33 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ld(t_instr instr)
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(instr, 1));
 }
-// TODO: fix this !
+
 int	st(t_instr instr)
 {
 	instr.params = get_params(instr.vm, instr.process);
@@ -71,9 +71,8 @@ int	st(t_instr instr)
 		instr.process->reg[instr.params[1].value]
 		= instr.process->reg[instr.params[0].value];
 	else if (instr.params[1].type == T_IND)
-		inttobytes(instr.vm->map
-		[get_address(instr.process->pc + (instr.params[1].value % IDX_MOD))],
-		instr.vm->map);
+		inttobytes(instr.process->reg[instr.params[0].value], &instr.vm->map
+		[get_address(instr.process->pc + (instr.params[1].value % IDX_MOD))]);
 	else
 		return (free_params(instr, 0));
 	instr.process->carry = instr.params[0].value == 0;
