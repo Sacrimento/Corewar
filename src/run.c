@@ -24,12 +24,12 @@ static void	init_instr_tab(t_vm *vm)
 	vm->instr_tab[7] = xor;
 	vm->instr_tab[8] = zjmp;
 	vm->instr_tab[9] = ldi;
-	//vm->instr_tab[10] = sti;
-	//vm->instr_tab[11] = fork;
+	vm->instr_tab[10] = sti;
+	vm->instr_tab[11] = core_fork;
 	vm->instr_tab[12] = lld;
-	//vm->instr_tab[13] = lldi;
-	//vm->instr_tab[14] = lfork;
-	//vm->instr_tab[15] = aff;
+	vm->instr_tab[13] = lldi;
+	vm->instr_tab[14] = core_lfork;
+	vm->instr_tab[15] = aff;
 }
 
 static int	exec_process(t_process *process, t_vm *vm)
@@ -87,7 +87,7 @@ int			run(t_vm *vm)
 	check = 0;
 	init_instr_tab(vm);
 	ctd = CYCLE_TO_DIE;
-	while (vm->processes_nbr && ctd)
+	while (vm->processes_nbr && ctd > 0)
 	{
 		if (vm->cycle == vm->dump)
 			return (mem_dump(vm->map));
