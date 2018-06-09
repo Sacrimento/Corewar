@@ -45,7 +45,7 @@ static int	exec_process(t_process *process, t_vm *vm)
 		process->cycles_left = g_op_tab[opc - 1].nb_cycle;
 		return (0);
 	}
-	vm->instr_tab[opc](instr);
+	vm->instr_tab[opc - 1](instr);
 	return (1);
 }
 
