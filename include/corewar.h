@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/10 12:15:41 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/10 15:02:15 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "../libft/includes/libft.h"
 #include "op.h"
 #include <fcntl.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 /********************DEBUG KINGDOM*********************/
 #define ERROR(message) ft_printf("{RED}%s{EOC}\n", message)
@@ -25,6 +23,9 @@
 #define INFO(message) ft_printf("{BLUE}%s{EOC}\n", message)
 #define INFONUM(message) ft_printf("{BLUE}%d{EOC}\n", message)
 /******************************************************/
+
+//REMOVE
+int	mem_dump(unsigned char *map);
 
 typedef struct			s_champ
 {

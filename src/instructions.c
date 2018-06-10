@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/10 13:34:33 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/10 14:29:04 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,7 @@ int	ldi(t_instr instr)
 
 int	sti(t_instr instr)
 {
+	mem_dump(instr.vm->map);
 	INFO("STI");
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x0b)
@@ -191,6 +192,7 @@ int	sti(t_instr instr)
 	get_address((instr.params[1].value + instr.params[2].value) % IDX_MOD),
 	instr.vm->map);
 	instr.process->carry = instr.process->reg[instr.params[0].value] == 0;
+	mem_dump(instr.vm->map);
 	return (free_params(instr, 1));
 }
 

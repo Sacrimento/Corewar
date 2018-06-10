@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/10 13:30:43 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/10 13:45:50 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ int				free_params(t_instr instr, int ret)
 		decal_pc(instr.process,
 		instr.params[0].type
 		+ instr.params[1].type
-		+ instr.params[2].type, 1);
+		+ instr.params[2].type - 1, 1);
 		free(instr.params);
 		instr.params = NULL;
 	}

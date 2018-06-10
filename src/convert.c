@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   convert.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/07 17:55:12 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/10 14:54:08 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-int	bytetoint(unsigned char *map, int cursor, int ammount_of_bytes)
+int	bytetoint(unsigned char *map, int cursor, int amount_of_bytes)
 {
 /* OLD
 	if (!map)
@@ -27,7 +27,7 @@ int	bytetoint(unsigned char *map, int cursor, int ammount_of_bytes)
 	int decal;
 	int result;
 
-	decal = (ammount_of_bytes - 1) * 8;
+	decal = (amount_of_bytes - 1) * 8;
 	result = map[cursor % MEM_SIZE] << decal;
 	while ((decal = decal - 8) >= 0)
 		result = result | map[cursor++ % MEM_SIZE] << decal;
