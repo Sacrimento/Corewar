@@ -6,7 +6,7 @@
 #    By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/25 17:38:12 by abouvero          #+#    #+#              #
-#    Updated: 2018/06/10 12:10:55 by abouvero         ###   ########.fr        #
+#    Updated: 2018/06/10 12:23:51 by abouvero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,11 @@ SRC_NAME = main.c \
 	   run.c \
 	   instr_params.c \
 	   instructions.c \
-	   getters.c
+	   getters.c \
+	   convert.c \
+	   instr_params_check.c \
+	   op.c \
+	   operators.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj
 CPPFLAGS = -Iinclude

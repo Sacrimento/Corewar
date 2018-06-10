@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/10 12:13:33 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/10 13:09:31 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ static int	exec_process(t_process *process, t_vm *vm)
 		return (decal_pc(process, 1, 0));
 	if (process->cycles_left == -1)
 	{
-		process->cycles_left = g_op_tab[opc - 1].nb_cycle;
+		process->cycles_left = g_op_tab[opc - 1].nb_cycle - 1;
 		return (0);
 	}
+	ft_printf("OCP : %d\n", opc);
 	vm->instr_tab[opc - 1](instr_params(vm, process));
 	return (1);
 }
@@ -88,6 +89,7 @@ int			run(t_vm *vm)
 	ctd = CYCLE_TO_DIE;
 	while (vm->processes_nbr && ctd > 0)
 	{
+		ft_printf("CYCLE : %d\n", vm->cycle);
 		if (vm->cycle == vm->dump)
 			return (mem_dump(vm->map));
 		if (!(vm->cycle % ctd) && vm->cycle)
