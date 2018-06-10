@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/10 13:12:32 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/10 13:30:43 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ t_param			*decode_param_type(unsigned char ocp)
 		if ((ocp >> (cursor * 2)) & 0x0000000F)
 			parameters[iterator].type = T_REG;
 		else if ((ocp >> (cursor * 2)) & 0x000000F0)
-			parameters[iterator].type = T_IND;
-		else if ((ocp >> (cursor * 2)) & 0x000000FF)
 			parameters[iterator].type = T_DIR;
+		else if ((ocp >> (cursor * 2)) & 0x000000FF)
+			parameters[iterator].type = T_IND;
 		iterator++;
 	}
 	INFONUM(ocp);

@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/10 12:30:56 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/10 13:34:33 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ int	live(t_instr instr)
 	if (!instr.vm || !instr.vm->champ
 	|| !(thischamp = get_champ_by_num(instr.vm->champ,
 	bytetoint(instr.vm->map, instr.process->pc + 1, 4))))
-		return (decal_pc(instr.process, T_DIR, 0));
+		return (decal_pc(instr.process, 4, 0));
 	thischamp->lives++;
 	instr.process->alive++;
 	instr.vm->lives++;
 	instr.vm->last = thischamp;
 	ft_printf("[%d] - {BLUE}Champion %s(id:%d) is alive{EOC}",
 		thischamp->lives, thischamp->name, thischamp->id);
-	return (decal_pc(instr.process, T_DIR, 1));
+	return (decal_pc(instr.process, 4, 1));
 }
 
 int	ld(t_instr instr)
