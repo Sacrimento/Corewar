@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   getters.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/04 12:45:43 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/10 12:15:25 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-t_champ	*get_champ_by_num(t_champ *list, unsigned int num)
+t_champ	*get_champ_by_num(t_champ *list, int num)
 {
 	t_champ *current;
 

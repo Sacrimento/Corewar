@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/07 18:36:31 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/10 12:14:49 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,6 +195,7 @@ int	core_fork(t_instr instr)
 	instr.vm->processes->alive = instr.process->alive;
 	while (++i <= REG_NUMBER)
 		instr.vm->processes->reg[i] = instr.process->reg[i];
+	return (1);
 }
 
 int	lld(t_instr instr)
@@ -238,6 +239,7 @@ int	core_lfork(t_instr instr)
 	instr.vm->processes->alive = instr.process->alive;
 	while (++i <= REG_NUMBER)
 		instr.vm->processes->reg[i] = instr.process->reg[i];
+	return (1);
 }
 
 int	aff(t_instr instr)
@@ -250,5 +252,5 @@ int	aff(t_instr instr)
 	get_champ_by_num(instr.vm->champ, instr.process->reg[1]),
 	instr.process->reg[instr.params[0].value]);
 	instr.process->carry = instr.process->reg[instr.params[0].value] == 0;
-	free_params(instr, 1);
+	return (free_params(instr, 1));
 }

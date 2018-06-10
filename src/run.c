@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 18:11:38 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/10 12:13:33 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,27 @@
 
 static void	init_instr_tab(t_vm *vm)
 {
-	vm->instr_tab[0] = live;
-	vm->instr_tab[1] = ld;
-	vm->instr_tab[2] = st;
-	vm->instr_tab[3] = add;
-	vm->instr_tab[4] = sub;
-	vm->instr_tab[5] = and;
-	vm->instr_tab[6] = or;
-	vm->instr_tab[7] = xor;
-	vm->instr_tab[8] = zjmp;
-	vm->instr_tab[9] = ldi;
-	vm->instr_tab[10] = sti;
-	vm->instr_tab[11] = core_fork;
-	vm->instr_tab[12] = lld;
-	vm->instr_tab[13] = lldi;
-	vm->instr_tab[14] = core_lfork;
-	vm->instr_tab[15] = aff;
+	vm->instr_tab[0] = &live;
+	vm->instr_tab[1] = &ld;
+	vm->instr_tab[2] = &st;
+	vm->instr_tab[3] = &add;
+	vm->instr_tab[4] = &sub;
+	vm->instr_tab[5] = &and;
+	vm->instr_tab[6] = &or;
+	vm->instr_tab[7] = &xor;
+	vm->instr_tab[8] = &zjmp;
+	vm->instr_tab[9] = &ldi;
+	vm->instr_tab[10] = &sti;
+	vm->instr_tab[11] = &core_fork;
+	vm->instr_tab[12] = &lld;
+	vm->instr_tab[13] = &lldi;
+	vm->instr_tab[14] = &core_lfork;
+	vm->instr_tab[15] = &aff;
 }
 
 static int	exec_process(t_process *process, t_vm *vm)
 {
 	unsigned char	opc;
-	t_instr			instr;
 
 	opc = vm->map[process->pc];
 	if (opc < 1 || opc > 16)
@@ -45,7 +44,7 @@ static int	exec_process(t_process *process, t_vm *vm)
 		process->cycles_left = g_op_tab[opc - 1].nb_cycle;
 		return (0);
 	}
-	vm->instr_tab[opc - 1](instr);
+	vm->instr_tab[opc - 1](instr_params(vm, process));
 	return (1);
 }
 
@@ -101,7 +100,7 @@ int			run(t_vm *vm)
 				ctd -= CYCLE_DELTA;
 			}
 		}
-		exec_processes(vm->processes, vm, instr_tab);
+		exec_processes(vm->processes, vm);
 		vm->cycle++;
 	}
 	return (1);
