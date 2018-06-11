@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/11 17:40:51 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/11 18:21:07 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,11 @@ t_param			*decode_param_type(unsigned char ocp)
 	}
 	while (++cursor < 4)
 	{
-		if ((ocp >> (cursor * 2)) & 0x0000000F)
+		if ((ocp << (cursor * 2)) & 0x0000000F)
 			parameters[iterator].type = T_REG;
-		else if ((ocp >> (cursor * 2)) & 0x000000F0)
+		else if ((ocp << (cursor * 2)) & 0x000000F0)
 			parameters[iterator].type = T_DIR;
-		else if ((ocp >> (cursor * 2)) & 0x000000FF)
+		else if ((ocp << (cursor * 2)) & 0x000000FF)
 			parameters[iterator].type = T_IND;
 		iterator++;
 	}
