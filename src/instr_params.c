@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/10 13:45:50 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/11 15:02:16 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,23 @@ int			decal_pc(t_process *process, int decal, int ret)
 
 int				free_params(t_instr instr, int ret)
 {
+	int to_decal;
+	int cursor;
+
+	cursor = -1;
+	to_decal = 0;
 	if (instr.params)
 	{
-		decal_pc(instr.process,
-		instr.params[0].type
-		+ instr.params[1].type
-		+ instr.params[2].type - 1, 1);
+		while (++cursor < 3)
+		{
+			if (instr.params[cursor].type == T_REG)
+				to_decal++;
+			else if (instr.params[cursor].type == T_IND)
+				to_decal += 2;
+			else if (instr.params[cursor].type == T_DIR)
+				to_decal += 4;
+		}
+		decal_pc(instr.process, to_decal, 1);
 		free(instr.params);
 		instr.params = NULL;
 	}

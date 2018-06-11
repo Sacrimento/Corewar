@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/11 14:49:24 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/11 14:54:08 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ int	zjmp(t_instr instr)
 {
 	INFO("ZJMP");
 	if (instr.process->carry == 0)
-		return (decal_pc(instr.process, T_IND, 0));
+		return (decal_pc(instr.process, 2, 0));
 	instr.process->pc = get_address(
 		bytetoint(instr.vm->map, instr.process->pc + 1, 2));
 	return (1);
