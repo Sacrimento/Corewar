@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/07 17:44:44 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/10 15:02:15 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@
 #include "../libft/includes/libft.h"
 #include "op.h"
 #include <fcntl.h>
-#include <sys/types.h>
-#include <unistd.h>
 
 /********************DEBUG KINGDOM*********************/
 #define ERROR(message) ft_printf("{RED}%s{EOC}\n", message)
@@ -25,6 +23,9 @@
 #define INFO(message) ft_printf("{BLUE}%s{EOC}\n", message)
 #define INFONUM(message) ft_printf("{BLUE}%d{EOC}\n", message)
 /******************************************************/
+
+//REMOVE
+int	mem_dump(unsigned char *map);
 
 typedef struct			s_champ
 {
@@ -47,6 +48,19 @@ typedef struct			s_process
 	struct s_process	*next;
 }						t_process;
 
+typedef struct			s_param
+{
+	int					value;
+	int					type;
+}						t_param;
+
+typedef struct			s_instr
+{
+	struct s_vm			*vm;
+	t_process			*process;
+	t_param				*params;
+}						t_instr;
+
 typedef struct			s_vm
 {
 	unsigned int		lives;
@@ -59,19 +73,6 @@ typedef struct			s_vm
 	struct s_champ		*champ;
 	struct s_process	*processes;
 }						t_vm;
-
-typedef struct			s_param
-{
-	int					value;
-	int					type;
-}						t_param;
-
-typedef struct			s_instr
-{
-	t_vm				*vm;
-	t_process			*process;
-	t_param				*params;
-}						t_instr;
 
 //run.c
 int 					run(t_vm *vm);
@@ -99,7 +100,7 @@ int 					illegal_opt(char *opt, int ret);
 int						check_num(t_champ *ch, int num);
 
 //getters.c
-t_champ					*get_champ_by_num(t_champ *list, unsigned int num);
+t_champ					*get_champ_by_num(t_champ *list, int num);
 
 //process.c
 int						add_process(t_vm *vm, int pc, int id);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/07 18:37:16 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/10 13:45:50 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ t_param			*decode_param_type(unsigned char ocp)
 		if ((ocp >> (cursor * 2)) & 0x0000000F)
 			parameters[iterator].type = T_REG;
 		else if ((ocp >> (cursor * 2)) & 0x000000F0)
-			parameters[iterator].type = T_IND;
-		else if ((ocp >> (cursor * 2)) & 0x000000FF)
 			parameters[iterator].type = T_DIR;
+		else if ((ocp >> (cursor * 2)) & 0x000000FF)
+			parameters[iterator].type = T_IND;
 		iterator++;
 	}
 	INFONUM(ocp);
@@ -95,7 +95,7 @@ int				free_params(t_instr instr, int ret)
 		decal_pc(instr.process,
 		instr.params[0].type
 		+ instr.params[1].type
-		+ instr.params[2].type, 1);
+		+ instr.params[2].type - 1, 1);
 		free(instr.params);
 		instr.params = NULL;
 	}
