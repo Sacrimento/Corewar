@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/10 14:29:04 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/11 14:49:24 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ int	ld(t_instr instr)
 	else
 		instr.process->reg[instr.params[1].value]
 		= bytetoint(instr.vm->map,
-		get_address(instr.process->pc + (instr.params[0].value % IDX_MOD)),
-		T_DIR);
+		get_address(instr.process->pc + (instr.params[0].value % IDX_MOD)), 4);
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(instr, 1));
 }
@@ -224,7 +223,7 @@ int	lld(t_instr instr)
 	else
 		instr.process->reg[instr.params[1].value]
 		= bytetoint(instr.vm->map,
-		get_address(instr.process->pc + instr.params[0].value), T_DIR);
+		get_address(instr.process->pc + instr.params[0].value), 4);
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(instr, 1));
 }
