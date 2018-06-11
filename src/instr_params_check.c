@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/11 17:38:11 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/11 18:37:57 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,4 +85,15 @@ void convert_params_unrestrained(t_instr instr, int limit)
 			bytetoint(instr.vm->map, get_address((instr.process->pc
 			+ instr.params[i].value)), DIR_SIZE);
 	}
+}
+
+int type_to_size(int type)
+{
+	if (type == T_DIR)
+		return (DIR_SIZE);
+	else if (type == T_IND)
+		return (IND_SIZE);
+	else if (type == T_REG)
+		return (1);
+	return (0);
 }
