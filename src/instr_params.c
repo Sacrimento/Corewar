@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/11 17:11:51 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/11 17:40:51 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ t_param			*decode_param_type(unsigned char ocp)
 	cursor = 0;
 	iterator = 0;
 	if (!(parameters = (t_param*)ft_memalloc(sizeof(t_param) * 3)))
+	{
+		ERROR("cannot malloc parameters for instructions");
 		return (NULL);
+	}
 	while (++cursor < 4)
 	{
 		if ((ocp >> (cursor * 2)) & 0x0000000F)
@@ -32,7 +35,8 @@ t_param			*decode_param_type(unsigned char ocp)
 			parameters[iterator].type = T_IND;
 		iterator++;
 	}
-	INFONUM(ocp);
+	if (parameters[0].type)
+		SUCCESS("Parameters decoded, now parsing");
 	return (parameters);
 }
 
@@ -48,7 +52,10 @@ t_param			*get_params(t_vm *vm, t_process *process)
 	if (!vm || !vm->map || !process
 	|| !(parameters = decode_param_type(vm->map[(process->pc + 1) % MEM_SIZE]))
 	|| !parameters[0].type)
+	{
+		ERROR("get_params for instructions : cannot decode param type");
 		return (NULL);
+	}
 	while (++i < 3 && parameters[i].type != 0)
 	{
 		parameters[i].value =
