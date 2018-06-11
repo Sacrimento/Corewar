@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/11 17:10:36 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/11 18:26:09 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ int	core_fork(t_instr instr)
 	instr.vm->processes->alive = instr.process->alive;
 	while (++i <= REG_NUMBER)
 		instr.vm->processes->reg[i] = instr.process->reg[i];
-	return (1);
+	return (decal_pc(instr.process, 2, 1));
 }
 
 int	lld(t_instr instr)
@@ -254,7 +254,7 @@ int	core_lfork(t_instr instr)
 	instr.vm->processes->alive = instr.process->alive;
 	while (++i <= REG_NUMBER)
 		instr.vm->processes->reg[i] = instr.process->reg[i];
-	return (1);
+	return (decal_pc(instr.process, 2, 1));
 }
 
 int	aff(t_instr instr)
