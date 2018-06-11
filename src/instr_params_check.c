@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/11 15:07:25 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/11 17:32:22 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,23 @@
 
 int compare_params(t_param *params, int opcode)
 {
-	if (params && --opcode >= 0)
-		return ((params[0].type & g_op_tab[opcode].type_param[0])
-		== g_op_tab[opcode].type_param[0]
-		&& (params[0].type & g_op_tab[opcode].type_param[1])
-		== g_op_tab[opcode].type_param[1]
-		&& (params[0].type & g_op_tab[opcode].type_param[0])
-		== g_op_tab[opcode].type_param[0]);
-	return (0);
+	int i;
+
+	i = -1;
+	if (!params || --opcode < 0 || opcode > 17)
+	{
+		INFONUM(opcode);
+		ERROR("Compare params : wrong opcode or null params");
+		return (0);
+	}
+	while (++i < 3)
+	{
+		if ((!g_op_tab[opcode].type_param[i] && params[i].type)
+		|| !((params[i].type & g_op_tab[opcode].type_param[i])
+		== g_op_tab[opcode].type_param[i]))
+			return (0);
+	}
+	return (1);
 }
 
 void convert_params(t_instr instr, int limit)
@@ -38,7 +47,7 @@ void convert_params(t_instr instr, int limit)
 		else if (instr.params[i].type == T_IND)
 			instr.params[i].value =
 			bytetoint(instr.vm->map, get_address((instr.process->pc
-			+ (instr.params[i].value % IDX_MOD))), 4);
+			+ (instr.params[i].value % IDX_MOD))), DIR_SIZE);
 	}
 }
 
@@ -56,7 +65,7 @@ void convert_params_start(t_instr instr, int start, int limit)
 		else if (instr.params[i].type == T_IND)
 			instr.params[i].value =
 			bytetoint(instr.vm->map, get_address((instr.process->pc
-			+ (instr.params[i].value % IDX_MOD))), 4);
+			+ (instr.params[i].value % IDX_MOD))), DIR_SIZE);
 	}
 }
 
@@ -74,6 +83,6 @@ void convert_params_unrestrained(t_instr instr, int limit)
 		else if (instr.params[i].type == T_IND)
 			instr.params[i].value =
 			bytetoint(instr.vm->map, get_address((instr.process->pc
-			+ instr.params[i].value)), 4);
+			+ instr.params[i].value)), DIR_SIZE);
 	}
 }

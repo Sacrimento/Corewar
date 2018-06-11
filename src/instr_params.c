@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/11 15:04:43 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/11 17:11:51 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ int				free_params(t_instr instr, int ret)
 
 	cursor = -1;
 	to_decal = 0;
+	if (!ret)
+		ERROR("INSTRUCTION FAILED");
 	if (instr.params)
 	{
 		while (++cursor < 3)
@@ -90,9 +92,9 @@ int				free_params(t_instr instr, int ret)
 			if (instr.params[cursor].type == T_REG)
 				to_decal++;
 			else if (instr.params[cursor].type == T_IND)
-				to_decal += 2;
+				to_decal += IND_SIZE;
 			else if (instr.params[cursor].type == T_DIR)
-				to_decal += 4;
+				to_decal += DIR_SIZE;
 		}
 		decal_pc(instr.process, to_decal, 1);
 		free(instr.params);

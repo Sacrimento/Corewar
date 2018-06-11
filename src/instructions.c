@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/11 14:54:08 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/11 17:10:36 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@
  * ***********************************************************
  * TODO: 
  * Tests, tests, tests and another tests
- * 
- *
 **/
 
 #include "../include/corewar.h"
@@ -78,6 +76,7 @@ int	st(t_instr instr)
 	else
 		return (free_params(instr, 0));
 	instr.process->carry = instr.params[0].value == 0;
+	SUCCESS("ST SUCCESS");
 	return (free_params(instr, 1));
 }
 
@@ -263,10 +262,11 @@ int	aff(t_instr instr)
 	INFO("AFF");
 	instr.params = get_params(instr.vm, instr.process);
 	if (!compare_params(instr.params, 0x10)
-	|| instr.params[0].value > REG_NUMBER)
+	|| instr.params[0].value > REG_NUMBER
+	|| !get_champ_by_num(instr.vm->champ, instr.process->reg[1]))
 		return (free_params(instr, 0));
 	ft_printf("{CYAN}[%d] - %s:%c{EOC}\n", instr.process->reg[1],
-	get_champ_by_num(instr.vm->champ, instr.process->reg[1]),
+	get_champ_by_num(instr.vm->champ, instr.process->reg[1])->name,
 	instr.process->reg[instr.params[0].value]);
 	instr.process->carry = instr.process->reg[instr.params[0].value] == 0;
 	return (free_params(instr, 1));
