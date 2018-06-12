@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:32:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/10 14:46:51 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/12 12:15:25 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ int				init_champs(int ac, char **av, t_vm *vm)
 			if ((num = opt(av, ac, &i, vm)) == -1)
 				return (0);
 			else if (num == -2)
-				return (1);
+				return (vm->champ ? 1 : 0);
 		}
 		if (!check_champ_ext(av[i]))
 		{

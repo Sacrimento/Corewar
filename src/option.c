@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 17:17:57 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 11:12:11 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/12 12:16:26 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,11 @@ int			opt(char **av, int ac, int *i, t_vm *vm)
 			if (is_opt(av[*i], (*i + 1 == ac || !is_dig_neg(av[*i + 1])
 									? 0 : av[*i + 1]), vm, &num) != -1)
 				if (*i + 2 == ac)
+				{
+					if (!vm->champ)
+						ft_dprintf(2, "No champ loaded\n");
 					return (-2);
+				}
 				else
 					*i += 2;
 			else

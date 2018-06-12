@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 11:13:20 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/12 12:05:12 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ t_vm		*init_vm(int argc, char **argv)
 	vm->processes_nbr = 0;
 	vm->dump = -1;
 	vm->cycle = 0;
-	if (!(init_champs(argc, argv, vm)))
+	if (!init_champs(argc, argv, vm))
 		return (free_vm(vm));
 	else if (!(vm->map = (unsigned char *)ft_memalloc(MEM_SIZE)))
 	{

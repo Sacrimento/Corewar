@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 11:12:03 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 12:30:16 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/12 11:39:05 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,5 @@ int		check_inputs(void)
 
 int		list_length(t_champ *champ)
 {
-	return (champ ? 1 + list_length(champ->next) : 0);
+	return (!champ ? 0 : 1 + list_length(champ->next));
 }
