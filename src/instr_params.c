@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/11 18:41:47 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/12 12:51:33 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int				free_params(t_instr instr, int ret)
 			to_decal += type_to_size(instr.params[cursor].type);
 		decal_pc(instr.process, to_decal, 1);
 		free(instr.params);
-		instr.params = NULL;
 	}
 	return (ret);
 }
