@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/12 16:20:13 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/12 16:51:16 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,23 @@ int	live(t_instr instr)
 	t_champ *thischamp;
 
 	INFO("LIVE");
+	INFONUM(instr.process->reg[0]);
 	if (!instr.vm || !instr.vm->champ
 	|| !(thischamp = get_champ_by_num(instr.vm->champ,
-	byte_to_int(instr.vm->map, instr.process->pc + 1, 4))))
-		return (decal_pc(instr.process, 4, 0));
+	byte_to_int(instr.vm->map, (instr.process->pc + 1) % MEM_SIZE, 4))))
+	{
+		mem_dump(instr.vm->map);
+		ft_printf("{MAGENTA}pc %d{EOC}\n", instr.process->pc + 1);
+		ERROR("No champ");
+		return (decal_pc(instr.process, 5, 0));
+	}
 	thischamp->lives++;
 	instr.process->alive++;
 	instr.vm->lives++;
 	instr.vm->last = thischamp;
 	ft_printf("[%d] - {BLUE}Champion %s(id:%d) is alive{EOC}",
 		thischamp->lives, thischamp->name, thischamp->id);
-	return (decal_pc(instr.process, 4, 1));
+	return (decal_pc(instr.process, 5, 1));
 }
 
 int	ld(t_instr instr)
@@ -121,6 +127,7 @@ int	and(t_instr instr)
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value & instr.params[1].value;
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
+	INFONUM(instr.process->reg[instr.params[2].value]);
 	return (free_params(instr, 1));
 }
 
@@ -189,7 +196,6 @@ static void print_param(t_param *params)
 
 int	sti(t_instr instr)
 {
-	mem_dump(instr.vm->map);
 	INFO("STI");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
@@ -204,7 +210,6 @@ int	sti(t_instr instr)
 	instr.vm->map);
 	print_param(instr.params);
 	instr.process->carry = instr.process->reg[instr.params[0].value] == 0;
-	mem_dump(instr.vm->map);
 	return (free_params(instr, 1));
 }
 

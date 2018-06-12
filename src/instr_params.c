@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/12 15:57:33 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/12 16:45:08 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ t_instr			instr_params(t_vm *vm, t_process *process, int opc)
 
 int			decal_pc(t_process *process, int decal, int ret)
 {
+	if (ret == 0)
+		ERROR("INSTRUCTION FAILED");
 	process->pc = (process->pc + decal) % MEM_SIZE;
 	process->cycles_left = -1;
 	return (ret);
@@ -87,7 +89,7 @@ int				free_params(t_instr instr, int ret)
 	int cursor;
 
 	cursor = -1;
-	to_decal = 0;
+	to_decal = 2;
 	if (!ret)
 		ERROR("INSTRUCTION FAILED");
 	if (instr.params)
