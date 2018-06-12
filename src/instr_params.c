@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/11 18:41:47 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/12 13:11:40 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,21 @@ t_param			*decode_param_type(unsigned char ocp)
 
 	cursor = 0;
 	iterator = 0;
+	ft_printf("%d OCP\n", ocp);
 	if (!(parameters = (t_param*)ft_memalloc(sizeof(t_param) * 3)))
 		return (NULL);
 	while (++cursor < 4)
 	{
-		if ((ocp << (cursor * 2)) & 0x0000000F)
-			parameters[iterator].type = T_REG;
-		else if ((ocp << (cursor * 2)) & 0x000000F0)
-			parameters[iterator].type = T_DIR;
-		else if ((ocp << (cursor * 2)) & 0x000000FF)
-			parameters[iterator].type = T_IND;
+		if ((ocp >> (cursor * 2)) & T_REG)
+			parameters[2 - iterator].type = T_REG;
+		else if ((ocp >> (cursor * 2)) & T_DIR)
+			parameters[2 - iterator].type = T_DIR;
+		else if ((ocp >> (cursor * 2)) & T_IND)
+			parameters[2 - iterator].type = T_IND;
 		iterator++;
 	}
+	for (int i = 0; i < 3; i++)
+		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
 	return (parameters);
 }
 
