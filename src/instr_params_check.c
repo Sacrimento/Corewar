@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/12 13:15:22 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/12 16:12:22 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void convert_params(t_instr instr, int limit)
 			instr.params[i].value = instr.process->reg[instr.params[i].value];
 		else if (instr.params[i].type == T_IND)
 			instr.params[i].value =
-			bytetoint(instr.vm->map, get_address((instr.process->pc
+			byte_to_int(instr.vm->map, get_address((instr.process->pc
 			+ (instr.params[i].value % IDX_MOD))), DIR_SIZE);
 	}
 }
@@ -68,7 +68,7 @@ void convert_params_start(t_instr instr, int start, int limit)
 			= instr.process->reg[instr.params[i].value % REG_SIZE];
 		else if (instr.params[i].type == T_IND)
 			instr.params[i].value =
-			bytetoint(instr.vm->map, get_address((instr.process->pc
+			byte_to_int(instr.vm->map, get_address((instr.process->pc
 			+ (instr.params[i].value % IDX_MOD))), DIR_SIZE);
 	}
 }
@@ -86,18 +86,25 @@ void convert_params_unrestrained(t_instr instr, int limit)
 			instr.params[i].value = instr.process->reg[instr.params[i].value];
 		else if (instr.params[i].type == T_IND)
 			instr.params[i].value =
-			bytetoint(instr.vm->map, get_address((instr.process->pc
+			byte_to_int(instr.vm->map, get_address((instr.process->pc
 			+ instr.params[i].value)), DIR_SIZE);
 	}
 }
 
-int type_to_size(int type)
+int type_to_size(int type, int opc)
 {
 	if (type == T_DIR)
-		return (DIR_SIZE);
+		return (g_op_tab[opc - 1].oct ? 2 : DIR_SIZE);
 	else if (type == T_IND)
 		return (IND_SIZE);
 	else if (type == T_REG)
+		return (1);
+	return (0);
+}
+
+int valid_reg(int reg)
+{
+	if (reg < REG_NUMBER && reg >= 0)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/12 13:16:29 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/12 15:57:33 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_param			*decode_param_type(unsigned char ocp)
 	return (parameters);
 }
 
-t_param			*get_params(t_vm *vm, t_process *process)
+t_param			*get_params(t_vm *vm, t_process *process, int opcode)
 {
 	t_param	*parameters;
 	int		i;
@@ -56,19 +56,21 @@ t_param			*get_params(t_vm *vm, t_process *process)
 	}
 	while (++i < 3 && parameters[i].type != 0)
 	{
-		parameters[i].value = bytetoint(vm->map, cursor, parameters[i].type);
-		cursor += type_to_size(parameters[i].type);
+		parameters[i].value = byte_to_int(vm->map, cursor,
+		type_to_size(parameters[i].type, opcode));
+		cursor += type_to_size(parameters[i].type, opcode);
 	}
 	return (parameters);
 }
 
-t_instr			instr_params(t_vm *vm, t_process *process)
+t_instr			instr_params(t_vm *vm, t_process *process, int opc)
 {
 	t_instr instr;
 
 	instr.vm = vm;
 	instr.process = process;
 	instr.params = NULL;
+	instr.opcode = opc;
 	return (instr);
 }
 
@@ -91,7 +93,7 @@ int				free_params(t_instr instr, int ret)
 	if (instr.params)
 	{
 		while (++cursor < 3)
-			to_decal += type_to_size(instr.params[cursor].type);
+			to_decal += type_to_size(instr.params[cursor].type, instr.opcode);
 		decal_pc(instr.process, to_decal, 1);
 		free(instr.params);
 	}

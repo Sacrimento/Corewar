@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/10 15:00:08 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/12 16:00:58 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	exec_process(t_process *process, t_vm *vm)
 		return (0);
 	}
 	ft_printf("OCP : %d\n", opc);
-	vm->instr_tab[opc - 1](instr_params(vm, process));
+	vm->instr_tab[opc - 1](instr_params(vm, process, opc));
 	ft_printf("NEW PC : %d\n", process->pc);
 	return (1);
 }

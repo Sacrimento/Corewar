@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/11 18:26:09 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/12 16:16:01 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	live(t_instr instr)
 	INFO("LIVE");
 	if (!instr.vm || !instr.vm->champ
 	|| !(thischamp = get_champ_by_num(instr.vm->champ,
-	bytetoint(instr.vm->map, instr.process->pc + 1, 4))))
+	byte_to_int(instr.vm->map, instr.process->pc + 1, 4))))
 		return (decal_pc(instr.process, 4, 0));
 	thischamp->lives++;
 	instr.process->alive++;
@@ -45,15 +45,15 @@ int	live(t_instr instr)
 int	ld(t_instr instr)
 {
 	INFO("LD");
-	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 0x02)
-	|| instr.params[1].value > REG_NUMBER)
+	instr.params = get_params(instr.vm, instr.process, instr.opcode);
+	if (!compare_params(instr.params, instr.opcode)
+	|| !valid_reg(--instr.params[1].value))
 		return (free_params(instr, 0));
 	if (instr.params[0].type == T_DIR)
 		instr.process->reg[instr.params[1].value] = instr.params[0].value;
 	else
 		instr.process->reg[instr.params[1].value]
-		= bytetoint(instr.vm->map,
+		= byte_to_int(instr.vm->map,
 		get_address(instr.process->pc + (instr.params[0].value % IDX_MOD)), 4);
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(instr, 1));
@@ -62,15 +62,15 @@ int	ld(t_instr instr)
 int	st(t_instr instr)
 {
 	INFO("ST");
-	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 0x03)
-	|| instr.params[0].value > REG_NUMBER)
+	instr.params = get_params(instr.vm, instr.process, instr.opcode);
+	if (!compare_params(instr.params, instr.opcode)
+	|| !valid_reg(--instr.params[0].value))
 		return (free_params(instr, 0));
 	if (instr.params[1].type == T_REG && instr.params[1].value <= REG_NUMBER)
 		instr.process->reg[instr.params[1].value]
 		= instr.process->reg[instr.params[0].value];
 	else if (instr.params[1].type == T_IND)
-		inttobytes(instr.process->reg[instr.params[0].value],
+		int_to_bytes(instr.process->reg[instr.params[0].value],
 		get_address(instr.process->pc + (instr.params[1].value % IDX_MOD)),
 		instr.vm->map);
 	else
@@ -83,11 +83,11 @@ int	st(t_instr instr)
 int	add(t_instr instr)
 {
 	INFO("ADD");
-	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 0x04)
-	|| instr.params[0].value > REG_NUMBER
-	|| instr.params[1].value > REG_NUMBER
-	|| instr.params[2].value > REG_NUMBER)
+	instr.params = get_params(instr.vm, instr.process, instr.opcode);
+	if (!compare_params(instr.params, instr.opcode)
+	|| !valid_reg(--instr.params[0].value)
+	|| !valid_reg(--instr.params[1].value)
+	|| !valid_reg(--instr.params[2].value))
 		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value + instr.params[1].value;
@@ -98,11 +98,11 @@ int	add(t_instr instr)
 int	sub(t_instr instr)
 {
 	INFO("SUB");
-	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 0x05)
-	|| instr.params[0].value > REG_NUMBER
-	|| instr.params[1].value > REG_NUMBER
-	|| instr.params[2].value > REG_NUMBER)
+	instr.params = get_params(instr.vm, instr.process, instr.opcode);
+	if (!compare_params(instr.params, instr.opcode)
+	|| !valid_reg(--instr.params[0].value)
+	|| !valid_reg(--instr.params[1].value)
+	|| !valid_reg(--instr.params[2].value))
 		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value - instr.params[1].value;
@@ -113,9 +113,9 @@ int	sub(t_instr instr)
 int	and(t_instr instr)
 {
 	INFO("AND");
-	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 0x06)
-	|| instr.params[2].value > REG_NUMBER)
+	instr.params = get_params(instr.vm, instr.process, instr.opcode);
+	if (!compare_params(instr.params, instr.opcode)
+	|| valid_reg(--instr.params[2].value))
 		return (free_params(instr, 0));
 	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
@@ -127,9 +127,9 @@ int	and(t_instr instr)
 int	or(t_instr instr)
 {
 	INFO("OR");
-	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 0x07)
-	|| instr.params[2].value > REG_NUMBER)
+	instr.params = get_params(instr.vm, instr.process, instr.opcode);
+	if (!compare_params(instr.params, instr.opcode)
+	|| valid_reg(--instr.params[2].value))
 		return (free_params(instr, 0));
 	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
@@ -141,9 +141,9 @@ int	or(t_instr instr)
 int	xor(t_instr instr)
 {
 	INFO("XOR");
-	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 0x08)
-	|| instr.params[2].value > REG_NUMBER)
+	instr.params = get_params(instr.vm, instr.process, instr.opcode);
+	if (!compare_params(instr.params, instr.opcode)
+	|| valid_reg(--instr.params[2].value))
 		return (free_params(instr, 0));
 	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
@@ -158,16 +158,16 @@ int	zjmp(t_instr instr)
 	if (instr.process->carry == 0)
 		return (decal_pc(instr.process, 2, 0));
 	instr.process->pc = get_address(
-		bytetoint(instr.vm->map, instr.process->pc + 1, 2));
+		byte_to_int(instr.vm->map, instr.process->pc + 1, 2));
 	return (1);
 }
 
 int	ldi(t_instr instr)
 {
 	INFO("LDI");
-	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 0x0a)
-	|| instr.params[2].value > REG_NUMBER)
+	instr.params = get_params(instr.vm, instr.process, instr.opcode);
+	if (!compare_params(instr.params, instr.opcode)
+	|| valid_reg(--instr.params[2].value))
 		return (free_params(instr, 0));
 	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
@@ -177,18 +177,32 @@ int	ldi(t_instr instr)
 	return (free_params(instr, 1));
 }
 
+static void print_param(t_param *params)
+{
+	int i = -1;
+
+	while (++i < 3)
+	{
+		ft_printf("{YELLOW}value:%d|type:%d{EOC}\n", params[i].value, params[i].type);
+	}
+}
+
 int	sti(t_instr instr)
 {
 	mem_dump(instr.vm->map);
 	INFO("STI");
-	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 0x0b)
-	|| instr.params[0].value > REG_NUMBER)
+	instr.params = get_params(instr.vm, instr.process, instr.opcode);
+	if (!compare_params(instr.params, instr.opcode)
+	|| valid_reg(--instr.params[0].value))
+	{
+		print_param(instr.params);
 		return (free_params(instr, 0));
+	}
 	convert_params_start(instr, 1, 3);
-	inttobytes(instr.process->reg[instr.params[0].value],
-	get_address((instr.params[1].value + instr.params[2].value) % IDX_MOD),
+	int_to_bytes(instr.process->reg[instr.params[0].value],
+	get_address(instr.process->pc + (instr.params[1].value + instr.params[2].value) % IDX_MOD),
 	instr.vm->map);
+	print_param(instr.params);
 	instr.process->carry = instr.process->reg[instr.params[0].value] == 0;
 	mem_dump(instr.vm->map);
 	return (free_params(instr, 1));
@@ -201,7 +215,7 @@ int	core_fork(t_instr instr)
 	i = -1;
 	INFO("CORE_FORK");
 	add_process(instr.vm, get_address(instr.process->pc +
-	(bytetoint(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD)),
+	(byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD)),
 	instr.process->reg[1]);
 	instr.vm->processes->carry = instr.process->carry;
 	instr.vm->processes->alive = instr.process->alive;
@@ -213,15 +227,15 @@ int	core_fork(t_instr instr)
 int	lld(t_instr instr)
 {
 	INFO("LLD");
-	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 0x0d)
-	|| instr.params[1].value > REG_NUMBER)
+	instr.params = get_params(instr.vm, instr.process, instr.opcode);
+	if (!compare_params(instr.params, instr.opcode)
+	|| valid_reg(--instr.params[1].value))
 		return (free_params(instr, 0));
 	if (instr.params[0].type == T_DIR)
 		instr.process->reg[instr.params[1].value] = instr.params[0].value;
 	else
 		instr.process->reg[instr.params[1].value]
-		= bytetoint(instr.vm->map,
+		= byte_to_int(instr.vm->map,
 		get_address(instr.process->pc + instr.params[0].value), 4);
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(instr, 1));
@@ -230,9 +244,9 @@ int	lld(t_instr instr)
 int	lldi(t_instr instr)
 {
 	INFO("LLDI");
-	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 0x0e)
-	|| instr.params[2].value > REG_NUMBER)
+	instr.params = get_params(instr.vm, instr.process, instr.opcode);
+	if (!compare_params(instr.params, instr.opcode)
+	|| valid_reg(--instr.params[2].value))
 		return (free_params(instr, 0));
 	convert_params_unrestrained(instr, 2);
 	instr.process->reg[instr.params[2].value]
@@ -248,7 +262,7 @@ int	core_lfork(t_instr instr)
 	i = -1;
 	INFO("CORE_LFORK");
 	add_process(instr.vm, get_address(instr.process->pc +
-	bytetoint(instr.vm->map, instr.process->pc + 1, 2)),
+	byte_to_int(instr.vm->map, instr.process->pc + 1, 2)),
 	instr.process->reg[1]);
 	instr.vm->processes->carry = instr.process->carry;
 	instr.vm->processes->alive = instr.process->alive;
@@ -260,9 +274,9 @@ int	core_lfork(t_instr instr)
 int	aff(t_instr instr)
 {
 	INFO("AFF");
-	instr.params = get_params(instr.vm, instr.process);
-	if (!compare_params(instr.params, 0x10)
-	|| instr.params[0].value > REG_NUMBER
+	instr.params = get_params(instr.vm, instr.process, instr.opcode);
+	if (!compare_params(instr.params, instr.opcode)
+	|| valid_reg(--instr.params[0].value)
 	|| !get_champ_by_num(instr.vm->champ, instr.process->reg[1]))
 		return (free_params(instr, 0));
 	ft_printf("{CYAN}[%d] - %s:%c{EOC}\n", instr.process->reg[1],
