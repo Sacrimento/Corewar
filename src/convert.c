@@ -6,15 +6,16 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/12 17:23:05 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/12 17:28:55 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
+//TODO: test if unsigned long is valid with all cases
 int	byte_to_int(unsigned char *map, int cursor, int amount_of_bytes)
 {
-	unsigned int	size;
+	unsigned long	size;
 	int	i;
 
 	i = -1;
@@ -28,7 +29,7 @@ int	byte_to_int(unsigned char *map, int cursor, int amount_of_bytes)
 		ft_putchar('\n');
 		size <<= 8;
 	}
-	ft_printf("%u", size);
+	ft_printf("%ul\n", size >> 8);
 	return (size >> 8);
 }
 
