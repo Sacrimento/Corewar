@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/11 18:36:09 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/12 16:12:36 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef struct			s_instr
 	struct s_vm			*vm;
 	t_process			*process;
 	t_param				*params;
+	int					opcode;
 }						t_instr;
 
 typedef struct			s_vm
@@ -116,8 +117,8 @@ int						list_length(t_champ *champ);
 
 //instr_params.c
 t_param					*decode_param_type(unsigned char ocp);
-t_param					*get_params(t_vm *vm, t_process *process);
-t_instr					instr_params(t_vm *vm, t_process *process);
+t_param					*get_params(t_vm *vm, t_process *process, int opcode);
+t_instr					instr_params(t_vm *vm, t_process *process, int opc);
 int						continue_process(t_vm *vm, t_process *process);
 
 //instr_params_checks.c
@@ -125,16 +126,17 @@ int						compare_params(t_param *params, int opcode);
 
 //instructions.c
 int						continue_process(t_vm *vm, t_process *process);
-int						type_to_size(int type);
-int						bytetoint(unsigned char *map, int cursor,
-						int ammount_of_bytes);
-int						inttobytes(int n, int cursor, unsigned char *map);
+int 					type_to_size(int type, int oct);
+int						byte_to_int(unsigned char *map, int cursor,
+						int amount_of_bytes);
+int						int_to_bytes(int n, int cursor, unsigned char *map);
 int						free_params(t_instr instr, int ret);
 void					convert_params(t_instr instr, int limit);
 void					convert_params_unrestrained(t_instr instr, int limit);
 int						decal_pc(t_process *process, int decal, int ret);
 void					convert_params_start(t_instr instr, int start,
 						int limit);
+int						valid_reg(int reg);
 int						get_address(int value);
 int						live(t_instr instr);
 int						ld(t_instr instr);

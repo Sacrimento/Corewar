@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/12 16:51:16 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/12 17:10:18 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,14 @@
 int	live(t_instr instr)
 {
 	t_champ *thischamp;
-
 	INFO("LIVE");
-	INFONUM(instr.process->reg[0]);
+
 	if (!instr.vm || !instr.vm->champ
 	|| !(thischamp = get_champ_by_num(instr.vm->champ,
-	byte_to_int(instr.vm->map, (instr.process->pc + 1) % MEM_SIZE, 4))))
+	byte_to_int(instr.vm->map, instr.process->pc + 1, 4))))
 	{
+		ft_printf("{MAGENTA}id:%d|asked:%d{EOC}\n", instr.vm->champ->id, byte_to_int(instr.vm->map, instr.process->pc + 1, 4));
 		mem_dump(instr.vm->map);
-		ft_printf("{MAGENTA}pc %d{EOC}\n", instr.process->pc + 1);
 		ERROR("No champ");
 		return (decal_pc(instr.process, 5, 0));
 	}
@@ -184,7 +183,7 @@ int	ldi(t_instr instr)
 	return (free_params(instr, 1));
 }
 
-static void print_param(t_param *params)
+/* static void print_param(t_param *params)
 {
 	int i = -1;
 
@@ -192,7 +191,7 @@ static void print_param(t_param *params)
 	{
 		ft_printf("{YELLOW}value:%d|type:%d{EOC}\n", params[i].value, params[i].type);
 	}
-}
+} */
 
 int	sti(t_instr instr)
 {
@@ -200,15 +199,12 @@ int	sti(t_instr instr)
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value))
-	{
-		print_param(instr.params);
 		return (free_params(instr, 0));
-	}
 	convert_params_start(instr, 1, 3);
 	int_to_bytes(instr.process->reg[instr.params[0].value],
 	get_address(instr.process->pc + (instr.params[1].value + instr.params[2].value) % IDX_MOD),
 	instr.vm->map);
-	print_param(instr.params);
+	// print_param(instr.params);
 	instr.process->carry = instr.process->reg[instr.params[0].value] == 0;
 	return (free_params(instr, 1));
 }

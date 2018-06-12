@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/12 16:45:08 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/12 17:03:21 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ t_param			*decode_param_type(unsigned char ocp)
 
 	cursor = 0;
 	iterator = 0;
-	ft_printf("%d OCP\n", ocp);
 	if (!(parameters = (t_param*)ft_memalloc(sizeof(t_param) * 3)))
 		return (NULL);
 	while (++cursor < 4)
