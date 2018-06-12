@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/12 16:16:01 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/12 16:20:13 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int	and(t_instr instr)
 	INFO("AND");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
-	|| valid_reg(--instr.params[2].value))
+	|| !valid_reg(--instr.params[2].value))
 		return (free_params(instr, 0));
 	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
@@ -129,7 +129,7 @@ int	or(t_instr instr)
 	INFO("OR");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
-	|| valid_reg(--instr.params[2].value))
+	|| !valid_reg(--instr.params[2].value))
 		return (free_params(instr, 0));
 	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
@@ -143,7 +143,7 @@ int	xor(t_instr instr)
 	INFO("XOR");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
-	|| valid_reg(--instr.params[2].value))
+	|| !valid_reg(--instr.params[2].value))
 		return (free_params(instr, 0));
 	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
@@ -167,7 +167,7 @@ int	ldi(t_instr instr)
 	INFO("LDI");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
-	|| valid_reg(--instr.params[2].value))
+	|| !valid_reg(--instr.params[2].value))
 		return (free_params(instr, 0));
 	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
@@ -193,7 +193,7 @@ int	sti(t_instr instr)
 	INFO("STI");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
-	|| valid_reg(--instr.params[0].value))
+	|| !valid_reg(--instr.params[0].value))
 	{
 		print_param(instr.params);
 		return (free_params(instr, 0));
@@ -229,7 +229,7 @@ int	lld(t_instr instr)
 	INFO("LLD");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
-	|| valid_reg(--instr.params[1].value))
+	|| !valid_reg(--instr.params[1].value))
 		return (free_params(instr, 0));
 	if (instr.params[0].type == T_DIR)
 		instr.process->reg[instr.params[1].value] = instr.params[0].value;
@@ -246,7 +246,7 @@ int	lldi(t_instr instr)
 	INFO("LLDI");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
-	|| valid_reg(--instr.params[2].value))
+	|| !valid_reg(--instr.params[2].value))
 		return (free_params(instr, 0));
 	convert_params_unrestrained(instr, 2);
 	instr.process->reg[instr.params[2].value]
@@ -276,7 +276,7 @@ int	aff(t_instr instr)
 	INFO("AFF");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
-	|| valid_reg(--instr.params[0].value)
+	|| !valid_reg(--instr.params[0].value)
 	|| !get_champ_by_num(instr.vm->champ, instr.process->reg[1]))
 		return (free_params(instr, 0));
 	ft_printf("{CYAN}[%d] - %s:%c{EOC}\n", instr.process->reg[1],
