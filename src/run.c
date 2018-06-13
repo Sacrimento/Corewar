@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/13 15:53:59 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/13 17:11:22 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static int	exec_process(t_process *process, t_vm *vm)
 	return (1);
 }
 
-int	mem_dump(unsigned char *map)
+static int	mem_dump(unsigned char *map)
 {
 	int		i;
 

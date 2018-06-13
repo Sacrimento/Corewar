@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2018/06/13 16:36:55 by abouvero         ###   ########.fr       */
-=======
-/*   Updated: 2018/06/13 16:30:58 by mfonteni         ###   ########.fr       */
->>>>>>> f9a734f82e82218cdf8cf7523aaa99594c22d43c
+/*   Updated: 2018/06/13 17:11:28 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +23,6 @@
 #define INFO(message) ft_printf("{BLUE}%s{EOC}\n", message)
 #define INFONUM(message) ft_printf("{BLUE}%d{EOC}\n", message)
 /******************************************************/
-
-//REMOVE
-int	mem_dump(unsigned char *map);
 
 typedef struct			s_champ
 {
