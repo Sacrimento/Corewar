@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/13 15:12:39 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/13 16:30:58 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct			s_vm
 	int					dump;
 	int					processes_nbr;
 	int					cycle;
+	int					tt_cycle;
 	unsigned char		*map;
 	int 				(*instr_tab[16])(t_instr);
 	struct s_champ		*champ;
