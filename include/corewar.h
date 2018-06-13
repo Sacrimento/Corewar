@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/13 16:30:58 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/13 17:11:28 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@
 #define INFO(message) ft_printf("{BLUE}%s{EOC}\n", message)
 #define INFONUM(message) ft_printf("{BLUE}%d{EOC}\n", message)
 /******************************************************/
-
-//REMOVE
-int	mem_dump(unsigned char *map);
 
 typedef struct			s_champ
 {
@@ -70,6 +67,7 @@ typedef struct			s_vm
 	int					processes_nbr;
 	int					cycle;
 	int					tt_cycle;
+	int					visu;
 	unsigned char		*map;
 	int 				(*instr_tab[16])(t_instr);
 	struct s_champ		*champ;
@@ -115,6 +113,7 @@ int						opt(char **av, int ac, int *i, t_vm *vm);
 int						known_opt(char *opt);
 int						check_inputs(void);
 int						list_length(t_champ *champ);
+int						activate_visu(t_vm *vm, int *i, int ac);
 
 //instr_params.c
 t_param					*decode_param_type(unsigned char ocp);

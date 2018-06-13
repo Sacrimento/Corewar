@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/13 15:53:59 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/13 17:26:25 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,32 @@ static int	exec_process(t_process *process, t_vm *vm)
 {
 	unsigned char	opc;
 
-	opc = vm->map[process->pc % MEM_SIZE];
-	if (process->cycles_left == -1)
-	{
-		process->cycles_left = g_op_tab[opc - 1].nb_cycle - 1;
+	if (!process)
 		return (0);
+	while (process)
+	{
+		if (process->cycles_left > 1)
+			process->cycles_left--;
+		else
+		{
+			opc = vm->map[process->pc % MEM_SIZE];
+			if (process->cycles_left == -1)
+			{
+				process->cycles_left = g_op_tab[opc - 1].nb_cycle - 1;
+				return (0);
+			}
+			if (opc < 1 || opc > 16)
+				return (decal_pc(process, 1, 0));
+			ft_printf("OCP : %d\n", opc);
+			vm->instr_tab[opc - 1](instr_params(vm, process, opc));
+			ft_printf("NEW PC : %d\n", process->pc);
+		}
+		process = process->next;
 	}
-	if (opc < 1 || opc > 16)
-		return (decal_pc(process, 1, 0));
-	ft_printf("OCP : %d\n", opc);
-	vm->instr_tab[opc - 1](instr_params(vm, process, opc));
-	ft_printf("NEW PC : %d\n", process->pc);
 	return (1);
 }
 
-int	mem_dump(unsigned char *map)
+static int	mem_dump(unsigned char *map)
 {
 	int		i;
 
@@ -66,17 +77,25 @@ int	mem_dump(unsigned char *map)
 	return (1);
 }
 
-static void	exec_processes(t_process *process, t_vm *vm)
+static void	check_vm(t_vm *vm, int *check, int *ctd)
 {
-	if (!process)
-		return ;
-	while (process)
+	t_champ *ch;
+
+	ch = vm->champ;
+	INFO("CHECKS");
+	check_process(vm);
+	if (*check == MAX_CHECKS || vm->lives >= NBR_LIVE)
 	{
-		if (process->cycles_left > 1)
-			process->cycles_left--;
-		else
-			exec_process(process, vm);
-		process = process->next;
+		*check = 0;
+		*ctd -= CYCLE_DELTA;
+	}
+	vm->cycle = 0;
+	vm->lives = 0;
+	*check += 1;
+	while (ch)
+	{
+		ch->lives = 0;
+		ch = ch->next;
 	}
 }
 
@@ -92,19 +111,8 @@ int			run(t_vm *vm)
 	{
 		ft_printf("CYCLE : %d | CTD : %d\n", vm->tt_cycle, ctd);
 		if (vm->cycle == ctd)
-		{
-			INFO("CHECKS");
-			check_process(vm);
-			if (check == MAX_CHECKS || vm->lives >= NBR_LIVE)
-			{
-				check = 0;
-				ctd -= CYCLE_DELTA;
-			}
-			vm->cycle = 0;
-			vm->lives = 0;
-			check++;
-		}
-		exec_processes(vm->processes, vm);
+			check_vm(vm, &check, &ctd);
+		exec_process(vm->processes, vm);
 		if (vm->tt_cycle == vm->dump)
 			return (mem_dump(vm->map));
 		vm->cycle++;
