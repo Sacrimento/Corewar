@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/13 14:56:14 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/13 16:20:26 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ int	and(t_instr instr)
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value & instr.params[1].value;
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
-	ft_printf("{MAGENTA}carry:%d{EOC}\n", instr.process->carry);
 	return (free_params(instr, 1));
 }
 
@@ -202,6 +201,7 @@ int	sti(t_instr instr)
 	instr.vm->map);
 	// print_param(instr.params);
 	instr.process->carry = instr.process->reg[instr.params[0].value] == 0;
+	INFONUM(instr.process->reg[instr.params[0].value]);
 	return (free_params(instr, 1));
 }
 
