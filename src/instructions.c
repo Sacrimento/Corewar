@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/13 13:57:39 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/13 14:56:14 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,12 @@ int	live(t_instr instr)
 	if (!instr.vm || !instr.vm->champ
 	|| !(thischamp = get_champ_by_num(instr.vm->champ,
 	byte_to_int(instr.vm->map, instr.process->pc + 1, 4))))
-	{
-		ft_printf("{MAGENTA}id:%d|asked:%d{EOC}\n", instr.vm->champ->id, byte_to_int(instr.vm->map, instr.process->pc + 1, 4));
-		mem_dump(instr.vm->map);
-		ERROR("No champ");
 		return (decal_pc(instr.process, 5, 0));
-	}
 	thischamp->lives++;
 	instr.process->alive++;
 	instr.vm->lives++;
 	instr.vm->last = thischamp;
-	ft_printf("[%d] - {BLUE}Champion %s(id:%d) is alive{EOC}",
+	ft_printf("[%d] - {BLUE}Champion %s (id:%d) is alive{EOC}\n",
 		thischamp->lives, thischamp->name, thischamp->id);
 	return (decal_pc(instr.process, 5, 1));
 }
