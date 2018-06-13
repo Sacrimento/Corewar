@@ -6,13 +6,13 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/12 17:03:21 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/13 18:37:57 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-t_param			*decode_param_type(unsigned char ocp)
+t_param		*decode_param_type(unsigned char ocp)
 {
 	int cursor;
 	int iterator;
@@ -37,7 +37,7 @@ t_param			*decode_param_type(unsigned char ocp)
 	return (parameters);
 }
 
-t_param			*get_params(t_vm *vm, t_process *process, int opcode)
+t_param		*get_params(t_vm *vm, t_process *process, int opcode)
 {
 	t_param	*parameters;
 	int		i;
@@ -62,7 +62,7 @@ t_param			*get_params(t_vm *vm, t_process *process, int opcode)
 	return (parameters);
 }
 
-t_instr			instr_params(t_vm *vm, t_process *process, int opc)
+t_instr		instr_params(t_vm *vm, t_process *process, int opc)
 {
 	t_instr instr;
 
@@ -82,7 +82,7 @@ int			decal_pc(t_process *process, int decal, int ret)
 	return (ret);
 }
 
-int				free_params(t_instr instr, int ret)
+int			free_params(t_instr instr, int ret)
 {
 	int to_decal;
 	int cursor;

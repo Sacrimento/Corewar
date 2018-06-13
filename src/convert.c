@@ -6,13 +6,12 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/13 16:30:50 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/13 18:36:46 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-//TODO: test if unsigned long is valid with all cases
 int	byte_to_int(unsigned char *map, int cursor, int amount_of_bytes)
 {
 	int	ret;
@@ -22,7 +21,6 @@ int	byte_to_int(unsigned char *map, int cursor, int amount_of_bytes)
 	ret = 0;
 	while (++i < amount_of_bytes)
 		ret = (ret << 8) | map[get_address(cursor + i)];
-	ft_printf("{GREEN}ret %d{EOC}", ret);
 	return (ret);
 }
 
@@ -42,4 +40,15 @@ int	int_to_bytes(int n, int cursor, unsigned char *map)
     map[get_address(cursor + 1)] = (unsigned char)((n & 0x00FF0000) >> 16);
     map[get_address(cursor + 0)] = (unsigned char)((n & 0xff000000) >> 24);
 	return (1);
+}
+
+int type_to_size(int type, int opc)
+{
+	if (type == T_DIR)
+		return (g_op_tab[opc - 1].oct ? 2 : DIR_SIZE);
+	else if (type == T_IND)
+		return (IND_SIZE);
+	else if (type == T_REG)
+		return (1);
+	return (0);
 }
