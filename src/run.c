@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/12 16:00:58 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/13 13:53:48 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ static int	exec_process(t_process *process, t_vm *vm)
 {
 	unsigned char	opc;
 
-	opc = vm->map[process->pc];
-	if (opc < 1 || opc > 16)
-		return (decal_pc(process, 1, 0));
+	opc = vm->map[process->pc % MEM_SIZE];
 	if (process->cycles_left == -1)
 	{
 		process->cycles_left = g_op_tab[opc - 1].nb_cycle - 1;
 		return (0);
 	}
+	if (opc < 1 || opc > 16)
+		return (decal_pc(process, 1, 0));
 	ft_printf("OCP : %d\n", opc);
 	vm->instr_tab[opc - 1](instr_params(vm, process, opc));
 	ft_printf("NEW PC : %d\n", process->pc);
@@ -72,7 +72,7 @@ static void	exec_processes(t_process *process, t_vm *vm)
 		return ;
 	while (process)
 	{
-		if (process->cycles_left > 0)
+		if (process->cycles_left > 1)
 			process->cycles_left--;
 		else
 			exec_process(process, vm);
@@ -91,8 +91,6 @@ int			run(t_vm *vm)
 	while (vm->processes_nbr && ctd > 0)
 	{
 		ft_printf("CYCLE : %d\n", vm->cycle);
-		if (vm->cycle == vm->dump)
-			return (mem_dump(vm->map));
 		if (!(vm->cycle % ctd) && vm->cycle)
 		{
 			check_process(vm);
@@ -104,6 +102,8 @@ int			run(t_vm *vm)
 			}
 		}
 		exec_processes(vm->processes, vm);
+		if (vm->cycle == vm->dump - 1)
+			return (mem_dump(vm->map));
 		vm->cycle++;
 	}
 	return (1);

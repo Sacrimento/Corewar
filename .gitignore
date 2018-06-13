@@ -11,6 +11,8 @@ main.c
 corewar
 *.trace
 out
+resources/out
+resources/out2
 log
 visu/__pycache__
 .DS_Store
