@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/13 13:05:58 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/13 14:02:24 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	byte_to_int(unsigned char *map, int cursor, int amount_of_bytes)
 		// ft_putchar('\n');
 		size <<= 8;
 	}
-	ft_printf("byte_to_int returns:%d\n", size >> 8);
+	//ft_printf("byte_to_int returns:%d\n", size >> 8);
 	return (size >> 8);
 }
 
