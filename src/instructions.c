@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/13 16:20:26 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/14 12:07:24 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,7 @@ int	zjmp(t_instr instr)
 	if (instr.process->carry == 0)
 		return (decal_pc(instr.process, 2, 0));
 	instr.process->pc = get_address(instr.process->pc +
-		byte_to_int(instr.vm->map, instr.process->pc + 1, 2));
+		byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD);
 	instr.process->cycles_left = -1;
 	return (1);
 }
