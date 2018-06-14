@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/13 18:36:46 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/14 12:35:47 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	byte_to_int(unsigned char *map, int cursor, int amount_of_bytes)
 	ret = 0;
 	while (++i < amount_of_bytes)
 		ret = (ret << 8) | map[get_address(cursor + i)];
-	return (ret);
+	return (amount_of_bytes == 2 ? (short)ret : ret);
 }
 
 int get_address(int value)
@@ -35,7 +35,7 @@ int	int_to_bytes(int n, int cursor, unsigned char *map)
 {
 	if (!map)
 		return (0);
-	map[get_address(cursor + 3)] = (unsigned char) (n & 0x000000FF);
+	map[get_address(cursor + 3)] = (unsigned char)(n & 0x000000FF);
     map[get_address(cursor + 2)] = (unsigned char)((n & 0x0000FF00) >> 8);
     map[get_address(cursor + 1)] = (unsigned char)((n & 0x00FF0000) >> 16);
     map[get_address(cursor + 0)] = (unsigned char)((n & 0xff000000) >> 24);
