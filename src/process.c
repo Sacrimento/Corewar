@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/06 14:28:14 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:03:18 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,10 @@ void		check_process(t_vm *vm)
 	while (process)
 	{
 		if (!process->alive)
+		{
 			del_process(vm, process);
+			return ;
+		}
 		process->alive = 0;
 		process = process->next;
 	}

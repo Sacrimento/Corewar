@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/14 12:12:32 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/14 12:54:22 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ int	live(t_instr instr)
 	if (!instr.vm || !instr.vm->champ
 	|| !(thischamp = get_champ_by_num(instr.vm->champ,
 	byte_to_int(instr.vm->map, instr.process->pc + 1, 4))))
-		return (decal_pc(instr.process, 5, 0));
+		return (decal_pc(instr, 5, 0));
 	thischamp->lives++;
 	instr.process->alive++;
 	instr.vm->lives++;
 	instr.vm->last = thischamp;
 	ft_printf("[%d] - {BLUE}Champion %s (id:%d) is alive{EOC}\n",
 		thischamp->lives, thischamp->name, thischamp->id);
-	return (decal_pc(instr.process, 5, 1));
+	return (decal_pc(instr, 5, 1));
 }
 
 int	ld(t_instr instr)
@@ -156,7 +156,7 @@ int	zjmp(t_instr instr)
 {
 	INFO("ZJMP");
 	if (instr.process->carry == 0)
-		return (decal_pc(instr.process, 2, 0));
+		return (decal_pc(instr, 2, 0));
 	instr.process->pc = get_address(instr.process->pc +
 		byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD);
 	instr.process->cycles_left = -1;
@@ -218,7 +218,7 @@ int	core_fork(t_instr instr)
 	instr.vm->processes->alive = instr.process->alive;
 	while (++i <= REG_NUMBER)
 		instr.vm->processes->reg[i] = instr.process->reg[i];
-	return (decal_pc(instr.process, 2, 1));
+	return (decal_pc(instr, 2, 1));
 }
 
 int	lld(t_instr instr)
@@ -265,7 +265,7 @@ int	core_lfork(t_instr instr)
 	instr.vm->processes->alive = instr.process->alive;
 	while (++i <= REG_NUMBER)
 		instr.vm->processes->reg[i] = instr.process->reg[i];
-	return (decal_pc(instr.process, 2, 1));
+	return (decal_pc(instr, 2, 1));
 }
 
 int	aff(t_instr instr)

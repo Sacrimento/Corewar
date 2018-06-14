@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/13 18:37:57 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/14 12:57:04 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ t_instr		instr_params(t_vm *vm, t_process *process, int opc)
 	return (instr);
 }
 
-int			decal_pc(t_process *process, int decal, int ret)
+int			decal_pc(t_instr instr, int decal, int ret)
 {
 	if (ret == 0)
-		ERROR("INSTRUCTION FAILED");
-	process->pc = (process->pc + decal) % MEM_SIZE;
-	process->cycles_left = -1;
+		ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode-1].desc);
+	instr.process->pc = (instr.process->pc + decal) % MEM_SIZE;
+	instr.process->cycles_left = -1;
 	return (ret);
 }
 
@@ -90,12 +90,15 @@ int			free_params(t_instr instr, int ret)
 	cursor = -1;
 	to_decal = 2;
 	if (!ret)
+	{
+		ERROR(g_op_tab[instr.opcode-1].desc);
 		ERROR("INSTRUCTION FAILED");
+	}
 	if (instr.params)
 	{
 		while (++cursor < 3)
 			to_decal += type_to_size(instr.params[cursor].type, instr.opcode);
-		decal_pc(instr.process, to_decal, 1);
+		decal_pc(instr, to_decal, 1);
 		free(instr.params);
 	}
 	return (ret);
