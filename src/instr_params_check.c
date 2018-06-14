@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/14 12:45:09 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:20:56 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int compare_params(t_param *params, int opcode)
 			ft_printf("{RED}Param number %d code %d{EOC}\n", i, params[i].type);
 			return (0);
 		}
+		else if (!g_op_tab[opcode].type_param[i])
+			params[i].type = 0;
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/14 12:54:22 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:12:48 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ int	ld(t_instr instr)
 		= byte_to_int(instr.vm->map,
 		get_address(instr.process->pc + (instr.params[0].value % IDX_MOD)), 4);
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
+	INFONUM(instr.process->reg[instr.params[1].value]);
 	return (free_params(instr, 1));
 }
 

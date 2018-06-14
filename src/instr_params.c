@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/14 12:57:04 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:23:28 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,9 @@ t_instr		instr_params(t_vm *vm, t_process *process, int opc)
 int			decal_pc(t_instr instr, int decal, int ret)
 {
 	if (ret == 0)
-		ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode-1].desc);
+		ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode-1].name);
+	if (ret == 1)
+		ft_printf("{GREEN}INSTRUCTION SUCCEED %s{EOC}\n", g_op_tab[instr.opcode-1].name);
 	instr.process->pc = (instr.process->pc + decal) % MEM_SIZE;
 	instr.process->cycles_left = -1;
 	return (ret);
