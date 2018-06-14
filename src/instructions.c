@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/14 16:02:10 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/14 16:54:30 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	live(t_instr instr)
 	instr.vm->lives++;
 	instr.vm->last = thischamp;
 	ft_printf("[%d] - {BLUE}Champion %s (id:%d) is alive{EOC}\n",
-		thischamp->lives, thischamp->name, thischamp->id);
+	thischamp->lives, thischamp->name, thischamp->id);
 	return (decal_pc(instr, 5, 1));
 }
 
@@ -57,7 +57,6 @@ int	ld(t_instr instr)
 		= byte_to_int(instr.vm->map,
 		get_address(instr.process->pc + (instr.params[0].value % IDX_MOD)), 4);
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
-	ft_printf("{MAGENTA}LD carry=%d{EOC}\n", instr.process->reg[instr.params[1].value] == 0);
 	return (free_params(instr, 1));
 }
 
@@ -77,8 +76,7 @@ int	st(t_instr instr)
 		instr.vm->map);
 	else
 		return (free_params(instr, 0));
-	instr.process->carry = instr.params[0].value == 0;
-	SUCCESS("ST SUCCESS");
+	instr.process->carry = instr.process->reg[instr.params[0].value] == 0;
 	return (free_params(instr, 1));
 }
 
@@ -153,7 +151,6 @@ int	xor(t_instr instr)
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value ^ instr.params[1].value;
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
-	ft_printf("{MAGENTA}carry=%d{EOC}\n", instr.process->carry);
 	return (free_params(instr, 1));
 }
 //TODO: Check this one :
