@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/14 13:12:48 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/14 13:50:42 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	st(t_instr instr)
 
 int	add(t_instr instr)
 {
-	INFO("ADD");
+	INFO("ADD");	
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value)
@@ -91,8 +91,9 @@ int	add(t_instr instr)
 	|| !valid_reg(--instr.params[2].value))
 		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
-	= instr.params[0].value + instr.params[1].value;
-	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
+	= instr.process->reg[instr.params[0].value]
+	+ instr.process->reg[instr.params[1].value];
+	instr.process->carry = !instr.process->reg[instr.params[2].value];
 	return (free_params(instr, 1));
 }
 
@@ -106,8 +107,9 @@ int	sub(t_instr instr)
 	|| !valid_reg(--instr.params[2].value))
 		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
-	= instr.params[0].value - instr.params[1].value;
-	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
+	= instr.process->reg[instr.params[0].value]
+	- instr.process->reg[instr.params[1].value];
+	instr.process->carry = !instr.process->reg[instr.params[2].value];
 	return (free_params(instr, 1));
 }
 
