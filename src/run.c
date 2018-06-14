@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/14 13:01:54 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/14 15:28:15 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ int			run(t_vm *vm)
 			return (mem_dump(vm->map));
 		vm->cycle++;
 		vm->tt_cycle++;
+		ft_printf("{CYAN}processes nb:%d{EOC}\n", vm->processes_nbr);
 	}
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/14 15:13:07 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/14 16:02:10 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 **/
 
 #include "../include/corewar.h"
+#define DECAL 3
 
 int	live(t_instr instr)
 {
@@ -56,7 +57,7 @@ int	ld(t_instr instr)
 		= byte_to_int(instr.vm->map,
 		get_address(instr.process->pc + (instr.params[0].value % IDX_MOD)), 4);
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
-	INFONUM(instr.process->reg[instr.params[1].value]);
+	ft_printf("{MAGENTA}LD carry=%d{EOC}\n", instr.process->reg[instr.params[1].value] == 0);
 	return (free_params(instr, 1));
 }
 
@@ -93,7 +94,7 @@ int	add(t_instr instr)
 	instr.process->reg[instr.params[2].value]
 	= instr.process->reg[instr.params[0].value]
 	+ instr.process->reg[instr.params[1].value];
-	instr.process->carry = !instr.process->reg[instr.params[2].value];
+	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
 	return (free_params(instr, 1));
 }
 
@@ -109,7 +110,7 @@ int	sub(t_instr instr)
 	instr.process->reg[instr.params[2].value]
 	= instr.process->reg[instr.params[0].value]
 	- instr.process->reg[instr.params[1].value];
-	instr.process->carry = !instr.process->reg[instr.params[2].value];
+	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
 	return (free_params(instr, 1));
 }
 
@@ -152,6 +153,7 @@ int	xor(t_instr instr)
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value ^ instr.params[1].value;
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
+	ft_printf("{MAGENTA}carry=%d{EOC}\n", instr.process->carry);
 	return (free_params(instr, 1));
 }
 //TODO: Check this one :
@@ -159,7 +161,7 @@ int	zjmp(t_instr instr)
 {
 	INFO("ZJMP");
 	if (instr.process->carry == 0)
-		return (decal_pc(instr, 3, 0));
+		return (decal_pc(instr, DECAL, 0));
 	instr.process->pc = get_address(instr.process->pc +
 		byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD);
 	instr.process->cycles_left = -1;
@@ -219,9 +221,9 @@ int	core_fork(t_instr instr)
 	instr.process->reg[1]);
 	instr.vm->processes->carry = instr.process->carry;
 	instr.vm->processes->alive = instr.process->alive;
-	while (++i <= REG_NUMBER)
+	while (++i < REG_NUMBER)
 		instr.vm->processes->reg[i] = instr.process->reg[i];
-	return (decal_pc(instr, 2, 1));
+	return (decal_pc(instr, DECAL, 1));
 }
 
 int	lld(t_instr instr)
@@ -268,7 +270,7 @@ int	core_lfork(t_instr instr)
 	instr.vm->processes->alive = instr.process->alive;
 	while (++i <= REG_NUMBER)
 		instr.vm->processes->reg[i] = instr.process->reg[i];
-	return (decal_pc(instr, 2, 1));
+	return (decal_pc(instr, DECAL, 1));
 }
 
 int	aff(t_instr instr)

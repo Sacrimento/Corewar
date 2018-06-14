@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/14 15:00:57 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/14 15:21:23 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ static void	del_process(t_vm *vm, t_process *del)
 void		check_process(t_vm *vm)
 {
 	t_process *process;
+	t_process *next;
 
 	process = vm->processes;
 	if (!process)
@@ -51,10 +52,16 @@ void		check_process(t_vm *vm)
 	while (process)
 	{
 		if (!process->alive)
+		{
+			next = process->next;
 			del_process(vm, process);
+			process = next;
+		}
 		else
+		{
 			process->alive = 0;
-		process = process->next;
+			process = process->next;
+		}
 	}
 }
 
