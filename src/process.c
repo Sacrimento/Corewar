@@ -25,6 +25,9 @@ static void	del_process(t_vm *vm, t_process *del)
 	if (curr == del)
 	{
 		vm->processes = del->next;
+		INFO("PROCESS ");
+		INFONUM(del->id);
+		INFO(" WAS KILLED!!!!!!\n");
 		ft_memdel((void**)&del);
 		return ;
 	}
@@ -34,6 +37,9 @@ static void	del_process(t_vm *vm, t_process *del)
 		if (curr == del)
 		{
 			prev->next = curr->next;
+			INFO("PROCESS ");
+			INFONUM(del->id);
+			INFO(" WAS KILLED!!!!!!\n");
 			ft_memdel((void**)&curr);
 			return ;
 		}
@@ -73,6 +79,8 @@ int			add_process(t_vm *vm, int pc, int id)
 	pro = vm->processes;
 	if (!(new = (t_process*)ft_memalloc(sizeof(t_process))))
 		return (error_mall(0));
+	if (vm->processes)
+		new->id = vm->processes->id + 1;
 	new->alive = 1;
 	new->pc = pc;
 	new->carry = 0;

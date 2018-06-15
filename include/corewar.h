@@ -42,6 +42,7 @@ typedef struct			s_process
 	int					carry;
 	int					reg[REG_NUMBER];
 	int					cycles_left;
+	int 				id;
 	struct s_process	*next;
 }						t_process;
 
