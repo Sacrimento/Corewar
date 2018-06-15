@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/14 17:52:25 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/15 15:24:42 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,9 +117,8 @@ int	and(t_instr instr)
 	INFO("AND");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
-	|| !valid_reg(--instr.params[2].value))
+	|| !valid_reg(--instr.params[2].value) || !convert_params(instr, 2))
 		return (free_params(instr, 0));
-	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value & instr.params[1].value;
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
@@ -131,9 +130,8 @@ int	or(t_instr instr)
 	INFO("OR");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
-	|| !valid_reg(--instr.params[2].value))
+	|| !valid_reg(--instr.params[2].value) || !convert_params(instr, 2))
 		return (free_params(instr, 0));
-	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value | instr.params[1].value;
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
@@ -145,9 +143,8 @@ int	xor(t_instr instr)
 	INFO("XOR");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
-	|| !valid_reg(--instr.params[2].value))
+	|| !valid_reg(--instr.params[2].value) || !convert_params(instr, 2))
 		return (free_params(instr, 0));
-	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value ^ instr.params[1].value;
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
@@ -170,9 +167,8 @@ int	ldi(t_instr instr)
 	INFO("LDI");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
-	|| !valid_reg(--instr.params[2].value))
+	|| !valid_reg(--instr.params[2].value) || !convert_params(instr, 2))
 		return (free_params(instr, 0));
-	convert_params(instr, 2);
 	instr.process->reg[instr.params[2].value]
 	= instr.vm->map[get_address((instr.process->pc
 	+ (instr.params[0].value + instr.params[1].value)) % IDX_MOD)];
@@ -180,27 +176,17 @@ int	ldi(t_instr instr)
 	return (free_params(instr, 1));
 }
 
-/* static void print_param(t_param *params)
-{
-	int i = -1;
-
-	while (++i < 3)
-	{
-		ft_printf("{YELLOW}value:%d|type:%d{EOC}\n", params[i].value, params[i].type);
-	}
-} */
-
 int	sti(t_instr instr)
 {
 	INFO("STI");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
-	|| !valid_reg(--instr.params[0].value))
+	|| !valid_reg(--instr.params[0].value)
+	|| !convert_params_start(instr, 1, 3))
 		return (free_params(instr, 0));
-	convert_params_start(instr, 1, 3);
 	int_to_bytes(instr.process->reg[instr.params[0].value],
-	get_address(instr.process->pc + (instr.params[1].value + instr.params[2].value) % IDX_MOD),
-	instr.vm->map);
+	get_address(instr.process->pc +
+	(instr.params[1].value + instr.params[2].value) % IDX_MOD), instr.vm->map);
 	// print_param(instr.params);
 	instr.process->carry = instr.process->reg[instr.params[0].value] == 0;
 	INFONUM(instr.process->reg[instr.params[0].value]);
@@ -247,9 +233,9 @@ int	lldi(t_instr instr)
 	INFO("LLDI");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
-	|| !valid_reg(--instr.params[2].value))
+	|| !valid_reg(--instr.params[2].value)
+	|| !convert_params_unrestrained(instr, 2))
 		return (free_params(instr, 0));
-	convert_params_unrestrained(instr, 2);
 	instr.process->reg[instr.params[2].value]
 	= instr.vm->map[get_address(instr.process->pc
 	+ (instr.params[0].value + instr.params[1].value))];
