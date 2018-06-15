@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/14 16:26:28 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/15 16:41:00 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,6 @@ t_instr		instr_params(t_vm *vm, t_process *process, int opc)
 
 int			decal_pc(t_instr instr, int decal, int ret)
 {
-	static int i = 0;
-	ft_printf("opcode:%d\n", instr.opcode);
 	ft_printf("actual process:%d\n", instr.process->pc);
 	if (instr.opcode - 1 < 17 && ret == 0)
 		ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
@@ -84,11 +82,6 @@ int			decal_pc(t_instr instr, int decal, int ret)
 		ft_printf("{GREEN}INSTRUCTION SUCCEED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
 	instr.process->pc = (instr.process->pc + decal) % MEM_SIZE;
 	instr.process->cycles_left = -1;
-	ft_printf("{YELLOW}i:%d|process:%s|carry=%d{EOC}\n",
-	i++,
-	g_op_tab[instr.opcode - 1].name, instr.process->carry);
-/* 	if (instr.vm->processes_nbr >= 15)
-		usleep(900000); */
 	return (ret);
 }
 
@@ -99,16 +92,11 @@ int			free_params(t_instr instr, int ret)
 
 	cursor = -1;
 	to_decal = 2;
-	if (!ret)
-	{
-		ERROR(g_op_tab[instr.opcode-1].desc);
-		ERROR("INSTRUCTION FAILED");
-	}
 	if (instr.params)
 	{
 		while (++cursor < 3)
 			to_decal += type_to_size(instr.params[cursor].type, instr.opcode);
-		decal_pc(instr, to_decal, 1);
+		decal_pc(instr, to_decal, ret);
 		free(instr.params);
 	}
 	return (ret);

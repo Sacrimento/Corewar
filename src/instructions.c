@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/15 15:24:42 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/15 16:21:07 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	st(t_instr instr)
 
 int	add(t_instr instr)
 {
-	INFO("ADD");	
+	INFO("ADD");
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value)
@@ -154,11 +154,13 @@ int	xor(t_instr instr)
 int	zjmp(t_instr instr)
 {
 	INFO("ZJMP");
+	ft_printf("{MAGENTA}Carry for zjmp :%d{EOC}\n", instr.process->carry);
 	if (instr.process->carry == 0)
 		return (decal_pc(instr, DECAL, 0));
 	instr.process->pc = get_address(instr.process->pc +
 		byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD);
 	instr.process->cycles_left = -1;
+	SUCCESS("INSTRUCTION SUCCEED zjmp");
 	return (1);
 }
 
