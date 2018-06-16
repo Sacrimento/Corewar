@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/14 16:26:28 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/16 16:27:28 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_param		*decode_param_type(unsigned char ocp)
 			parameters[2 - iterator].type = T_IND;
 		iterator++;
 	}
-	for (int i = 0; i < 3; i++)
-		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
+	//for (int i = 0; i < 3; i++)
+	//	ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
 	return (parameters);
 }
 
@@ -50,7 +50,7 @@ t_param		*get_params(t_vm *vm, t_process *process, int opcode)
 	|| !(parameters = decode_param_type(vm->map[(process->pc + 1) % MEM_SIZE]))
 	|| !parameters[0].type)
 	{
-		ERROR("get_params for instructions : cannot decode parameter(s) type");
+		//ERROR("get_params for instructions : cannot decode parameter(s) type");
 		return (NULL);
 	}
 	while (++i < 3 && parameters[i].type != 0)
@@ -75,18 +75,18 @@ t_instr		instr_params(t_vm *vm, t_process *process, int opc)
 
 int			decal_pc(t_instr instr, int decal, int ret)
 {
-	static int i = 0;
-	ft_printf("opcode:%d\n", instr.opcode);
-	ft_printf("actual process:%d\n", instr.process->pc);
-	if (instr.opcode - 1 < 17 && ret == 0)
-		ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
-	if (instr.opcode - 1 < 17 && ret == 1)
-		ft_printf("{GREEN}INSTRUCTION SUCCEED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
+	//static int i = 0;
+	//ft_printf("opcode:%d\n", instr.opcode);
+	//ft_printf("actual process:%d\n", instr.process->pc);
+	//if (instr.opcode - 1 < 17 && ret == 0)
+	//	ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
+	//if (instr.opcode - 1 < 17 && ret == 1)
+	//	ft_printf("{GREEN}INSTRUCTION SUCCEED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
 	instr.process->pc = (instr.process->pc + decal) % MEM_SIZE;
 	instr.process->cycles_left = -1;
-	ft_printf("{YELLOW}i:%d|process:%s|carry=%d{EOC}\n",
-	i++,
-	g_op_tab[instr.opcode - 1].name, instr.process->carry);
+	//ft_printf("{YELLOW}i:%d|process:%s|carry=%d{EOC}\n",
+	//i++,
+	//g_op_tab[instr.opcode - 1].name, instr.process->carry);
 /* 	if (instr.vm->processes_nbr >= 15)
 		usleep(900000); */
 	return (ret);

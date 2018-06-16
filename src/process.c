@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/16 14:36:24 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/16 17:07:12 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,9 @@ void		check_process(t_vm *vm)
 			ft_memdel((void**)&del);
 			vm->processes_nbr -= 1;
 		}
-		if (pro->next)
+		else if (pro->next)
 			pro = pro->next;
 	}
-	ft_printf("TITI\n");
 	if (!vm->processes->alive)
 	{
 		del = vm->processes;
@@ -99,7 +98,6 @@ void		check_process(t_vm *vm)
 		ft_memdel((void**)&del);
 		vm->processes_nbr -= 1;
 	}
-	ft_printf("ToTo\n");
 	pro = vm->processes;
 	while (pro)
 	{
@@ -117,8 +115,7 @@ int			add_process(t_vm *vm, int pc, int id)
 	pro = vm->processes;
 	if (!(new = (t_process*)ft_memalloc(sizeof(t_process))))
 		return (error_mall(0));
-	if (vm->processes)
-		new->id = i++;
+	new->id = i++;
 	new->alive = 1;
 	new->pc = pc;
 	new->carry = 0;
