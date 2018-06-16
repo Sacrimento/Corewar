@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/16 16:25:34 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/16 17:20:14 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ static void	check_vm(t_vm *vm, int *check, int *ctd)
 	{
 		*check = 0;
 		*ctd -= CYCLE_DELTA;
+		ft_printf("Cycle to die is now %d\n", *ctd);
 	}
 	vm->cycle = 0;
 	vm->lives = 0;

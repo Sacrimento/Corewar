@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/16 16:27:28 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/16 18:35:19 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,12 @@ int			decal_pc(t_instr instr, int decal, int ret)
 	//	ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
 	//if (instr.opcode - 1 < 17 && ret == 1)
 	//	ft_printf("{GREEN}INSTRUCTION SUCCEED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
+	ft_printf("ADV %d (%#.4x -> ", decal, instr.process->pc);
 	instr.process->pc = (instr.process->pc + decal) % MEM_SIZE;
+	ft_printf("%#.4x) ", instr.process->pc);
+	while (decal > 0)
+		ft_printf("%.2x ", instr.vm->map[instr.process->pc - decal--]);
+	ft_printf("\n");
 	instr.process->cycles_left = -1;
 	//ft_printf("{YELLOW}i:%d|process:%s|carry=%d{EOC}\n",
 	//i++,
