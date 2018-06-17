@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/06/17 13:06:04 by mfonteni         ###   ########.fr       */
+=======
+/*   Updated: 2018/06/16 17:20:14 by abouvero         ###   ########.fr       */
+>>>>>>> 138ed344562c7479de37b15e338140654d2f8970
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +56,10 @@ static int	exec_process(t_process *process, t_vm *vm)
 			}
 			if (opc < 1 || opc > 16)
 				return (decal_pc((instr_params(vm, process, opc)), 1, 0));
-			ft_printf("OCP : %d\n", opc);
+			//ft_printf("OCP : %d\n", opc);
+			//ft_printf("{MAGENTA}PROCESS %d {EOC}\n", process->id);
 			vm->instr_tab[opc - 1](instr_params(vm, process, opc));
-			ft_printf("NEW PC : %d\n", process->pc);
+			//ft_printf("NEW PC : %d\n", process->pc);
 		}
 		process = process->next;
 	}
@@ -82,12 +87,13 @@ static void	check_vm(t_vm *vm, int *check, int *ctd)
 	t_champ *ch;
 
 	ch = vm->champ;
-	INFO("CHECKS");
+	//INFO("CHECKS");
 	check_process(vm);
 	if (*check == MAX_CHECKS || vm->lives >= NBR_LIVE)
 	{
 		*check = 0;
 		*ctd -= CYCLE_DELTA;
+		ft_printf("Cycle to die is now %d\n", *ctd);
 	}
 	vm->cycle = 0;
 	vm->lives = 0;
@@ -109,7 +115,7 @@ int			run(t_vm *vm)
 	ctd = CYCLE_TO_DIE;
 	while (vm->processes_nbr && ctd > 0)
 	{
-		ft_printf("CYCLE : %d | CTD : %d\n", vm->tt_cycle, ctd);
+		ft_printf("It is now cycle %d\n", vm->tt_cycle);
 		if (vm->cycle == ctd)
 			check_vm(vm, &check, &ctd);
 		exec_process(vm->processes, vm);
@@ -117,7 +123,7 @@ int			run(t_vm *vm)
 			return (mem_dump(vm->map));
 		vm->cycle++;
 		vm->tt_cycle++;
-		ft_printf("{CYAN}processes nb:%d{EOC}\n", vm->processes_nbr);
+		//ft_printf("{CYAN}processes nb:%d{EOC}\n", vm->processes_nbr);
 	}
 	return (1);
 }
