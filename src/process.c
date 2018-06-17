@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/17 13:07:46 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/17 13:08:20 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,8 @@ int			add_process(t_vm *vm, int pc, int id)
 {
 	t_process	*pro;
 	t_process	*new;
-	static int unique_id = 0;
-
 	static int i = 1;
+	
 	pro = vm->processes;
 	if (!(new = (t_process*)ft_memalloc(sizeof(t_process))))
 		return (error_mall(0));

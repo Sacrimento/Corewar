@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2018/06/17 13:05:12 by mfonteni         ###   ########.fr       */
-=======
-/*   Updated: 2018/06/16 19:22:42 by abouvero         ###   ########.fr       */
->>>>>>> 138ed344562c7479de37b15e338140654d2f8970
+/*   Updated: 2018/06/17 13:09:06 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +70,9 @@ int	ld(t_instr instr)
 
 int	st(t_instr instr)
 {
-<<<<<<< HEAD
 	INFO("ST");
 	ft_printf("{BLUE}Process id = %d{EOC}\n", instr.process->id);
 
-=======
-	//INFO("ST");
->>>>>>> 138ed344562c7479de37b15e338140654d2f8970
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value))
@@ -106,11 +98,7 @@ int	st(t_instr instr)
 
 int	add(t_instr instr)
 {
-<<<<<<< HEAD
 	INFO("ADD");
-=======
-	//INFO("ADD");	
->>>>>>> 138ed344562c7479de37b15e338140654d2f8970
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value)
@@ -186,12 +174,8 @@ int	xor(t_instr instr)
 //TODO: Check this one :
 int	zjmp(t_instr instr)
 {
-<<<<<<< HEAD
 	INFO("ZJMP");
 	ft_printf("{MAGENTA}Carry for zjmp :%d{EOC}\n", instr.process->carry);
-=======
-	//INFO("ZJMP");
->>>>>>> 138ed344562c7479de37b15e338140654d2f8970
 	if (instr.process->carry == 0)
 	{
 		ft_printf("P %4d | %s %d FAILED\n", instr.process->id, "zjmp", get_address(instr.process->pc + byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD));
