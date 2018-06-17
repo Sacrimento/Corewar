@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/14 15:21:23 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/17 13:05:51 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@ static void	del_process(t_vm *vm, t_process *del)
 	if (curr == del)
 	{
 		vm->processes = del->next;
-		INFO("PROCESS ");
-		INFONUM(del->id);
-		INFO(" WAS KILLED!!!!!!\n");
+		ft_printf("{RED}PROCESS %d WAS KILLED, PC:%d{EOC}\n", del->id, del->pc);
 		ft_memdel((void**)&del);
 		return ;
 	}
@@ -37,9 +35,7 @@ static void	del_process(t_vm *vm, t_process *del)
 		if (curr == del)
 		{
 			prev->next = curr->next;
-			INFO("PROCESS ");
-			INFONUM(del->id);
-			INFO(" WAS KILLED!!!!!!\n");
+			ft_printf("{RED}PROCESS %d WAS KILLED, PC:%d{EOC}\n", del->id, del->pc);
 			ft_memdel((void**)&curr);
 			return ;
 		}
@@ -75,12 +71,14 @@ int			add_process(t_vm *vm, int pc, int id)
 {
 	t_process	*pro;
 	t_process	*new;
+	static int unique_id = 0;
 
 	pro = vm->processes;
 	if (!(new = (t_process*)ft_memalloc(sizeof(t_process))))
 		return (error_mall(0));
 	if (vm->processes)
-		new->id = vm->processes->id + 1;
+		new->id = unique_id++;
+	ft_printf("{YELLOW}uid:%d{EOC}\n", unique_id);
 	new->alive = 1;
 	new->pc = pc;
 	new->carry = 0;

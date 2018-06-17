@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/15 16:21:07 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/17 13:05:12 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ int	ld(t_instr instr)
 int	st(t_instr instr)
 {
 	INFO("ST");
+	ft_printf("{BLUE}Process id = %d{EOC}\n", instr.process->id);
+
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value))
