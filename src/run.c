@@ -54,7 +54,8 @@ static int	exec_process(t_process *process, t_vm *vm)
 				return (decal_pc((instr_params(vm, process, opc)), 1, 0));
 			//ft_printf("OCP : %d\n", opc);
 			//ft_printf("{MAGENTA}PROCESS %d {EOC}\n", process->id);
-			vm->instr_tab[opc - 1](instr_params(vm, process, opc));
+			if (!vm->instr_tab[opc - 1](instr_params(vm, process, opc)))
+				return (decal_pc((instr_params(vm, process, opc)), 1, 0));
 			//ft_printf("NEW PC : %d\n", process->pc);
 		}
 		process = process->next;
