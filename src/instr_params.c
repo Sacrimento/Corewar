@@ -12,30 +12,60 @@
 
 #include "../include/corewar.h"
 
-t_param		*decode_param_type(unsigned char ocp)
-{
-	int cursor;
-	int iterator;
-	t_param *parameters;
+// t_param		*decode_param_type(unsigned char ocp)
+// {
+// 	int cursor;
+// 	int iterator;
+// 	t_param *parameters;
 
-	cursor = 0;
-	iterator = 0;
+// 	cursor = 0;
+// 	iterator = 0;
+// 	if (!(parameters = (t_param*)ft_memalloc(sizeof(t_param) * 3)))
+// 		return (NULL);
+// 	while (++cursor < 4)
+// 	{
+// 		if ((ocp >> (cursor * 2)) & REG_CODE)
+// 			parameters[2 - iterator].type = T_REG;
+// 		else if ((ocp >> (cursor * 2)) & DIR_CODE)
+// 			parameters[2 - iterator].type = T_DIR;
+// 		else if ((ocp >> (cursor * 2)) & IND_CODE)
+// 			parameters[2 - iterator].type = T_IND;
+// 		iterator++;
+// 	}
+// 	for (int i = 0; i < 3; i++)
+// 		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
+// 	return (parameters);
+// }
+
+t_param		*decode_param_type(unsigned char byte)
+{
+	t_param *parameters;
+	int		i;
+	char	*ocp;
+
+	i = -1;
 	if (!(parameters = (t_param*)ft_memalloc(sizeof(t_param) * 3)))
 		return (NULL);
-	while (++cursor < 4)
+	if (!(ocp = ft_itoa_base((int)byte, 2)))
+		return (NULL);
+	ft_printf("OCP : %d %s\n", byte, ocp);
+	while (++i < 3)
 	{
-		if ((ocp >> (cursor * 2)) & REG_CODE)
-			parameters[2 - iterator].type = T_REG;
-		else if ((ocp >> (cursor * 2)) & DIR_CODE)
-			parameters[2 - iterator].type = T_DIR;
-		else if ((ocp >> (cursor * 2)) & IND_CODE)
-			parameters[2 - iterator].type = T_IND;
-		iterator++;
+		if (!ft_strncmp("11", &ocp[2 * i], 2))
+			parameters[2 - i].type = T_IND;
+		else if (!ft_strncmp("10", &ocp[2 * i], 2))
+			parameters[2 - i].type = T_DIR;
+		else if (!ft_strncmp("01", &ocp[2 * i], 2))
+			parameters[2 - i].type = T_REG;
+		else
+			ft_printf("{RED}OCP \"%s\" did not match on %d{EOC}\n", ocp, i) ;
 	}
 	for (int i = 0; i < 3; i++)
 		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
+	ft_memdel((void**)&ocp);
 	return (parameters);
 }
+
 
 t_param		*get_params(t_vm *vm, t_process *process, int opcode)
 {
