@@ -6,15 +6,11 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/17 13:09:06 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/18 14:55:03 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/* Toi qui passe sur ce fichier, rien n'est definitif pour l'instant,
- * j'experimente pour chercher a comprendre certains points qui sont encore
- * flous dans ma tete, la structure de données est susceptible de changer
- * encore un peu, mais l'idée est la.
- * 
+/*
  * Glosssaire :
  * OCP = Octet de Codage des Parametres
  * ***********************************************************
@@ -72,7 +68,6 @@ int	st(t_instr instr)
 {
 	INFO("ST");
 	ft_printf("{BLUE}Process id = %d{EOC}\n", instr.process->id);
-
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value))
@@ -298,7 +293,7 @@ int	core_lfork(t_instr instr)
 
 int	aff(t_instr instr)
 {
-	//INFO("AFF");
+	//INFO("AFF"); 
 	instr.params = get_params(instr.vm, instr.process, instr.opcode);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value)
