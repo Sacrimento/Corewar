@@ -6,50 +6,22 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/19 15:27:14 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/19 15:27:35 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-// t_param		*decode_param_type(unsigned char ocp)
-// {
-// 	int cursor;
-// 	int iterator;
-// 	t_param *parameters;
-
-// 	cursor = 0;
-// 	iterator = 0;
-// 	if (!(parameters = (t_param*)ft_memalloc(sizeof(t_param) * 3)))
-// 		return (NULL);
-// 	while (++cursor < 4)
-// 	{
-// 		if ((ocp >> (cursor * 2)) & REG_CODE)
-// 			parameters[2 - iterator].type = T_REG;
-// 		else if ((ocp >> (cursor * 2)) & DIR_CODE)
-// 			parameters[2 - iterator].type = T_DIR;
-// 		else if ((ocp >> (cursor * 2)) & IND_CODE)
-// 			parameters[2 - iterator].type = T_IND;
-// 		iterator++;
-// 	}
-// 	for (int i = 0; i < 3; i++)
-// 		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
-// 	return (parameters);
-// }
-
-static t_param		*decode_param_type(unsigned char byte, t_instr instr)
+static char			*get_ocp(unsigned char byte)
 {
-	t_param *parameters;
-	int		i;
+	char	*padding;
 	char	*ocp;
 	char	*ocp2;
 	int		len;
-	char	*padding;
+	int		i;
 
 	i = -1;
 	padding = NULL;
-	if (!(parameters = (t_param*)ft_memalloc(sizeof(t_param) * 3)))
-		return (NULL);
 	if (!(ocp2 = ft_umax_itoabase(2, byte, 1)))
 		return (NULL);
 	len = ft_strlen(ocp2);
@@ -67,8 +39,21 @@ static t_param		*decode_param_type(unsigned char byte, t_instr instr)
 			return (NULL);
 	ft_memdel((void**)&ocp2);
 	ft_memdel((void**)&padding);
-	ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
+	return (ocp);
+}
+
+static t_param		*decode_param_type(unsigned char byte, t_instr instr)
+{
+	t_param *parameters;
+	int		i;
+	char	*ocp;
+
 	i = -1;
+	if (!(ocp = get_ocp(byte)))
+		return (NULL);
+	if (!(parameters = (t_param*)ft_memalloc(sizeof(t_param) * 3)))
+ 		return (NULL);
+	ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
 	while (++i < g_op_tab[instr.opcode - 1].nb_param)
 	{
 		if (!ft_strncmp("11", &ocp[2 * i], 2))
