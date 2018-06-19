@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/19 13:41:58 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/19 14:24:30 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,31 +47,38 @@ static t_param		*decode_param_type(unsigned char byte, t_instr instr)
 	char	*padding;
 
 	i = -1;
+	padding = NULL;
 	if (!(parameters = (t_param*)ft_memalloc(sizeof(t_param) * 3)))
 		return (NULL);
-	if (!(ocp2 = ft_umax_itoabase(2, (int)byte, 1)))
+	if (!(ocp2 = ft_umax_itoabase(2, byte, 1)))
 		return (NULL);
 	len = ft_strlen(ocp2);
-	if (!(padding = ft_memalloc(8 - len)))
-		return (NULL);
-	while (++i < 8 - len)
-		padding[i] = '0';
-	if (!(ocp = ft_strjoin(padding, ocp2)))
-		return (NULL);
-	ft_printf("COUCOCUCOCCUCUC : %s\n", ocp);
-	ft_memdel((void**)&ocp);
+	if (len < 8)
+	{
+		if (!(padding = ft_memalloc(8 - len)))
+			return (NULL);
+		while (++i < 8 - len)
+			padding[i] = '0';
+		if (!(ocp = ft_strjoin(padding, ocp2)))
+			return (NULL);
+	}
+	else
+		if (!(ocp = ft_strdup(ocp2)))
+			return (NULL);
+	ft_memdel((void**)&ocp2);
 	ft_memdel((void**)&padding);
 	ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
+	i = -1;
 	while (++i < g_op_tab[instr.opcode - 1].nb_param)
 	{
 		if (!ft_strncmp("11", &ocp[2 * i], 2))
-			parameters[g_op_tab[instr.opcode - 1].nb_param - 1 - i].type = T_IND;
+			parameters[i].type = T_IND;
+		else if (!ft_strncmp("10", &ocp[2 * i], 2))
+			parameters[i].type = T_DIR;
 		else if (!ft_strncmp("01", &ocp[2 * i], 2))
-			parameters[g_op_tab[instr.opcode - 1].nb_param - 1 - i].type = T_DIR;
-		else if (!ft_strncmp("01", &ocp[2 * i], 2))
-			parameters[g_op_tab[instr.opcode - 1].nb_param - 1 - i].type = T_REG;
+			parameters[i].type = T_REG;
 		else
-			ft_printf("{RED}OCP \"%s\" did not match on %d{EOC}\n", ocp, i) ;
+			ft_printf("{RED}OCP \"%s\" did not match{EOC}\n", &ocp[2 * i]) ;
 	}
 	for (int i = 0; i < 3; i++)
 		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
