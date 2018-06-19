@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/19 15:34:58 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/19 17:09:53 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	exec_process(t_process *process, t_vm *vm)
 			//ft_printf("OCP : %d\n", opc);
 			//ft_printf("{MAGENTA}PROCESS %d {EOC}\n", process->id);
 			if (process->id == 2)
-				ft_printf("Process %d execs %s\n", process->id, g_op_tab[opc -1].name);
+				ft_printf("Process %d|execs %s|\n", process->id, g_op_tab[opc -1].name);
 			vm->instr_tab[opc - 1](instr_params(vm, process, opc));
 			//ft_printf("NEW PC : %d\n", process->pc);
 		}
@@ -80,7 +80,7 @@ static int	mem_dump(unsigned char *map)
 	return (1);
 }
 
-static void	check_vm(t_vm *vm, int *check, int *ctd)
+static void	check_vm(t_vm *vm, int *check)
 {
 	t_champ *ch;
 
@@ -90,8 +90,8 @@ static void	check_vm(t_vm *vm, int *check, int *ctd)
 	if (*check == MAX_CHECKS || vm->lives >= NBR_LIVE)
 	{
 		*check = 0;
-		*ctd -= CYCLE_DELTA;
-		ft_printf("Cycle to die is now %d\n", *ctd);
+		vm->ctd -= CYCLE_DELTA;
+		ft_printf("Cycle to die is now %d\n", vm->ctd);
 	}
 	vm->cycle = 0;
 	vm->lives = 0;
@@ -105,17 +105,16 @@ static void	check_vm(t_vm *vm, int *check, int *ctd)
 
 int			run(t_vm *vm)
 {
-	int		ctd;
 	int		check;
 
 	check = 0;
 	init_instr_tab(vm);
-	ctd = CYCLE_TO_DIE;
-	while (vm->processes_nbr && ctd > 0)
+	vm->ctd = CYCLE_TO_DIE;
+	while (vm->processes_nbr && vm->ctd > 0)
 	{
 		ft_printf("It is now cycle %d\n", vm->tt_cycle);
-		if (vm->cycle == ctd)
-			check_vm(vm, &check, &ctd);
+		if (vm->cycle == vm->ctd)
+			check_vm(vm, &check);
 		exec_process(vm->processes, vm);
 		if (vm->tt_cycle == vm->dump)
 			return (mem_dump(vm->map));

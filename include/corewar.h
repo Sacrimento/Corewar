@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/19 13:25:47 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/19 16:49:58 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct			s_vm
 	int 				(*instr_tab[16])(t_instr);
 	struct s_champ		*champ;
 	struct s_process	*processes;
+	int					ctd;
 }						t_vm;
 
 //run.c
