@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/17 13:14:21 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/19 15:21:33 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,16 @@ static int	exec_process(t_process *process, t_vm *vm)
 		else
 		{
 			opc = vm->map[process->pc % MEM_SIZE];
+			if (opc < 1 || opc > 16)
+				return (decal_pc((instr_params(vm, process, opc)), 1, 0));
 			if (process->cycles_left == -1)
 			{
 				process->cycles_left = g_op_tab[opc - 1].nb_cycle - 1;
 				return (0);
 			}
-			if (opc < 1 || opc > 16)
-				return (decal_pc((instr_params(vm, process, opc)), 1, 0));
 			//ft_printf("OCP : %d\n", opc);
 			//ft_printf("{MAGENTA}PROCESS %d {EOC}\n", process->id);
-			if (!vm->instr_tab[opc - 1](instr_params(vm, process, opc)))
-				return (decal_pc((instr_params(vm, process, opc)), 1, 0));
+			vm->instr_tab[opc - 1](instr_params(vm, process, opc));
 			//ft_printf("NEW PC : %d\n", process->pc);
 		}
 		process = process->next;
@@ -120,7 +119,7 @@ int			run(t_vm *vm)
 			return (mem_dump(vm->map));
 		vm->cycle++;
 		vm->tt_cycle++;
-		//ft_printf("{CYAN}processes nb:%d{EOC}\n", vm->processes_nbr);
+		ft_printf("{CYAN}processes nb:%d{EOC}\n", vm->processes_nbr);
 	}
 	return (1);
 }

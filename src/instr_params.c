@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_params.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/19 14:24:30 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/19 15:27:14 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,12 +125,12 @@ t_instr		instr_params(t_vm *vm, t_process *process, int opc)
 
 int			decal_pc(t_instr instr, int decal, int ret)
 {
-	//static int i = 0;
 	ft_printf("opcode:%d\n", instr.opcode);
 	ft_printf("actual process:%d\n", instr.process->pc);
-	if (instr.opcode - 1 < 17 && ret == 0)
+	INFONUM(instr.opcode);
+	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 0)
 		ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
-	if (instr.opcode - 1 < 17 && ret == 1)
+	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 1)
 		ft_printf("{GREEN}INSTRUCTION SUCCEED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
 	ft_printf("ADV %d (%#.4x -> ", decal, instr.process->pc);
 	instr.process->pc = (instr.process->pc + decal) % MEM_SIZE;
@@ -139,11 +139,6 @@ int			decal_pc(t_instr instr, int decal, int ret)
 		ft_printf("%.2x ", instr.vm->map[instr.process->pc - decal--]);
 	ft_printf("\n");
 	instr.process->cycles_left = -1;
-	//ft_printf("{YELLOW}i:%d|process:%s|carry=%d{EOC}\n",
-	//i++,
-	//g_op_tab[instr.opcode - 1].name, instr.process->carry);
-/* 	if (instr.vm->processes_nbr >= 15)
-		usleep(900000); */
 	return (ret);
 }
 
@@ -158,6 +153,7 @@ int			free_params(t_instr instr, int ret)
 	{
 		while (++cursor < 3)
 			to_decal += type_to_size(instr.params[cursor].type, instr.opcode);
+		to_decal = to_decal != 0 ? to_decal : 1;
 		decal_pc(instr, to_decal, ret);
 		free(instr.params);
 	}
