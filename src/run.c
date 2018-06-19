@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/19 15:21:33 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/19 15:34:58 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ static int	exec_process(t_process *process, t_vm *vm)
 			}
 			//ft_printf("OCP : %d\n", opc);
 			//ft_printf("{MAGENTA}PROCESS %d {EOC}\n", process->id);
+			if (process->id == 2)
+				ft_printf("Process %d execs %s\n", process->id, g_op_tab[opc -1].name);
 			vm->instr_tab[opc - 1](instr_params(vm, process, opc));
 			//ft_printf("NEW PC : %d\n", process->pc);
 		}
