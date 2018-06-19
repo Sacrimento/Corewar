@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/17 13:06:56 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/19 13:25:47 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,8 +117,7 @@ int						list_length(t_champ *champ);
 int						activate_visu(t_vm *vm, int *i, int ac);
 
 //instr_params.c
-t_param					*decode_param_type(unsigned char ocp);
-t_param					*get_params(t_vm *vm, t_process *process, int opcode);
+t_param					*get_params(t_instr instr);
 t_instr					instr_params(t_vm *vm, t_process *process, int opc);
 int						continue_process(t_vm *vm, t_process *process);
 

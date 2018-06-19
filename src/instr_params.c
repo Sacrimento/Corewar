@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/19 13:10:07 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/19 13:41:58 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,26 +37,39 @@
 // 	return (parameters);
 // }
 
-t_param		*decode_param_type(unsigned char byte)
+static t_param		*decode_param_type(unsigned char byte, t_instr instr)
 {
 	t_param *parameters;
 	int		i;
 	char	*ocp;
+	char	*ocp2;
+	int		len;
+	char	*padding;
 
 	i = -1;
 	if (!(parameters = (t_param*)ft_memalloc(sizeof(t_param) * 3)))
 		return (NULL);
-	if (!(ocp = ft_umax_itoabase(2, (int)byte, 1)))
+	if (!(ocp2 = ft_umax_itoabase(2, (int)byte, 1)))
 		return (NULL);
-	ft_printf("OCP : %d %s\n", byte, ocp);
-	while (++i < 3)
+	len = ft_strlen(ocp2);
+	if (!(padding = ft_memalloc(8 - len)))
+		return (NULL);
+	while (++i < 8 - len)
+		padding[i] = '0';
+	if (!(ocp = ft_strjoin(padding, ocp2)))
+		return (NULL);
+	ft_printf("COUCOCUCOCCUCUC : %s\n", ocp);
+	ft_memdel((void**)&ocp);
+	ft_memdel((void**)&padding);
+	ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
+	while (++i < g_op_tab[instr.opcode - 1].nb_param)
 	{
 		if (!ft_strncmp("11", &ocp[2 * i], 2))
-			parameters[2 - i].type = T_IND;
-		else if (!ft_strncmp("10", &ocp[2 * i], 2))
-			parameters[2 - i].type = T_DIR;
+			parameters[g_op_tab[instr.opcode - 1].nb_param - 1 - i].type = T_IND;
 		else if (!ft_strncmp("01", &ocp[2 * i], 2))
-			parameters[2 - i].type = T_REG;
+			parameters[g_op_tab[instr.opcode - 1].nb_param - 1 - i].type = T_DIR;
+		else if (!ft_strncmp("01", &ocp[2 * i], 2))
+			parameters[g_op_tab[instr.opcode - 1].nb_param - 1 - i].type = T_REG;
 		else
 			ft_printf("{RED}OCP \"%s\" did not match on %d{EOC}\n", ocp, i) ;
 	}
@@ -67,27 +80,27 @@ t_param		*decode_param_type(unsigned char byte)
 }
 
 
-t_param		*get_params(t_vm *vm, t_process *process, int opcode)
+t_param			*get_params(t_instr instr)
 {
 	t_param	*parameters;
 	int		i;
 	int		cursor;
 
 	i = -1;
-	cursor = process->pc + 2;
+	cursor = instr.process->pc + 2;
 	parameters = NULL;
-	if (!vm || !vm->map || !process
-	|| !(parameters = decode_param_type(vm->map[(process->pc + 1) % MEM_SIZE]))
-	|| !parameters[0].type)
+	if (!instr.vm || !instr.vm->map || !instr.process
+	|| !(parameters = decode_param_type(instr.vm->map[(instr.process->pc + 1)
+	% MEM_SIZE], instr)) || !parameters[0].type)
 	{
 		//ERROR("get_params for instructions : cannot decode parameter(s) type");
 		return (NULL);
 	}
 	while (++i < 3 && parameters[i].type != 0)
 	{
-		parameters[i].value = byte_to_int(vm->map, cursor,
-		type_to_size(parameters[i].type, opcode));
-		cursor += type_to_size(parameters[i].type, opcode);
+		parameters[i].value = byte_to_int(instr.vm->map, cursor,
+		type_to_size(parameters[i].type, instr.opcode));
+		cursor += type_to_size(parameters[i].type, instr.opcode);
 	}
 	return (parameters);
 }
