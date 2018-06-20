@@ -6,7 +6,7 @@
 #    By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/25 17:38:12 by abouvero          #+#    #+#              #
-#    Updated: 2018/06/20 15:07:22 by mfonteni         ###   ########.fr        #
+#    Updated: 2018/06/20 16:35:41 by rkrief           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,8 @@ SRC_NAME = main.c \
 	   getters.c \
 	   convert.c \
 	   instr_params_check.c \
+	   init_visu.c \
+	   visu_run.c \
 	   op.c
 OBJ_NAME = $(SRC_NAME:.c=.o)
 OBJ_PATH = obj
@@ -45,7 +47,7 @@ OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $(CFLAGS) $^ -o $@ -lncurses
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
