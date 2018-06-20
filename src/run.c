@@ -6,6 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
+/*   Updated: 2018/06/20 16:37:37 by rkrief           ###   ########.fr       */
 /*   Updated: 2018/06/20 14:36:17 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -101,9 +102,14 @@ static void	check_vm(t_vm *vm, int *check)
 int			run(t_vm *vm)
 {
 	int		check;
+//	WINDOW	*win;
+//	t_visu	*visu;
 
 	check = 0;
+//	win = NULL;
+//	visu = NULL;
 	init_instr_tab(vm);
+//	init_visu(win, visu);
 	vm->ctd = CYCLE_TO_DIE;
 	while (vm->processes_nbr && vm->ctd > 0)
 	{
@@ -111,11 +117,13 @@ int			run(t_vm *vm)
 		if (vm->cycle == vm->ctd)
 			check_vm(vm, &check);
 		exec_process(vm->processes, vm);
+//		visu_run(vm, win, visu);
 		if (vm->tt_cycle == vm->dump)
 			return (mem_dump(vm->map));
 		vm->cycle++;
 		vm->tt_cycle++;
 		ft_printf("{CYAN}processes nb:%d{EOC}\n", vm->processes_nbr);
 	}
+//	endwin();
 	return (1);
 }

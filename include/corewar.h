@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/19 16:49:58 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/20 16:34:46 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include "../libft/includes/libft.h"
 #include "op.h"
+#include <ncurses.h>
 #include <fcntl.h>
 
 /********************DEBUG KINGDOM*********************/
@@ -75,6 +76,19 @@ typedef struct			s_vm
 	struct s_process	*processes;
 	int					ctd;
 }						t_vm;
+
+typedef struct			s_visu
+{
+	int					height;
+	int					width;
+	int					start_x;
+	int					start_y;
+	int					slow;
+}						t_visu;
+
+//visu
+void	init_visu(WINDOW *win, t_visu *visu);
+void    visu_run(t_vm *vm, WINDOW *win, t_visu *visu);
 
 //run.c
 int 					run(t_vm *vm);
