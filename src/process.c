@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/19 17:16:55 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/20 13:57:57 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,13 @@ void		check_process(t_vm *vm)
 	pro = vm->processes;
 	while (pro->next)
 	{
-		if (!pro->next->alive)
+		if (pro->next->alive == 0)
 		{
 			del = pro->next;
 			pro->next = pro->next->next;
 			if (vm->map[del->pc] - 1 >= 0 && vm->map[del->pc] - 1 < 16)
-			ft_printf("{MAGENTA}KILLED:%d|Pc:%d|Instr:%s|Instr cycles %d|Cycle to die %d|Cycles left %d{EOC}\n",
-			del->id, del->pc, g_op_tab[vm->map[del->pc] - 1].name,
+			ft_printf("{MAGENTA}%dKILLED:%d|Pc:%d|Instr:%s|Instr cycles %d|Cycle to die %d|Cycles left %d{EOC}\n",
+			del->alive, del->id, del->pc, g_op_tab[vm->map[del->pc] - 1].name,
 			g_op_tab[vm->map[del->pc] - 1].nb_cycle, vm->ctd, del->cycles_left);
 			ft_memdel((void**)&del);
 			vm->processes_nbr -= 1;
@@ -93,13 +93,13 @@ void		check_process(t_vm *vm)
 		else if (pro->next)
 			pro = pro->next;
 	}
-	if (!vm->processes->alive)
+	if (vm->processes->alive == 0)
 	{
 		del = vm->processes;
 		vm->processes = vm->processes->next;
 		if (vm->map[del->pc] - 1 >= 0 && vm->map[del->pc] - 1 < 16)
-		ft_printf("{MAGENTA}KILLED:%d|Pc:%d|Instr:%s|Instr cycles %d|Cycle to die %d|Cycles left %d{EOC}\n",
-		del->id, del->pc, g_op_tab[vm->map[del->pc] - 1].name,
+		ft_printf("{MAGENTA}%dKILLED:%d|Pc:%d|Instr:%s|Instr cycles %d|Cycle to die %d|Cycles left %d{EOC}\n",
+		del->alive, del->id, del->pc, g_op_tab[vm->map[del->pc] - 1].name,
 		g_op_tab[vm->map[del->pc] - 1].nb_cycle, vm->ctd, del->cycles_left);
 
 		ft_memdel((void**)&del);

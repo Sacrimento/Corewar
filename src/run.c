@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/19 17:09:53 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/20 14:22:46 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,17 +46,15 @@ static int	exec_process(t_process *process, t_vm *vm)
 		{
 			opc = vm->map[process->pc % MEM_SIZE];
 			if (opc < 1 || opc > 16)
-				return (decal_pc((instr_params(vm, process, opc)), 1, 0));
-			if (process->cycles_left == -1)
-			{
+				decal_pc((instr_params(vm, process, opc)), 1, 0);
+			else if (process->cycles_left == -1)
 				process->cycles_left = g_op_tab[opc - 1].nb_cycle - 1;
-				return (0);
-			}
+			else
 			//ft_printf("OCP : %d\n", opc);
 			//ft_printf("{MAGENTA}PROCESS %d {EOC}\n", process->id);
-			if (process->id == 2)
-				ft_printf("Process %d|execs %s|\n", process->id, g_op_tab[opc -1].name);
-			vm->instr_tab[opc - 1](instr_params(vm, process, opc));
+			//if (process->id == 2)
+			//	ft_printf("Process %d|execs %s|\n", process->id, g_op_tab[opc -1].name);
+				vm->instr_tab[opc - 1](instr_params(vm, process, opc));
 			//ft_printf("NEW PC : %d\n", process->pc);
 		}
 		process = process->next;
