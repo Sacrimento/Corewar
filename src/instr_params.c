@@ -6,51 +6,39 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/20 15:23:25 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/20 18:36:56 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-static char			*get_ocp(unsigned char byte)
+static void			get_ocp(unsigned char byte, char *ocp)
 {
-	char	*padding;
-	char	*ocp;
-	char	*ocp2;
-	int		len;
-	int		i;
-
+	int i;
+	int size;
+	
+	size = 8;
 	i = -1;
-	padding = NULL;
-	if (!(ocp2 = ft_umax_itoabase(2, byte, 1)))
-		return (NULL);
-	len = ft_strlen(ocp2);
-	if (len < 8)
+	while (size >= 0)
+		ocp[--size] = '0';
+	size = 8;
+	while (byte && size >= 0)
 	{
-		if (!(padding = ft_memalloc(8 - len)))
-			return (NULL);
-		while (++i < 8 - len)
-			padding[i] = '0';
-		if (!(ocp = ft_strjoin(padding, ocp2)))
-			return (NULL);
+		ocp[--size] = byte % 2 + 48;
+		byte = byte / 2;
 	}
-	else
-		if (!(ocp = ft_strdup(ocp2)))
-			return (NULL);
-	ft_memdel((void**)&ocp2);
-	ft_memdel((void**)&padding);
-	return (ocp);
+	ocp[8] = '\0';
 }
 
 static t_param		*decode_param_type(unsigned char byte, t_instr instr)
 {
 	t_param *parameters;
 	int		i;
-	char	*ocp;
+	char	ocp[9];
 
 	i = -1;
-	if (!(ocp = get_ocp(byte)))
-		return (NULL);
+	get_ocp(byte, ocp);
+	ft_printf("{YELOW}%s{EOC}\n", ocp);
 	if (!(parameters = (t_param*)ft_memalloc(sizeof(t_param) * 3)))
  		return (NULL);
 	ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
@@ -67,7 +55,6 @@ static t_param		*decode_param_type(unsigned char byte, t_instr instr)
 	}
 	for (int i = 0; i < 3; i++)
 		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
-	ft_memdel((void**)&ocp);
 	return (parameters);
 }
 
