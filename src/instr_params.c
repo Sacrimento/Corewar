@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/19 15:27:35 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/20 14:57:37 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static t_param		*decode_param_type(unsigned char byte, t_instr instr)
 		return (NULL);
 	if (!(parameters = (t_param*)ft_memalloc(sizeof(t_param) * 3)))
  		return (NULL);
-	ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
+	// ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
 	while (++i < g_op_tab[instr.opcode - 1].nb_param)
 	{
 		if (!ft_strncmp("11", &ocp[2 * i], 2))
@@ -62,11 +62,11 @@ static t_param		*decode_param_type(unsigned char byte, t_instr instr)
 			parameters[i].type = T_DIR;
 		else if (!ft_strncmp("01", &ocp[2 * i], 2))
 			parameters[i].type = T_REG;
-		else
-			ft_printf("{RED}OCP \"%s\" did not match{EOC}\n", &ocp[2 * i]) ;
+		// else
+		// 	ft_printf("{RED}OCP \"%s\" did not match{EOC}\n", &ocp[2 * i]) ;
 	}
-	for (int i = 0; i < 3; i++)
-		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
+	// for (int i = 0; i < 3; i++)
+	// 	ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
 	ft_memdel((void**)&ocp);
 	return (parameters);
 }
@@ -110,19 +110,12 @@ t_instr		instr_params(t_vm *vm, t_process *process, int opc)
 
 int			decal_pc(t_instr instr, int decal, int ret)
 {
-	ft_printf("opcode:%d\n", instr.opcode);
-	ft_printf("actual process:%d\n", instr.process->pc);
-	INFONUM(instr.opcode);
-	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 0)
+/* 	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 0)
 		ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
 	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 1)
 		ft_printf("{GREEN}INSTRUCTION SUCCEED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
-	ft_printf("ADV %d (%#.4x -> ", decal, instr.process->pc);
+	ft_printf("ADV %d (%#.4x -> ", decal, instr.process->pc); */
 	instr.process->pc = (instr.process->pc + decal) % MEM_SIZE;
-	ft_printf("%#.4x) ", instr.process->pc);
-	while (decal > 0)
-		ft_printf("%.2x ", instr.vm->map[instr.process->pc - decal--]);
-	ft_printf("\n");
 	instr.process->cycles_left = -1;
 	return (ret);
 }
