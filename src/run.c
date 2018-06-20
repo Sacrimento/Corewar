@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2018/06/20 15:13:51 by abouvero         ###   ########.fr       */
+=======
+/*   Updated: 2018/06/20 14:36:17 by mfonteni         ###   ########.fr       */
+>>>>>>> c2181131a65cc143e0ab1619ffcc65bec605212d
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +54,6 @@ static int	exec_process(t_process *process, t_vm *vm)
 			else if (process->cycles_left == -1)
 				process->cycles_left = g_op_tab[opc - 1].nb_cycle - 1;
 			else
-			//ft_printf("OCP : %d\n", opc);
-			//ft_printf("{MAGENTA}PROCESS %d {EOC}\n", process->id);
-			//if (process->id == 2)
 			//	ft_printf("Process %d|execs %s|\n", process->id, g_op_tab[opc -1].name);
 				vm->instr_tab[opc - 1](instr_params(vm, process, opc));
 			//ft_printf("NEW PC : %d\n", process->pc);
