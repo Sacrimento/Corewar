@@ -93,7 +93,7 @@ int				init_champs(int ac, char **av, t_vm *vm)
 			if ((num = opt(av, ac, &i, vm)) == -1)
 				return (0);
 			else if (num == -2)
-				return (vm->champ ? 1 : 0);
+				return (vm->champ ? fill_id_champs(vm) : 0);
 		}
 		if (!check_champ_ext(av[i]))
 		{
