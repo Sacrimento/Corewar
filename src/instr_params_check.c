@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/14 16:56:26 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/21 16:17:18 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int convert_params_start(t_instr instr, int start, int limit)
 	int i;
 
 	i = start - 1;
-	if (!instr.params)
-		return (0);
 	while (++i < limit)
 	{
 		if (instr.params[i].type == T_REG)
@@ -72,8 +70,6 @@ int convert_params_unrestrained(t_instr instr, int limit)
 	int i;
 
 	i = -1;
-	if (!instr.params)
-		return (0);
 	while (++i < limit)
 	{
 		if (instr.params[i].type == T_REG)
