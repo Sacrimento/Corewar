@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/21 16:11:42 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/21 16:42:32 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 int	live(t_instr instr)
 {
 	t_champ *thischamp;
-	INFO("LIVE");
+	//INFO("LIVE");
 	instr.process->alive = 1;
 	instr.vm->lives++;
 	if (!instr.vm || !instr.vm->champ
@@ -42,7 +42,7 @@ int	live(t_instr instr)
 
 int	ld(t_instr instr)
 {
-	INFO("LD");
+	//INFO("LD");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[1].value))
@@ -65,7 +65,7 @@ int	ld(t_instr instr)
 
 int	st(t_instr instr)
 {
-	INFO("ST");
+	//INFO("ST");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value))
@@ -90,7 +90,7 @@ int	st(t_instr instr)
 
 int	add(t_instr instr)
 {
-	INFO("ADD");
+	//INFO("ADD");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value)
@@ -107,7 +107,7 @@ int	add(t_instr instr)
 
 int	sub(t_instr instr)
 {
-	INFO("SUB");
+	//INFO("SUB");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value)
@@ -124,7 +124,7 @@ int	sub(t_instr instr)
 
 int	and(t_instr instr)
 {
-	INFO("AND");
+	//INFO("AND");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[2].value) || !convert_params(instr, 2))
@@ -138,7 +138,7 @@ int	and(t_instr instr)
 
 int	or(t_instr instr)
 {
-	INFO("OR");
+	//INFO("OR");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[2].value) || !convert_params(instr, 2))
@@ -152,7 +152,7 @@ int	or(t_instr instr)
 
 int	xor(t_instr instr)
 {
-	INFO("XOR");
+	//INFO("XOR");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[2].value) || !convert_params(instr, 2))
@@ -165,7 +165,7 @@ int	xor(t_instr instr)
 //TODO: Check this one :
 int	zjmp(t_instr instr)
 {
-	INFO("ZJMP");
+	//INFO("ZJMP");
 	if (instr.process->carry == 0)
 	{
 		// ft_printf("P %4d | %s %d FAILED\n", instr.process->id, "zjmp", get_address(instr.process->pc + byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD));
@@ -175,13 +175,13 @@ int	zjmp(t_instr instr)
 		byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD);
 	// ft_printf("P %4d | %s %d OK\n", instr.process->id, "zjmp", get_address(instr.process->pc + byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD));
 	instr.process->cycles_left = -1;
-	SUCCESS("INSTRUCTION SUCCEED zjmp");
+	// SUCCESS("INSTRUCTION SUCCEED zjmp");
 	return (1);
 }
 
 int	ldi(t_instr instr)
 {
-	INFO("LDI");
+	//INFO("LDI");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[2].value) || !convert_params(instr, 2))
@@ -196,7 +196,7 @@ int	ldi(t_instr instr)
 
 int	sti(t_instr instr)
 {
-	INFO("STI");
+	//INFO("STI");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value)
@@ -215,7 +215,7 @@ int	core_fork(t_instr instr)
 	int i;
 
 	i = -1;
-	INFO("FORK");
+	//INFO("FORK");
 	add_process(instr.vm, get_address(instr.process->pc +
 	(byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD)),
 	instr.process->reg[1]);
@@ -229,7 +229,7 @@ int	core_fork(t_instr instr)
 
 int	lld(t_instr instr)
 {
-	INFO("LLD");
+	//INFO("LLD");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[1].value))
@@ -252,7 +252,7 @@ int	lld(t_instr instr)
 
 int	lldi(t_instr instr)
 {
-	INFO("LLDI");
+	//INFO("LLDI");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[2].value)
@@ -270,7 +270,7 @@ int	core_lfork(t_instr instr)
 	int i;
 
 	i = -1;
-	INFO("CORE_LFORK");
+	//INFO("CORE_LFORK");
 	add_process(instr.vm, get_address(instr.process->pc +
 	byte_to_int(instr.vm->map, instr.process->pc + 1, 2)),
 	instr.process->reg[1]);
@@ -284,7 +284,7 @@ int	core_lfork(t_instr instr)
 
 int	aff(t_instr instr)
 {
-	INFO("AFF"); 
+	//INFO("AFF"); 
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value)

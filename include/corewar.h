@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/21 16:08:52 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/21 16:40:26 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@
 #include <fcntl.h>
 
 /********************DEBUG KINGDOM*********************/
-#define ERROR(message) ft_printf("{RED}%s{EOC}\n", message)
-#define SUCCESS(message) ft_printf("{GREEN}%s{EOC}\n", message)
-#define INFO(message) ft_printf("{BLUE}%s{EOC}\n", message)
-#define INFONUM(message) ft_printf("{BLUE}%d{EOC}\n", message)
+#define FD open("/dev/ttys005", O_RDWR)
+#define ERROR(message) ft_dprintf(FD, "{RED}%s{EOC}\n", message)
+#define SUCCESS(message) ft_dprintf(FD, "{GREEN}%s{EOC}\n", message)
+#define INFO(message) ft_dprintf(FD, "{BLUE}%s{EOC}\n", message)
+#define INFONUM(message) ft_dprintf(FD, "{BLUE}%d{EOC}\n", message)
 /******************************************************/
 
 typedef struct			s_champ
