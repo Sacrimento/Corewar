@@ -39,6 +39,10 @@ int	int_to_bytes(int n, int cursor, unsigned char *map)
     map[get_address(cursor + 2)] = (unsigned char)((n & 0x0000FF00) >> 8);
     map[get_address(cursor + 1)] = (unsigned char)((n & 0x00FF0000) >> 16);
     map[get_address(cursor + 0)] = (unsigned char)((n & 0xff000000) >> 24);
+	instr.vm->colors_map[get_address(cursor + 0)] = instr.process->color;
+	instr.vm->colors_map[get_address(cursor + 1)] = instr.process->color;
+	instr.vm->colors_map[get_address(cursor + 2)] = instr.process->color;
+	instr.vm->colors_map[get_address(cursor + 3)] = instr.process->color;
 	return (1);
 }
 
