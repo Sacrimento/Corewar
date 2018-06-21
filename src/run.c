@@ -102,22 +102,22 @@ static void	check_vm(t_vm *vm, int *check)
 int			run(t_vm *vm)
 {
 	int		check;
-	WINDOW	*win;
-	t_visu	*visu;
+	//WINDOW	*win;
+	//t_visu	*visu;
 
 	check = 0;
-	win = NULL;
-	visu = ft_memalloc(sizeof(t_visu));
+	//win = NULL;
+	//visu = ft_memalloc(sizeof(t_visu));
 	init_instr_tab(vm);
-	win = init_visu(visu);
+	//win = init_visu(visu);
 	vm->ctd = CYCLE_TO_DIE;
 	while (vm->processes_nbr && vm->ctd > 0)
 	{
-//		ft_printf("It is now cycle %d\n", vm->tt_cycle);
+		ft_printf("It is now cycle %d\n", vm->tt_cycle);
 		if (vm->cycle == vm->ctd)
 			check_vm(vm, &check);
 		exec_process(vm->processes, vm);
-		visu_run(vm, win, visu);
+		//visu_run(vm, win, visu);
 		if (vm->tt_cycle == vm->dump)
 			return (mem_dump(vm->map));
 		vm->cycle++;

@@ -12,6 +12,17 @@
 
 #include "../include/corewar.h"
 
+void	init_colors(t_vm *vm)
+{
+	vm->colors_tab[0] = "\x1b[32m"; //green
+	vm->colors_tab[1] = "\x1b[96m"; //blue
+	vm->colors_tab[2] = "\x1b[31m"; //red
+	vm->colors_tab[3] = "\x1b[33m"; //yellow
+	vm->colors_tab[4] = "\x1b[35m"; //magenta
+	vm->colors_tab[5] = "\x1b[36m"; //cyan
+	vm->colors_tab[6] = "";
+}
+
 int		known_opt(char *opt)
 {
 	if (!ft_strcmp(opt, "-n") || !ft_strcmp(opt, "-dump"))
