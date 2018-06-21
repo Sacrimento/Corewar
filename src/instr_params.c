@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/21 17:43:10 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/21 17:58:40 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ static void			get_ocp(unsigned char byte, char *ocp)
 	
 	size = 8;
 	i = -1;
-	while (size >= 0)
-		ocp[size--] = '0';
+	while (--size >= 0)
+		ocp[size] = '0';
 	size = 8;
-	while (byte && size >= 0)
+	while (byte && --size >= 0)
 	{
-		ocp[size--] = byte % 2 + 48;
+		ocp[size] = byte % 2 + 48;
 		byte = byte / 2;
 	}
 	ocp[8] = '\0';
@@ -38,7 +38,7 @@ unsigned char byte, t_instr instr)
 
 	i = -1;
 	get_ocp(byte, ocp);
-	// ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
+	ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
 	while (++i < g_op_tab[instr.opcode - 1].nb_param)
 	{
 		if (!ft_strncmp("11", &ocp[2 * i], 2))
@@ -50,8 +50,8 @@ unsigned char byte, t_instr instr)
 		else
 			parameters[i].type = 0;
 	}
-//	for (int i = 0; i < 3; i++)
-//		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
+	for (int i = 0; i < 3; i++)
+		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
 	return (parameters);
 }
 
