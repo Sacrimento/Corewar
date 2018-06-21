@@ -87,7 +87,7 @@ static int	load_champs(t_vm *vm, int index)
 		while (++i < size)
 		{
 			vm->map[sta + i] = ch->code[i];
-			vm->colors_map[i] = ch->color;
+			vm->colors_map[sta + i] = ch->color;
 		}
 		sta += index;
 		ch = ch->next;

@@ -90,7 +90,7 @@ t_champ			*parse_champ(char *file_name, t_champ *champ)
 		return (error_file("Invalid header in \"%s\"\n", file_name, champ));
 	if (champ->size > CHAMP_MAX_SIZE)
 	{
-		ft_dprintf(2, "File \"%s\" is too large : %d bytes instead of\
+		ft_dprintf(2, "File \"%s\" is too large : %d bytes instead of \
 %d bytes.\n", file_name, champ->size, CHAMP_MAX_SIZE);
 		return (rec_free_champs(champ));
 	}

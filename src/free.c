@@ -42,6 +42,8 @@ t_vm	*free_vm(t_vm *vm)
 		rec_free_champs(vm->champ);
 	if (vm->processes)
 		rec_free_processes(vm->processes);
+	if (vm->colors_map)
+		ft_memdel((void**)&vm->colors_map);
 	ft_memdel((void**)&vm);
 	return (0);
 }
