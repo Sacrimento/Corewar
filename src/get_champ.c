@@ -16,13 +16,16 @@ int				fill_id_champs(t_vm *vm)
 {
 	t_champ		*ch;
 	int			i;
+	int			color;
 
 	ch = vm->champ;
 	i = 1;
+	color = 0;
 	if (!ch)
 		return (usage(0));
 	while (ch)
 	{
+		ch->color = color++;
 		while (!check_num(vm->champ, i))
 			i++;
 		if (!ch->id)

@@ -26,8 +26,8 @@ SRC_NAME = main.c \
 	   instructions.c \
 	   getters.c \
 	   convert.c \
-	   instr_params_check.c \
-	   init_visu.c \
+	   instr_params_check.c 
+	   #init_visu.c \
 	   visu_run.c \
 	   op.c
 OBJ_NAME = $(SRC_NAME:.c=.o)

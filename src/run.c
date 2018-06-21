@@ -110,23 +110,23 @@ int			run(t_vm *vm)
 
 	check = 0;
 	win = NULL;
-	visu = ft_memalloc(sizeof(t_visu));
+	vm->visu ? visu = ft_memalloc(sizeof(t_visu)) : 0;
 	init_instr_tab(vm);
-	win = init_visu(visu);
+	vm->visu ? win = init_visu(visu) : 0;
 	vm->ctd = CYCLE_TO_DIE;
 	while (vm->processes_nbr && vm->ctd > 0)
 	{
-//		ft_printf("It is now cycle %d\n", vm->tt_cycle);
+		ft_printf("It is now cycle %d\n", vm->tt_cycle);
 		if (vm->cycle == vm->ctd)
 			check_vm(vm, &check);
 		exec_process(vm->processes, vm);
-		visu_run(vm, win, visu);
+		vm->visu ? visu_run(vm, win, visu) : 0;
 		if (vm->tt_cycle == vm->dump)
 			return (mem_dump(vm->map));
 		vm->cycle++;
 		vm->tt_cycle++;
 //		ft_printf("{CYAN}processes nb:%d{EOC}\n", vm->processes_nbr);
 	}
-//	endwin();
+	vm->visu ? endwin() : 0;
 	return (1);
 }

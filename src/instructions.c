@@ -34,7 +34,7 @@ int	live(t_instr instr)
 	thischamp->lives++;
 	instr.vm->last = thischamp;
 	// ft_printf("P %4d | %s %d\n", instr.process->id, "live", byte_to_int(instr.vm->map, instr.process->pc + 1, 4));
-//	ft_printf("Player %d (%s) is said to be alive\n", thischamp->id, thischamp->name);
+	ft_printf("Player %d (%s) is said to be alive\n", thischamp->id, thischamp->name);
 	//ft_printf("[%d] - {BLUE}Champion %s (id:%d) is alive{EOC}\n",
 	//thischamp->lives, thischamp->name, thischamp->id);
 	return (decal_pc(instr, 5, 1));
@@ -220,7 +220,8 @@ int	core_fork(t_instr instr)
 	(byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD)),
 	instr.process->reg[1]);
 	instr.vm->processes->carry = instr.process->carry;
-	instr.vm->processes->alive = 1;
+	instr.vm->processes->alive = instr.process->alive;
+	instr.vm->processes->color = instr.process->color;
 	// ft_printf("P %4d | %s %d (%d)\n", instr.process->id, "fork",byte_to_int(instr.vm->map, instr.process->pc + 1, 2), instr.vm->processes->pc);
 	while (++i < REG_NUMBER)
 		instr.vm->processes->reg[i] = instr.process->reg[i];
@@ -277,6 +278,7 @@ int	core_lfork(t_instr instr)
 	// ft_printf("P %4d | %s %d (%d)\n", instr.process->id, "lfork", byte_to_int(instr.vm->map, instr.process->pc + 1, 2), instr.vm->processes->pc);
 	instr.vm->processes->carry = instr.process->carry;
 	instr.vm->processes->alive = instr.process->alive;
+	instr.vm->processes->color = instr.process->color;
 	while (++i <= REG_NUMBER)
 		instr.vm->processes->reg[i] = instr.process->reg[i];
 	return (decal_pc(instr, DECAL, 1));

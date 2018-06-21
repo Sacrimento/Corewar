@@ -29,6 +29,7 @@
 typedef struct			s_champ
 {
 	int					id;
+	int					color;
 	int					size;
 	unsigned int		lives;
 	char 				name[PROG_NAME_LENGTH + 1];
@@ -40,6 +41,7 @@ typedef struct			s_champ
 typedef struct			s_process
 {
 	int					alive;
+	int					color;
 	int					pc;
 	int					carry;
 	int					reg[REG_NUMBER];
@@ -72,6 +74,8 @@ typedef struct			s_vm
 	int					tt_cycle;
 	int					visu;
 	unsigned char		*map;
+	char				*colors_map;
+	char				*colors_tab[7];
 	int 				(*instr_tab[16])(t_instr);
 	struct s_champ		*champ;
 	struct s_process	*processes;

@@ -82,9 +82,13 @@ static int	load_champs(t_vm *vm, int index)
 		i = -1;
 		if (!(add_process(vm, sta % MEM_SIZE, ch->id)))
 			return (0);
+		vm->processes->color = ch->color;
 		size = ch->size;
 		while (++i < size)
+		{
 			vm->map[sta + i] = ch->code[i];
+			vm->colors_map[i] = ch->color;
+		}
 		sta += index;
 		ch = ch->next;
 	}
@@ -104,12 +108,13 @@ t_vm		*init_vm(int argc, char **argv)
 	vm->tt_cycle = 1;
 	if (!init_champs(argc, argv, vm))
 		return (free_vm(vm));
-	else if (!(vm->map = (unsigned char *)ft_memalloc(MEM_SIZE)))
+	else if (!(vm->map = (unsigned char *)ft_memalloc(MEM_SIZE)) ||
+	!(vm->colors_map = (char *)ft_memalloc(sizeof(char) * MEM_SIZE)))
 	{
 		error_mall(0);
 		return (free_vm(vm));
 	}
-	vm->processes = NULL;
+	ft_memset(vm->colors_map, 6, MEM_SIZE);
 	if (!(load_champs(vm, MEM_SIZE / list_length(vm->champ))))
 		return (free_vm(vm));
 	if (!introduce_champs(vm->champ))
