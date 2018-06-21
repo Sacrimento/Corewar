@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/21 16:40:26 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/21 17:23:14 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,12 +149,13 @@ int						continue_process(t_vm *vm, t_process *process);
 int 					type_to_size(int type, int oct);
 int						byte_to_int(unsigned char *map, int cursor,
 						int amount_of_bytes);
-int						int_to_bytes(int n, int cursor, unsigned char *map);
+int						int_to_bytes(int n, int cursor,
+						unsigned char *map, t_instr instr);
 int						free_params(t_instr instr, int ret);
-int					convert_params(t_instr instr, int limit);
-int					convert_params_unrestrained(t_instr instr, int limit);
+int						convert_params(t_instr instr, int limit);
+int						convert_params_unrestrained(t_instr instr, int limit);
 int						decal_pc(t_instr instr, int decal, int ret);
-int					convert_params_start(t_instr instr, int start,
+int						convert_params_start(t_instr instr, int start,
 						int limit);
 int						valid_reg(int reg);
 int						get_address(int value);

@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/15 16:10:30 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/21 17:23:15 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int get_address(int value)
 	return (value % MEM_SIZE);
 }
 
-int	int_to_bytes(int n, int cursor, unsigned char *map)
+int	int_to_bytes(int n, int cursor, unsigned char *map, t_instr instr)
 {
 	if (!map)
 		return (0);

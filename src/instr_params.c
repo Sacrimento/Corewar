@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/21 16:37:35 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/21 17:43:10 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,17 @@
 
 static void			get_ocp(unsigned char byte, char *ocp)
 {
+	int i;
 	int size;
 	
 	size = 8;
+	i = -1;
 	while (size >= 0)
-		ocp[--size] = '0';
+		ocp[size--] = '0';
 	size = 8;
 	while (byte && size >= 0)
 	{
-		ocp[--size] = byte % 2 + 48;
+		ocp[size--] = byte % 2 + 48;
 		byte = byte / 2;
 	}
 	ocp[8] = '\0';
