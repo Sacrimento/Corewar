@@ -6,10 +6,10 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/20 16:37:37 by rkrief           ###   ########.fr       */
-/*   Updated: 2018/06/20 14:36:17 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/21 13:45:54 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../include/corewar.h"
 
@@ -51,8 +51,11 @@ static int	exec_process(t_process *process, t_vm *vm)
 			else if (process->cycles_left == -1)
 				process->cycles_left = g_op_tab[opc - 1].nb_cycle - 1;
 			else
-			//	ft_printf("Process %d|execs %s|\n", process->id, g_op_tab[opc -1].name);
+			{
+				ft_printf("\n----------------------------\n");
+				ft_printf("Process %d|execs %s|\n", process->id, g_op_tab[opc -1].name);
 				vm->instr_tab[opc - 1](instr_params(vm, process, opc));
+			}
 			//ft_printf("NEW PC : %d\n", process->pc);
 		}
 		process = process->next;
