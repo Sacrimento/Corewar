@@ -12,8 +12,10 @@
 
 #include "../include/corewar.h"
 
-void	init_visu(WINDOW *win, t_visu *visu)
+WINDOW	*init_visu(t_visu *visu)
 {
+	WINDOW	*win;
+
 	initscr();
 	curs_set(0);
 	visu->height = 65;
@@ -22,4 +24,5 @@ void	init_visu(WINDOW *win, t_visu *visu)
 	visu->start_x = 20;
 	win = newwin(visu->height, visu->width, visu->start_y, visu->start_x);
 	wrefresh(win);
+	return (win);
 }

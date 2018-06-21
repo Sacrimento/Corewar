@@ -34,7 +34,7 @@ int	live(t_instr instr)
 	thischamp->lives++;
 	instr.vm->last = thischamp;
 	// ft_printf("P %4d | %s %d\n", instr.process->id, "live", byte_to_int(instr.vm->map, instr.process->pc + 1, 4));
-	ft_printf("Player %d (%s) is said to be alive\n", thischamp->id, thischamp->name);
+//	ft_printf("Player %d (%s) is said to be alive\n", thischamp->id, thischamp->name);
 	//ft_printf("[%d] - {BLUE}Champion %s (id:%d) is alive{EOC}\n",
 	//thischamp->lives, thischamp->name, thischamp->id);
 	return (decal_pc(instr, 5, 1));

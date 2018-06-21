@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/21 16:16:14 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/21 16:18:03 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ unsigned char byte, t_instr instr)
 		else
 			parameters[i].type = 0;
 	}
-	for (int i = 0; i < 3; i++)
-		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
+//	for (int i = 0; i < 3; i++)
+//		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
 	return (parameters);
 }
 
