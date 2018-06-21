@@ -125,7 +125,7 @@ int			run(t_vm *vm)
 			return (mem_dump(vm->map));
 		vm->cycle++;
 		vm->tt_cycle++;
-//		ft_printf("{CYAN}processes nb:%d{EOC}\n", vm->processes_nbr);
+		//ft_printf("{CYAN}processes nb:%d{EOC}\n", vm->processes_nbr);
 	}
 	vm->visu ? endwin() : 0;
 	return (1);
