@@ -87,7 +87,7 @@ typedef struct			s_visu
 }						t_visu;
 
 //visu
-void	init_visu(WINDOW *win, t_visu *visu);
+WINDOW	*init_visu(t_visu *visu);
 void    visu_run(t_vm *vm, WINDOW *win, t_visu *visu);
 
 //run.c

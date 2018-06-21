@@ -38,10 +38,10 @@ static t_param		*decode_param_type(unsigned char byte, t_instr instr)
 
 	i = -1;
 	get_ocp(byte, ocp);
-	ft_printf("{YELOW}%s{EOC}\n", ocp);
+//	ft_printf("{YELOW}%s{EOC}\n", ocp);
 	if (!(parameters = (t_param*)ft_memalloc(sizeof(t_param) * 3)))
  		return (NULL);
-	ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
+//	ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
 	while (++i < g_op_tab[instr.opcode - 1].nb_param)
 	{
 		if (!ft_strncmp("11", &ocp[2 * i], 2))
@@ -53,8 +53,8 @@ static t_param		*decode_param_type(unsigned char byte, t_instr instr)
 		// else
 		// 	ft_printf("{RED}OCP \"%s\" did not match{EOC}\n", &ocp[2 * i]) ;
 	}
-	for (int i = 0; i < 3; i++)
-		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
+//	for (int i = 0; i < 3; i++)
+//		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
 	return (parameters);
 }
 
@@ -97,8 +97,8 @@ t_instr		instr_params(t_vm *vm, t_process *process, int opc)
 
 int			decal_pc(t_instr instr, int decal, int ret)
 {
- 	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 0)
-		ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
+ //	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 0)
+//		ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
 /*
 	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 1)
 		ft_printf("{GREEN}INSTRUCTION SUCCEED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);

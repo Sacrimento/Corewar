@@ -31,7 +31,7 @@ void	visu_run(t_vm *vm, WINDOW *win, t_visu *visu)
 	if (ch == 43)
 		visu->slow = visu->slow + 1000;
 	if (visu->slow <= 0)
-		visu->slow = 30000;
+		visu->slow = 3000;
 	if (ch == 3)
 	{
 		clear();
@@ -39,6 +39,11 @@ void	visu_run(t_vm *vm, WINDOW *win, t_visu *visu)
 	}
 	if (ch == 45)
 		visu->slow = 2000;
+	if (ch == 49)
+	{	
+		while (ch != 49)
+			ch = getch();
+	}
 	mvwprintw(win, 0, 0, "cycle numero : %d\n", vm->cycle);
 	while (j < MEM_SIZE)
 	{
@@ -50,10 +55,10 @@ void	visu_run(t_vm *vm, WINDOW *win, t_visu *visu)
 	}
 	pcx = 20 + (pc * 3);
 	pcy = 2;
-	if ((pc > 64) && pc != 0)
+	if ((pc >= 64) && pc != 0)
 	{
-		pcx = 20 + (pc / 64 * 3);
-		pcy = 2 + pc / 65;
+		pcx = 20 + ((pc % 64) * 3);
+		pcy = 2 + (pc / 64);
 	}
 	pchar = vm->map[pc];
 	attron(A_STANDOUT);
