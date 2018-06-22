@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:24:18 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/22 17:16:36 by rkrief           ###   ########.fr       */
+/*   Updated: 2018/06/22 17:36:26 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	print_header(WINDOW *win)
 {
 	int	x_offset;
 
-	x_offset = 70;
+	x_offset = 79;
 	wattron(win, COLOR_PAIR(1));
 	mvwprintw(win, 1, x_offset, HEADER_LINE_1);
 	mvwprintw(win, 2, x_offset, HEADER_LINE_2);
@@ -62,6 +62,16 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 	init_pair(12, COLOR_BLACK, COLOR_MAGENTA);
 	init_pair(13, COLOR_BLACK, COLOR_MAGENTA);
 	init_pair(14, COLOR_BLACK, COLOR_CYAN);
+
+	wattron(score, COLOR_PAIR(7));
+	mvwprintw(score, 45, 5, "Press 'Enter' for start");
+	mvwprintw(score, 47, 5, "Press 'Space' for paused");
+	mvwprintw(score, 49, 5, "Press 'P' for resume");
+	mvwprintw(score, 51, 5, "Press 'S' for add delay");
+	mvwprintw(score, 53, 5, "Press 'D' to reduce delay");
+	mvwprintw(score, 55, 5, "Press 'T' to delete delay");
+	mvwprintw(score, 57, 5, "Press 'R' to go step by step");
+	wattroff(score, COLOR_PAIR(7));
 	print_header(win);
 	if (!(pc = (int*)ft_memalloc(sizeof(int) * (vm.processes_nbr))))
 		exit (0);
@@ -101,6 +111,7 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 		while (ch != 112)
 			ch = getch();
 	}
+	nodelay(stdscr,TRUE);
 	if (ch == 114)
 		visu->slow = 300000;
 	if (ch == 116)
@@ -112,7 +123,10 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 	}
 	wattron(score, COLOR_PAIR(7));
 	box(score, ACS_VLINE, ACS_HLINE);
-	mvwprintw(score, 4, 5, "**RUNNING***");
+	if (!start)
+		mvwprintw(score, 1, 5, "***PAUSED***");
+	else
+		mvwprintw(score, 1, 5, "**RUNNING***");
 	mvwprintw(score, 6, 5, "Cycle number : %d\n", vm.tt_cycle);
 	mvwprintw(score, 8, 5, "nbr processus: %d\n", vm.processes_nbr);
 	mvwprintw(score, 10, 5, "Delay :  %d\n", visu->slow);
