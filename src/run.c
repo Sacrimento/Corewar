@@ -106,6 +106,8 @@ int			run(t_vm *vm)
 {
 	int		check;
 	WINDOW	*win;
+	WINDOW	*score;
+	WINDOW	*test;
 	t_visu	*visu;
 
 	check = 0;
@@ -113,6 +115,9 @@ int			run(t_vm *vm)
 	vm->visu ? visu = ft_memalloc(sizeof(t_visu)) : 0;
 	init_instr_tab(vm);
 	vm->visu ? win = init_visu(visu) : 0;
+	vm->visu ? score = init_score(visu) : 0;
+	vm->visu ? visu->slow = 30000 : 0;
+	vm->visu ? test = subwin(stdscr, LINES, COLS * 0.1, 0, COLS * 0.9) : 0;
 	vm->ctd = CYCLE_TO_DIE;
 	while (vm->processes_nbr && vm->ctd > 0)
 	{
@@ -120,7 +125,7 @@ int			run(t_vm *vm)
 		if (vm->cycle == vm->ctd)
 			check_vm(vm, &check);
 		exec_process(vm->processes, vm);
-		vm->visu ? visu_run(vm, win, visu) : 0;
+		vm->visu ? visu_run(*vm, win, visu, score, test) : 0;
 		if (vm->tt_cycle == vm->dump)
 			return (mem_dump(vm->map));
 		vm->cycle++;

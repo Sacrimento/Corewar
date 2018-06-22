@@ -26,6 +26,16 @@
 #define INFONUM(message) ft_dprintf(FD, "{BLUE}%d{EOC}\n", message)
 /******************************************************/
 
+# define STATS_W		48
+# define ARENA_W		197
+# define HEADER_W		(ARENA_W + STATS_W)
+# define HEADER_H		7
+# define HEADER_LINE_1		"   ______                                  "
+# define HEADER_LINE_2		"  / ____/___  ________ _      ______ ______"
+# define HEADER_LINE_3		" / /   / __ \\/ ___/ _ \\ | /| / / __ `/ ___/"
+# define HEADER_LINE_4	"/ /___/ /_/ / /  /  __/ |/ |/ / /_/ / /    "
+# define HEADER_LINE_5		"\\____/\\____/_/   \\___/|__/|__/\\__,_/_/     "
+
 typedef struct			s_champ
 {
 	int					id;
@@ -93,7 +103,8 @@ typedef struct			s_visu
 
 //visu
 WINDOW	*init_visu(t_visu *visu);
-void    visu_run(t_vm *vm, WINDOW *win, t_visu *visu);
+WINDOW	*init_score(t_visu *visu);
+void    visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test);
 
 //run.c
 int 					run(t_vm *vm);

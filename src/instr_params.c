@@ -16,7 +16,7 @@ static void			get_ocp(unsigned char byte, char *ocp)
 {
 	int i;
 	int size;
-	
+
 	size = 8;
 	i = -1;
 	while (--size >= 0)
