@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/22 13:14:25 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/22 14:32:55 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,10 @@ t_instr		instr_params(t_vm *vm, t_process *process, int opc)
 
 int			decal_pc(t_instr instr, int decal, int ret)
 {
- 	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 0)
-		ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
-	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 1)
-		ft_printf("{GREEN}INSTRUCTION SUCCEED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
+// 	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 0)
+//		ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
+//	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 1)
+//		ft_printf("{GREEN}INSTRUCTION SUCCEED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
 	instr.process->pc = (instr.process->pc + decal) % MEM_SIZE;
 	instr.process->cycles_left = -1;
 	return (ret);

@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:24:18 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/22 13:35:32 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/22 14:47:19 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	print_header(WINDOW *win)
 	int	x_offset;
 
 	x_offset = 70;
-	wborder(win, '#', '#', '#', '#', '#', '#', '#', '#');
 	wattron(win, COLOR_PAIR(1));
 	mvwprintw(win, 1, x_offset, HEADER_LINE_1);
 	mvwprintw(win, 2, x_offset, HEADER_LINE_2);
@@ -92,26 +91,35 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 		while (ch != 49)
 			ch = getch();
 	}
-	//	wborder(win, '#', '#', '#', '#', '4', '2', '4', '2');
-	init_color(COLOR_WHITE, 255, 255, 255);
+	init_pair(0, COLOR_GREEN, COLOR_BLACK);
+	init_pair(1, COLOR_RED, COLOR_BLACK);
+	init_pair(2, COLOR_BLUE, COLOR_BLACK);
+	init_pair(3, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(4, COLOR_MAGENTA, COLOR_BLACK);
+	init_pair(5, COLOR_CYAN, COLOR_BLACK);
+	init_pair(6, COLOR_WHITE, COLOR_BLACK);
+	wattron(score, COLOR_PAIR(6));
 	box(score, ACS_VLINE, ACS_HLINE);
 	mvwprintw(score, 1, 5, "**RUNNING**");
 	mvwprintw(score, 3, 5, "Cycle number : %d\n", vm.tt_cycle);
 	mvwprintw(score, 5, 5, "nbr processus: %d\n", vm.processes_nbr);
 	mvwprintw(score, 7, 5, "Player one name :  %s\n", vm.champ->name);
 	mvwprintw(score, 9, 5, "Delay :  %d\n", visu->slow);
-	wrefresh(win);
+	wattroff(score, COLOR_PAIR(6));
 	while (j < MEM_SIZE)
 	{
+
+		wattron(win, COLOR_PAIR(vm.colors_map[j]));
 		mvwprintw(win, y, x, "%.2x", vm.map[j++]);
 		x += 2;
 		if (!(j % 64) && j != 0){
 			mvwprintw(win, y, x, "\n"); x = 5, y++;}
 		else{
 			mvwprintw(win, y, x, " ");x++;}
+		wattroff(win, COLOR_PAIR(vm.colors_map[j - 1]));
 	}
-	wrefresh(test);
 	n = 0;
+	(void)test;
 	attron(A_STANDOUT);
 	while (n < vm.processes_nbr)
 	{
@@ -127,8 +135,9 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 	}
 	n = 0;
 	attroff(A_STANDOUT);
-	wborder(win, '#', '#', '#', '#', '#', '#', '#', '#');
+	wattron(score, COLOR_PAIR(6));
 	box(score, ACS_VLINE, ACS_HLINE);
+	wattroff(score, COLOR_PAIR(6));
 	wrefresh(win);
 	wrefresh(score);
 	if (!start)
