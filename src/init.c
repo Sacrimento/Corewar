@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/13 15:30:04 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/22 13:43:54 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,6 @@ t_vm		*init_vm(int argc, char **argv)
 		error_mall(0);
 		return (free_vm(vm));
 	}
-	init_colors(vm);
 	ft_memset(vm->colors_map, 6, MEM_SIZE);
 	if (!(load_champs(vm, MEM_SIZE / list_length(vm->champ))))
 		return (free_vm(vm));

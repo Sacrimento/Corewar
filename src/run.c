@@ -6,10 +6,9 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/22 13:32:43 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/22 13:59:37 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/corewar.h"
 
@@ -63,7 +62,7 @@ static int	exec_process(t_process *process, t_vm *vm)
 	return (1);
 }
 
-static int	mem_dump(unsigned char *map, t_vm *vm)
+static int	mem_dump(unsigned char *map)
 {
 	int		i;
 
@@ -71,15 +70,6 @@ static int	mem_dump(unsigned char *map, t_vm *vm)
 	while (i < MEM_SIZE)
 	{
 		ft_printf("%.2x", map[i++]);
-		if (!(i % 32) && i != 0)
-			ft_putchar('\n');
-		else
-			ft_putchar(' ');
-	}
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		ft_printf("%d", vm->colors_tab[i++]);
 		if (!(i % 32) && i != 0)
 			ft_putchar('\n');
 		else
@@ -138,7 +128,7 @@ int			run(t_vm *vm)
 		exec_process(vm->processes, vm);
 		vm->visu ? visu_run(*vm, win, visu, score, test, start) : 0;
 		if (vm->tt_cycle == vm->dump)
-			return (mem_dump(vm->map, vm));
+			return (mem_dump(vm->map));
 		vm->cycle++;
 		vm->tt_cycle++;
 		start = 1;
