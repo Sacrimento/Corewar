@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:24:18 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/22 12:57:10 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/22 13:01:10 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test)
 	y = 7;
 	n = 0;
 	print_header(win);
-	if (!(pc = (int*)ft_memalloc(sizeof(int) * (10))))
+	if (!(pc = (int*)ft_memalloc(sizeof(int) * (vm.processes_nbr))))
 		exit (0);
 	pro = vm.processes;
 	//ft_putchar(' ');
@@ -93,14 +93,12 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test)
 	//	wborder(win, '#', '#', '#', '#', '4', '2', '4', '2');
 	init_color(COLOR_WHITE, 255, 255, 255);
 	box(score, ACS_VLINE, ACS_HLINE);
-	wattron(score, COLOR_PAIR(COLOR_WHITE));
 	mvwprintw(score, 1, 5, "**RUNNING**");
 	mvwprintw(score, 3, 5, "Cycle number : %d\n", vm.tt_cycle);
 	mvwprintw(score, 5, 5, "nbr processus: %d\n", vm.processes_nbr);
 	mvwprintw(score, 7, 5, "Player one name :  %s\n", vm.champ->name);
 	mvwprintw(score, 9, 5, "Delay :  %d\n", visu->slow);
 	wrefresh(win);
-	wattroff(score, COLOR_PAIR(COLOR_WHITE));
 	while (j < MEM_SIZE)
 	{
 		mvwprintw(win, y, x, "%.2x", vm.map[j++]);
