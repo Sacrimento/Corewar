@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/22 15:38:44 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/22 15:56:16 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ int	or(t_instr instr)
 		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value | instr.params[1].value;
-	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
+	// instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
 	// ft_printf("P %4d | %s %d %d r%d\n", instr.process->id, "or", instr.process->reg[instr.params[0].value], instr.process->reg[instr.params[1].value], instr.params[2].value + 1);
 	return (free_params(instr, 1));
 }
@@ -288,8 +288,9 @@ int	aff(t_instr instr)
 	|| !valid_reg(--instr.params[0].value)
 	|| !get_champ_by_num(instr.vm->champ, instr.process->reg[1]))
 		return (free_params(instr, 0));
-	//ft_printf("{CYAN}[%d] - %s:%c{EOC}\n", instr.process->reg[1],
-	//get_champ_by_num(instr.vm->champ, instr.process->reg[1])->name,
-	//instr.process->reg[instr.params[0].value]);
+	if (!instr.vm->visu)
+		ft_printf("{CYAN}[%d] - %s:%c{EOC}\n", instr.process->reg[1],
+		get_champ_by_num(instr.vm->champ, instr.process->reg[1])->name,
+		instr.process->reg[instr.params[0].value]);
 	return (free_params(instr, 1));
 }
