@@ -64,10 +64,10 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 	init_pair(14, COLOR_BLACK, COLOR_CYAN);
 
 	wattron(score, COLOR_PAIR(7));
-	mvwprintw(score, 45, 5, "Press 'Enter' for start");
-	mvwprintw(score, 47, 5, "Press 'Space' for paused");
-	mvwprintw(score, 49, 5, "Press 'P' for resume");
-	mvwprintw(score, 51, 5, "Press 'S' for add delay");
+	mvwprintw(score, 45, 5, "Press 'Enter' to start");
+	mvwprintw(score, 47, 5, "Press 'Space' to pause");
+	mvwprintw(score, 49, 5, "Press 'P' to resume");
+	mvwprintw(score, 51, 5, "Press 'S' to add delay");
 	mvwprintw(score, 53, 5, "Press 'D' to reduce delay");
 	mvwprintw(score, 55, 5, "Press 'T' to delete delay");
 	mvwprintw(score, 57, 5, "Press 'R' to go step by step");
@@ -137,7 +137,7 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 	while (vm.champ)
 	{	
 		wattron(score, COLOR_PAIR(7));
-		mvwprintw(score, 13 + k, 5, "Player %d name: ", n);
+		mvwprintw(score, 13 + k, 5, "Player %d name: ", vm.champ->id);
 		mvwprintw(score, 15 + k, 5, "Current lives: ");
 		wattroff(score, COLOR_PAIR(7));
 		wattron(score, COLOR_PAIR(n));
