@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:24:18 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/22 16:23:15 by rkrief           ###   ########.fr       */
+/*   Updated: 2018/06/22 17:02:54 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,13 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 	init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
 	init_pair(6, COLOR_CYAN, COLOR_BLACK);
 	init_pair(7, COLOR_WHITE, COLOR_BLACK);
+	init_pair(8, COLOR_BLACK, COLOR_GREEN);
+	init_pair(9, COLOR_BLACK, COLOR_RED);
+	init_pair(10,COLOR_BLACK,  COLOR_BLUE);
+	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
+	init_pair(12, COLOR_BLACK, COLOR_MAGENTA);
+	init_pair(13, COLOR_BLACK, COLOR_MAGENTA);
+	init_pair(14, COLOR_BLACK, COLOR_CYAN);
 	wattron(score, COLOR_PAIR(7));
 	box(score, ACS_VLINE, ACS_HLINE);
 	mvwprintw(score, 1, 5, "**RUNNING***");
@@ -138,7 +145,6 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 	}
 	n = 0;
 	(void)test;
-	attron(A_STANDOUT);
 	while (n < vm.processes_nbr)
 	{
 		pcx = 5 + (pc[n] * 3);
@@ -148,11 +154,12 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 			pcx = 5 + ((pc[n] % 64) * 3);
 			pcy = 7 + (pc[n] / 64);
 		}
+		attron(COLOR_PAIR(vm.colors_map[pc[n]] + 7));
 		mvprintw(pcy, pcx, "%.2x", vm.map[pc[n]]);
+		attroff(COLOR_PAIR(vm.colors_map[pc[n]] + 7));
 		n++;
 	}
 	n = 0;
-	attroff(A_STANDOUT);
 	wattron(score, COLOR_PAIR(7));
 	box(score, ACS_VLINE, ACS_HLINE);
 	wattroff(score, COLOR_PAIR(7));
