@@ -6,10 +6,9 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/22 13:32:43 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/22 13:52:19 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/corewar.h"
 
@@ -71,15 +70,6 @@ static int	mem_dump(unsigned char *map, t_vm *vm)
 	while (i < MEM_SIZE)
 	{
 		ft_printf("%.2x", map[i++]);
-		if (!(i % 32) && i != 0)
-			ft_putchar('\n');
-		else
-			ft_putchar(' ');
-	}
-	i = 0;
-	while (i < MEM_SIZE)
-	{
-		ft_printf("%d", vm->colors_tab[i++]);
 		if (!(i % 32) && i != 0)
 			ft_putchar('\n');
 		else

@@ -6,22 +6,11 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 11:12:03 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/13 16:44:33 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/22 13:44:06 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
-
-void	init_colors(t_vm *vm)
-{
-	vm->colors_tab[0] = "\x1b[32m"; //green
-	vm->colors_tab[1] = "\x1b[96m"; //blue
-	vm->colors_tab[2] = "\x1b[31m"; //red
-	vm->colors_tab[3] = "\x1b[33m"; //yellow
-	vm->colors_tab[4] = "\x1b[35m"; //magenta
-	vm->colors_tab[5] = "\x1b[36m"; //cyan
-	vm->colors_tab[6] =	"";
-}
 
 int		known_opt(char *opt)
 {
