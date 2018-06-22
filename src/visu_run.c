@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:24:18 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/22 14:47:19 by rkrief           ###   ########.fr       */
+/*   Updated: 2018/06/22 15:27:21 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,21 +91,21 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 		while (ch != 49)
 			ch = getch();
 	}
-	init_pair(0, COLOR_GREEN, COLOR_BLACK);
-	init_pair(1, COLOR_RED, COLOR_BLACK);
-	init_pair(2, COLOR_BLUE, COLOR_BLACK);
-	init_pair(3, COLOR_YELLOW, COLOR_BLACK);
-	init_pair(4, COLOR_MAGENTA, COLOR_BLACK);
-	init_pair(5, COLOR_CYAN, COLOR_BLACK);
-	init_pair(6, COLOR_WHITE, COLOR_BLACK);
-	wattron(score, COLOR_PAIR(6));
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
+	init_pair(2, COLOR_RED, COLOR_BLACK);
+	init_pair(3, COLOR_BLUE, COLOR_BLACK);
+	init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
+	init_pair(6, COLOR_CYAN, COLOR_BLACK);
+	init_pair(7, COLOR_WHITE, COLOR_BLACK);
+	wattron(score, COLOR_PAIR(7));
 	box(score, ACS_VLINE, ACS_HLINE);
 	mvwprintw(score, 1, 5, "**RUNNING**");
 	mvwprintw(score, 3, 5, "Cycle number : %d\n", vm.tt_cycle);
 	mvwprintw(score, 5, 5, "nbr processus: %d\n", vm.processes_nbr);
 	mvwprintw(score, 7, 5, "Player one name :  %s\n", vm.champ->name);
 	mvwprintw(score, 9, 5, "Delay :  %d\n", visu->slow);
-	wattroff(score, COLOR_PAIR(6));
+	wattroff(score, COLOR_PAIR(7));
 	while (j < MEM_SIZE)
 	{
 
@@ -135,9 +135,9 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 	}
 	n = 0;
 	attroff(A_STANDOUT);
-	wattron(score, COLOR_PAIR(6));
+	wattron(score, COLOR_PAIR(7));
 	box(score, ACS_VLINE, ACS_HLINE);
-	wattroff(score, COLOR_PAIR(6));
+	wattroff(score, COLOR_PAIR(7));
 	wrefresh(win);
 	wrefresh(score);
 	if (!start)
