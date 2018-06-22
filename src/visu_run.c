@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:24:18 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/22 17:02:54 by rkrief           ###   ########.fr       */
+/*   Updated: 2018/06/22 17:16:36 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,14 @@ void	print_header(WINDOW *win)
 	wattron(win, COLOR_PAIR(1));
 	mvwprintw(win, 1, x_offset, HEADER_LINE_1);
 	mvwprintw(win, 2, x_offset, HEADER_LINE_2);
+	wattroff(win, COLOR_PAIR(1));
+	wattron(win, COLOR_PAIR(2));
 	mvwprintw(win, 3, x_offset, HEADER_LINE_3);
 	mvwprintw(win, 4, x_offset, HEADER_LINE_4);
+	wattroff(win, COLOR_PAIR(2));
+	wattron(win, COLOR_PAIR(3));
 	mvwprintw(win, 5, x_offset, HEADER_LINE_5);
-	wattroff(win, COLOR_PAIR(1));
+	wattroff(win, COLOR_PAIR(3));
 	wrefresh(win);
 }
 
@@ -44,6 +48,20 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 	x = 5;
 	y = 7;
 	n = 0;
+	init_pair(1, COLOR_GREEN, COLOR_BLACK);
+	init_pair(2, COLOR_RED, COLOR_BLACK);
+	init_pair(3, COLOR_BLUE, COLOR_BLACK);
+	init_pair(4, COLOR_YELLOW, COLOR_BLACK);
+	init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
+	init_pair(6, COLOR_CYAN, COLOR_BLACK);
+	init_pair(7, COLOR_WHITE, COLOR_BLACK);
+	init_pair(8, COLOR_BLACK, COLOR_GREEN);
+	init_pair(9, COLOR_BLACK, COLOR_RED);
+	init_pair(10,COLOR_BLACK,  COLOR_BLUE);
+	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
+	init_pair(12, COLOR_BLACK, COLOR_MAGENTA);
+	init_pair(13, COLOR_BLACK, COLOR_MAGENTA);
+	init_pair(14, COLOR_BLACK, COLOR_CYAN);
 	print_header(win);
 	if (!(pc = (int*)ft_memalloc(sizeof(int) * (vm.processes_nbr))))
 		exit (0);
@@ -92,26 +110,12 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 		while (ch != 49)
 			ch = getch();
 	}
-	init_pair(1, COLOR_GREEN, COLOR_BLACK);
-	init_pair(2, COLOR_RED, COLOR_BLACK);
-	init_pair(3, COLOR_BLUE, COLOR_BLACK);
-	init_pair(4, COLOR_YELLOW, COLOR_BLACK);
-	init_pair(5, COLOR_MAGENTA, COLOR_BLACK);
-	init_pair(6, COLOR_CYAN, COLOR_BLACK);
-	init_pair(7, COLOR_WHITE, COLOR_BLACK);
-	init_pair(8, COLOR_BLACK, COLOR_GREEN);
-	init_pair(9, COLOR_BLACK, COLOR_RED);
-	init_pair(10,COLOR_BLACK,  COLOR_BLUE);
-	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
-	init_pair(12, COLOR_BLACK, COLOR_MAGENTA);
-	init_pair(13, COLOR_BLACK, COLOR_MAGENTA);
-	init_pair(14, COLOR_BLACK, COLOR_CYAN);
 	wattron(score, COLOR_PAIR(7));
 	box(score, ACS_VLINE, ACS_HLINE);
-	mvwprintw(score, 1, 5, "**RUNNING***");
-	mvwprintw(score, 3, 5, "Cycle number : %d\n", vm.tt_cycle);
-	mvwprintw(score, 5, 5, "nbr processus: %d\n", vm.processes_nbr);
-	mvwprintw(score, 7, 5, "Delay :  %d\n", visu->slow);
+	mvwprintw(score, 4, 5, "**RUNNING***");
+	mvwprintw(score, 6, 5, "Cycle number : %d\n", vm.tt_cycle);
+	mvwprintw(score, 8, 5, "nbr processus: %d\n", vm.processes_nbr);
+	mvwprintw(score, 10, 5, "Delay :  %d\n", visu->slow);
 	champ = vm.champ;
 	n = 1;
 	int k;
@@ -119,12 +123,12 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 	while (vm.champ)
 	{	
 		wattron(score, COLOR_PAIR(7));
-		mvwprintw(score, 7 + k, 5, "Player %d name: ", n);
-		mvwprintw(score, 9 + k, 5, "Current lives: ");
+		mvwprintw(score, 13 + k, 5, "Player %d name: ", n);
+		mvwprintw(score, 15 + k, 5, "Current lives: ");
 		wattroff(score, COLOR_PAIR(7));
 		wattron(score, COLOR_PAIR(n));
-		mvwprintw(score, 7 + k, 26, "%s", vm.champ->name);
-		mvwprintw(score, 9 + k, 26, "%d", vm.champ->lives);
+		mvwprintw(score, 13 + k, 26, "%s", vm.champ->name);
+		mvwprintw(score, 15 + k, 26, "%d", vm.champ->lives);
 		k += 8;
 		vm.champ = vm.champ->next;
 		n++;
