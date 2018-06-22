@@ -128,7 +128,7 @@ int			run(t_vm *vm)
 		exec_process(vm->processes, vm);
 		vm->visu ? visu_run(*vm, win, visu, score, test, start) : 0;
 		if (vm->tt_cycle == vm->dump)
-			return (mem_dump(vm->map));
+			return (vm->visu ? 1 : mem_dump(vm->map));
 		vm->cycle++;
 		vm->tt_cycle++;
 		start = 1;
