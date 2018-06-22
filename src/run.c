@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/21 16:42:42 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/22 13:59:37 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "../include/corewar.h"
 
@@ -109,8 +108,10 @@ int			run(t_vm *vm)
 	WINDOW	*score;
 	WINDOW	*test;
 	t_visu	*visu;
+	int		start;
 
 	check = 0;
+	start = 0;
 	win = NULL;
 	vm->visu ? visu = ft_memalloc(sizeof(t_visu)) : 0;
 	init_instr_tab(vm);
@@ -125,11 +126,12 @@ int			run(t_vm *vm)
 		if (vm->cycle == vm->ctd)
 			check_vm(vm, &check);
 		exec_process(vm->processes, vm);
-		vm->visu ? visu_run(*vm, win, visu, score, test) : 0;
+		vm->visu ? visu_run(*vm, win, visu, score, test, start) : 0;
 		if (vm->tt_cycle == vm->dump)
 			return (mem_dump(vm->map));
 		vm->cycle++;
 		vm->tt_cycle++;
+		start = 1;
 		//ft_printf("{CYAN}processes nb:%d{EOC}\n", vm->processes_nbr);
 	}
 	vm->visu ? endwin() : 0;

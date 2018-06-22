@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/21 17:23:14 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/22 13:44:21 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct			s_vm
 	int					visu;
 	unsigned char		*map;
 	char				*colors_map;
-	char				*colors_tab[7];
 	int 				(*instr_tab[16])(t_instr);
 	struct s_champ		*champ;
 	struct s_process	*processes;
@@ -104,7 +103,7 @@ typedef struct			s_visu
 //visu
 WINDOW	*init_visu(t_visu *visu);
 WINDOW	*init_score(t_visu *visu);
-void    visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test);
+void    visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, int start);
 
 //run.c
 int 					run(t_vm *vm);
@@ -146,7 +145,6 @@ int						known_opt(char *opt);
 int						check_inputs(void);
 int						list_length(t_champ *champ);
 int						activate_visu(t_vm *vm, int *i, int ac);
-void					init_colors(t_vm *vm);
 
 //instr_params.c
 void					get_params(t_instr *instr);

@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/25 10:35:19 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/12 11:59:31 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/22 15:23:48 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int				fill_id_champs(t_vm *vm)
 
 	ch = vm->champ;
 	i = 1;
-	color = 0;
+	color = 1;
 	if (!ch)
 		return (usage(0));
 	while (ch)
