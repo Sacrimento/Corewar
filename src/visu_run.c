@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:24:18 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/22 15:27:21 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/22 16:23:15 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 	int x;
 	int y;
 	t_process *pro;
+	t_champ *champ;
 
 	j = 0;
 	x = 5;
@@ -100,11 +101,28 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 	init_pair(7, COLOR_WHITE, COLOR_BLACK);
 	wattron(score, COLOR_PAIR(7));
 	box(score, ACS_VLINE, ACS_HLINE);
-	mvwprintw(score, 1, 5, "**RUNNING**");
+	mvwprintw(score, 1, 5, "**RUNNING***");
 	mvwprintw(score, 3, 5, "Cycle number : %d\n", vm.tt_cycle);
 	mvwprintw(score, 5, 5, "nbr processus: %d\n", vm.processes_nbr);
-	mvwprintw(score, 7, 5, "Player one name :  %s\n", vm.champ->name);
-	mvwprintw(score, 9, 5, "Delay :  %d\n", visu->slow);
+	mvwprintw(score, 7, 5, "Delay :  %d\n", visu->slow);
+	champ = vm.champ;
+	n = 1;
+	int k;
+	k = 2;
+	while (vm.champ)
+	{	
+		wattron(score, COLOR_PAIR(7));
+		mvwprintw(score, 7 + k, 5, "Player %d name: ", n);
+		mvwprintw(score, 9 + k, 5, "Current lives: ");
+		wattroff(score, COLOR_PAIR(7));
+		wattron(score, COLOR_PAIR(n));
+		mvwprintw(score, 7 + k, 26, "%s", vm.champ->name);
+		mvwprintw(score, 9 + k, 26, "%d", vm.champ->lives);
+		k += 8;
+		vm.champ = vm.champ->next;
+		n++;
+	}
+	vm.champ = champ;
 	wattroff(score, COLOR_PAIR(7));
 	while (j < MEM_SIZE)
 	{
