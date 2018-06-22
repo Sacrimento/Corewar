@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/22 12:14:57 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/22 12:40:36 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ unsigned char byte, t_instr instr)
 
 	i = -1;
 	get_ocp(byte, ocp);
-	//ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
+	ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
 	while (++i < g_op_tab[instr.opcode - 1].nb_param)
 	{
 		if (!ft_strncmp("11", &ocp[2 * i], 2))
@@ -49,9 +49,10 @@ unsigned char byte, t_instr instr)
 			parameters[i].type = T_REG;
 		else
 			parameters[i].type = 0;
+		parameters[i].value = 0;
 	}
-	//for (int i = 0; i < 3; i++)
-	//	ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
+	for (int i = 0; i < 3; i++)
+		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
 	return (parameters);
 }
 
@@ -76,17 +77,23 @@ void			get_params(t_instr *instr)
 
 t_instr		instr_params(t_vm *vm, t_process *process, int opc)
 {
-	t_instr instr;
+	t_instr	instr;
+	int		i;
 
+	i = -1;
 	instr.vm = vm;
 	instr.process = process;
 	instr.opcode = opc;
+	while (++i < 3)
+	{
+		instr.params[i].value = 0;
+		instr.params[i].type = 0;
+	}
 	return (instr);
 }
 
 int			decal_pc(t_instr instr, int decal, int ret)
 {
-
  	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 0)
 		ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
 	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 1)
