@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visu_run.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkrief <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:24:18 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/20 16:31:18 by rkrief           ###   ########.fr       */
+/*   Updated: 2018/06/22 12:53:46 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	visu_run(t_vm *vm, WINDOW *win, t_visu *visu)
 		while (ch != 49)
 			ch = getch();
 	}
-	mvwprintw(win, 0, 0, "cycle numero : %d\n", vm->cycle);
+	mvwprintw(win, 0, 0, "cycle numero : %d\n", vm->tt_cycle);
 	while (j < MEM_SIZE)
 	{
 		wprintw(win, "%.2x", vm->map[j++]);
