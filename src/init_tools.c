@@ -20,7 +20,7 @@ void	init_colors(t_vm *vm)
 	vm->colors_tab[3] = "\x1b[33m"; //yellow
 	vm->colors_tab[4] = "\x1b[35m"; //magenta
 	vm->colors_tab[5] = "\x1b[36m"; //cyan
-	vm->colors_tab[6] = "";
+	vm->colors_tab[6] =	"";
 }
 
 int		known_opt(char *opt)

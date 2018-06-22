@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/21 18:02:12 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/22 12:14:57 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ unsigned char byte, t_instr instr)
 
 	i = -1;
 	get_ocp(byte, ocp);
-	// ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
+	//ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
 	while (++i < g_op_tab[instr.opcode - 1].nb_param)
 	{
 		if (!ft_strncmp("11", &ocp[2 * i], 2))
@@ -50,8 +50,8 @@ unsigned char byte, t_instr instr)
 		else
 			parameters[i].type = 0;
 	}
-	// for (int i = 0; i < 3; i++)
-	// 	ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
+	//for (int i = 0; i < 3; i++)
+	//	ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
 	return (parameters);
 }
 

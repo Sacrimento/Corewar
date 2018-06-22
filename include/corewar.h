@@ -135,6 +135,7 @@ int						known_opt(char *opt);
 int						check_inputs(void);
 int						list_length(t_champ *champ);
 int						activate_visu(t_vm *vm, int *i, int ac);
+void					init_colors(t_vm *vm);
 
 //instr_params.c
 void					get_params(t_instr *instr);

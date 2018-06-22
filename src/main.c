@@ -30,8 +30,9 @@ int					main(int argc, char **argv)
 		return (1);
 	if (!(vm = init_vm(argc, argv)))
 		return (1);
+	vm->dump = vm->visu ? -1 : vm->dump;
 	run(vm);
-	winner(vm->last);
+	vm->visu ? 0 : winner(vm->last);
 	free_vm(vm);
 	return (0);
 }

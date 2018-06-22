@@ -116,7 +116,7 @@ int			run(t_vm *vm)
 	vm->ctd = CYCLE_TO_DIE;
 	while (vm->processes_nbr && vm->ctd > 0)
 	{
-		ft_printf("It is now cycle %d\n", vm->tt_cycle);
+		!vm->visu ? ft_printf("It is now cycle %d\n", vm->tt_cycle) : 0;
 		if (vm->cycle == vm->ctd)
 			check_vm(vm, &check);
 		exec_process(vm->processes, vm);
@@ -125,7 +125,7 @@ int			run(t_vm *vm)
 			return (mem_dump(vm->map));
 		vm->cycle++;
 		vm->tt_cycle++;
-//		ft_printf("{CYAN}processes nb:%d{EOC}\n", vm->processes_nbr);
+		//ft_printf("{CYAN}processes nb:%d{EOC}\n", vm->processes_nbr);
 	}
 	vm->visu ? endwin() : 0;
 	return (1);

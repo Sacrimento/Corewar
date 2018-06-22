@@ -87,7 +87,7 @@ static int	load_champs(t_vm *vm, int index)
 		while (++i < size)
 		{
 			vm->map[sta + i] = ch->code[i];
-			vm->colors_map[i] = ch->color;
+			vm->colors_map[sta + i] = ch->color;
 		}
 		sta += index;
 		ch = ch->next;
@@ -114,6 +114,7 @@ t_vm		*init_vm(int argc, char **argv)
 		error_mall(0);
 		return (free_vm(vm));
 	}
+	init_colors(vm);
 	ft_memset(vm->colors_map, 6, MEM_SIZE);
 	if (!(load_champs(vm, MEM_SIZE / list_length(vm->champ))))
 		return (free_vm(vm));
