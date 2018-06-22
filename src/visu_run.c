@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   visu_run.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:24:18 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/22 13:01:10 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/22 13:35:32 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_header(WINDOW *win)
 	wrefresh(win);
 }
 
-void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test)
+void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, int start)
 {
 	int ch;
 	int j;
@@ -60,6 +60,8 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test)
 	}
 	vm.processes = pro;
 	nodelay(stdscr,TRUE);
+//	else
+//		nodelay(stdscr,FALSE);
 	ch = getch();
 	if (ch == 100)
 	{
@@ -129,5 +131,8 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test)
 	box(score, ACS_VLINE, ACS_HLINE);
 	wrefresh(win);
 	wrefresh(score);
+	if (!start)
+		nodelay(stdscr,FALSE);
+		ch = getch();
 	usleep(visu->slow);
 }

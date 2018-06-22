@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   run.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/21 16:42:42 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/22 13:32:43 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static int	exec_process(t_process *process, t_vm *vm)
 	return (1);
 }
 
-static int	mem_dump(unsigned char *map)
+static int	mem_dump(unsigned char *map, t_vm *vm)
 {
 	int		i;
 
@@ -71,6 +71,15 @@ static int	mem_dump(unsigned char *map)
 	while (i < MEM_SIZE)
 	{
 		ft_printf("%.2x", map[i++]);
+		if (!(i % 32) && i != 0)
+			ft_putchar('\n');
+		else
+			ft_putchar(' ');
+	}
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		ft_printf("%d", vm->colors_tab[i++]);
 		if (!(i % 32) && i != 0)
 			ft_putchar('\n');
 		else
@@ -109,8 +118,10 @@ int			run(t_vm *vm)
 	WINDOW	*score;
 	WINDOW	*test;
 	t_visu	*visu;
+	int		start;
 
 	check = 0;
+	start = 0;
 	win = NULL;
 	vm->visu ? visu = ft_memalloc(sizeof(t_visu)) : 0;
 	init_instr_tab(vm);
@@ -125,11 +136,12 @@ int			run(t_vm *vm)
 		if (vm->cycle == vm->ctd)
 			check_vm(vm, &check);
 		exec_process(vm->processes, vm);
-		vm->visu ? visu_run(*vm, win, visu, score, test) : 0;
+		vm->visu ? visu_run(*vm, win, visu, score, test, start) : 0;
 		if (vm->tt_cycle == vm->dump)
-			return (mem_dump(vm->map));
+			return (mem_dump(vm->map, vm));
 		vm->cycle++;
 		vm->tt_cycle++;
+		start = 1;
 		//ft_printf("{CYAN}processes nb:%d{EOC}\n", vm->processes_nbr);
 	}
 	vm->visu ? endwin() : 0;
