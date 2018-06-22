@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/22 17:11:07 by rkrief           ###   ########.fr       */
+/*   Updated: 2018/06/22 18:59:35 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,10 +162,10 @@ int						byte_to_int(unsigned char *map, int cursor,
 int						int_to_bytes(int n, int cursor,
 						unsigned char *map, t_instr instr);
 int						free_params(t_instr instr, int ret);
-int						convert_params(t_instr instr, int limit);
-int						convert_params_unrestrained(t_instr instr, int limit);
+int						convert_params(t_instr *instr, int limit);
+int						convert_params_unrestrained(t_instr *instr, int limit);
 int						decal_pc(t_instr instr, int decal, int ret);
-int						convert_params_start(t_instr instr, int start,
+int						convert_params_start(t_instr *instr, int start,
 						int limit);
 int						valid_reg(int reg);
 int						get_address(int value);

@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/22 16:05:51 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/22 19:04:02 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,17 @@
 #include "../include/corewar.h"
 #define DECAL 3
 
+void print_reg(t_instr instr)
+{
+	int i = -1;
+	if (!instr.vm->visu)
+	{
+	ft_putstr("registre tab\n");
+	while (++i < REG_NUMBER)
+		ft_printf("index:%d|value:%d\n", i, instr.process->reg[i]);
+	}
+}
+
 int	live(t_instr instr)
 {
 	t_champ *thischamp;
@@ -33,8 +44,8 @@ int	live(t_instr instr)
 		return (decal_pc(instr, 5, 0));
 	thischamp->lives++;
 	instr.vm->last = thischamp;
-	// ft_printf("P %4d | %s %d\n", instr.process->id, "live", byte_to_int(instr.vm->map, instr.process->pc + 1, 4));
-	!instr.vm->visu ? ft_printf("Player %d (%s) is said to be alive\n", thischamp->id, thischamp->name) : 0;
+	!instr.vm->visu ? ft_printf("Player %d (%s) is said to be alive\n",
+	thischamp->id, thischamp->name) : 0;
 	return (decal_pc(instr, 5, 1));
 }
 
@@ -42,20 +53,17 @@ int	ld(t_instr instr)
 {
 	//INFO("LD");
 	get_params(&instr);
+	print_reg(instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[1].value))
 		return (free_params(instr, 0));
 	if (instr.params[0].type == T_DIR)
-	{
 		instr.process->reg[instr.params[1].value] = instr.params[0].value;
-		// ft_printf("P %4d | %s r%d %d\n", instr.process->id, "ld", instr.params[1].value + 1, instr.params[0].value);
-	}
 	else
 	{
 		instr.process->reg[instr.params[1].value]
 		= byte_to_int(instr.vm->map,
 		get_address(instr.process->pc + (instr.params[0].value % IDX_MOD)), 4);
-		// ft_printf("P %4d | %s r%d %d\n", instr.process->id, "ld", instr.params[1].value + 1, instr.process->reg[instr.params[1].value]);
 	}
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(instr, 1));
@@ -98,7 +106,6 @@ int	add(t_instr instr)
 	instr.process->reg[instr.params[2].value]
 	= instr.process->reg[instr.params[0].value]
 	+ instr.process->reg[instr.params[1].value];
-	// ft_printf("P %4d | %s r%d r%d r%d\n", instr.process->id, "add", instr.params[0].value + 1, instr.params[1].value + 1, instr.params[2].value + 1);
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
 	return (free_params(instr, 1));
 }
@@ -115,7 +122,6 @@ int	sub(t_instr instr)
 	instr.process->reg[instr.params[2].value]
 	= instr.process->reg[instr.params[0].value]
 	- instr.process->reg[instr.params[1].value];
-	// ft_printf("P %4d | %s r%d r%d r%d\n", instr.process->id, "sub", instr.params[0].value + 1, instr.params[1].value + 1, instr.params[2].value + 1);
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
 	return (free_params(instr, 1));
 }
@@ -125,7 +131,7 @@ int	and(t_instr instr)
 	//INFO("AND");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
-	|| !valid_reg(--instr.params[2].value) || !convert_params(instr, 2))
+	|| !valid_reg(--instr.params[2].value) || !convert_params(&instr, 2))
 		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value & instr.params[1].value;
@@ -139,11 +145,11 @@ int	or(t_instr instr)
 	//INFO("OR");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
-	|| !valid_reg(--instr.params[2].value) || !convert_params(instr, 2))
+	|| !valid_reg(--instr.params[2].value) || !convert_params(&instr, 2))
 		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value | instr.params[1].value;
-	// instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
+	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
 	// ft_printf("P %4d | %s %d %d r%d\n", instr.process->id, "or", instr.process->reg[instr.params[0].value], instr.process->reg[instr.params[1].value], instr.params[2].value + 1);
 	return (free_params(instr, 1));
 }
@@ -153,7 +159,7 @@ int	xor(t_instr instr)
 	//INFO("XOR");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
-	|| !valid_reg(--instr.params[2].value) || !convert_params(instr, 2))
+	|| !valid_reg(--instr.params[2].value) || !convert_params(&instr, 2))
 		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value ^ instr.params[1].value;
@@ -168,8 +174,6 @@ int	zjmp(t_instr instr)
 		return (decal_pc(instr, DECAL, 0));
 	instr.process->pc = get_address(instr.process->pc +
 		byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD);
-	if (!instr.vm->visu)
-		ft_printf("P %4d | %s %d OK\n", instr.process->id, "zjmp", instr.process->pc);
 	instr.process->cycles_left = -1;
 	return (decal_pc(instr, 0, 1));
 }
@@ -179,13 +183,21 @@ int	ldi(t_instr instr)
 	//INFO("LDI");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
-	|| !valid_reg(--instr.params[2].value) || !convert_params(instr, 2))
+	|| !valid_reg(--instr.params[2].value) || !convert_params(&instr, 2))
 		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
 	= instr.vm->map[get_address(instr.process->pc
 	+ (instr.params[0].value + instr.params[1].value) % IDX_MOD)];
-	// ft_printf("P %4d | %s %d %d r%d\n", instr.process->id, "ldi", instr.process->reg[instr.params[0].value], instr.process->reg[instr.params[1].value], instr.params[2].value + 1);
-	// instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
+/* 	ft_printf("{MAGENTA}P %d LDI %d(%d) + %d(%d) = %d | address %d | res %d{EOC}\n",
+	instr.process->id,
+	instr.params[0].value,
+	instr.params[0].type,
+	instr.params[1].value,
+	instr.params[1].type,
+	instr.params[0].value + instr.params[1].value,
+	get_address(instr.process->pc
+	+ (instr.params[0].value + instr.params[1].value) % IDX_MOD),
+	instr.process->reg[instr.params[2].value]); */
 	return (free_params(instr, 1));
 }
 
@@ -195,7 +207,7 @@ int	sti(t_instr instr)
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value)
-	|| !convert_params_start(instr, 1, 3))
+	|| !convert_params_start(&instr, 1, 3))
 		return (free_params(instr, 0));
 	int_to_bytes(instr.process->reg[instr.params[0].value],
 	get_address(instr.process->pc +
@@ -229,16 +241,12 @@ int	lld(t_instr instr)
 	|| !valid_reg(--instr.params[1].value))
 		return (free_params(instr, 0));
 	if (instr.params[0].type == T_DIR)
-	{
 		instr.process->reg[instr.params[1].value] = instr.params[0].value;
-		// ft_printf("P %4d | %s %d r%d\n", instr.process->id, "lld", instr.params[0].value, instr.params[1].value + 1);
-	}
 	else
 	{
 		instr.process->reg[instr.params[1].value]
 		= byte_to_int(instr.vm->map,
 		get_address(instr.process->pc + instr.params[0].value), 4);
-		// ft_printf("P %4d | %s %d r%d\n", instr.process->id, "lld", instr.process->reg[instr.params[1].value], instr.params[1].value + 1);
 	}
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(instr, 1));
@@ -250,7 +258,7 @@ int	lldi(t_instr instr)
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[2].value)
-	|| !convert_params_unrestrained(instr, 2))
+	|| !convert_params_unrestrained(&instr, 2))
 		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
 	= instr.vm->map[get_address(instr.process->pc
@@ -269,7 +277,6 @@ int	core_lfork(t_instr instr)
 	add_process(instr.vm, get_address(instr.process->pc +
 	byte_to_int(instr.vm->map, instr.process->pc + 1, 2)),
 	instr.process->reg[1]);
-	// ft_printf("P %4d | %s %d (%d)\n", instr.process->id, "lfork", byte_to_int(instr.vm->map, instr.process->pc + 1, 2), instr.vm->processes->pc);
 	instr.vm->processes->carry = instr.process->carry;
 	instr.vm->processes->alive = instr.process->alive;
 	instr.vm->processes->color = instr.process->color;

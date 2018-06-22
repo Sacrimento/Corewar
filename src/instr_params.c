@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/22 15:39:36 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/22 18:43:28 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@ static void			get_ocp(unsigned char byte, char *ocp)
 }
 
 static t_param		*decode_param_type(t_param *parameters,
-unsigned char byte, t_instr instr)
+unsigned char byte, t_instr *instr)
 {
 	int		i;
 	char	ocp[9];
 
 	i = -1;
 	get_ocp(byte, ocp);
-	if (!instr.vm->visu)
+	if (!instr->vm->visu)
 		ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
-	while (++i < g_op_tab[instr.opcode - 1].nb_param)
+	while (++i < g_op_tab[instr->opcode - 1].nb_param)
 	{
 		if (!ft_strncmp("11", &ocp[2 * i], 2))
 			parameters[i].type = T_IND;
@@ -52,7 +52,7 @@ unsigned char byte, t_instr instr)
 			parameters[i].type = 0;
 		parameters[i].value = 0;
 	}
-	if (!instr.vm->visu)
+	if (!instr->vm->visu)
 	{
 		for (int i = 0; i < 3; i++)
 			ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
@@ -70,7 +70,7 @@ void			get_params(t_instr *instr)
 	if (!instr->vm || !instr->vm->map || !instr->process)
 		return ;
 	decode_param_type(instr->params,
-	instr->vm->map[(instr->process->pc + 1) % MEM_SIZE], *instr);
+	instr->vm->map[(instr->process->pc + 1) % MEM_SIZE], instr);
 	while (++i < 3 && instr->params[i].type != 0)
 	{
 		instr->params[i].value = byte_to_int(instr->vm->map, cursor,

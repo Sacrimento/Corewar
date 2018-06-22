@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/21 16:36:44 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/22 19:03:23 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,49 +35,49 @@ int compare_params(t_param *params, int opcode)
 	return (1);
 }
 
-int convert_params(t_instr instr, int limit)
+int convert_params(t_instr *instr, int limit)
 {
 	return (convert_params_start(instr, 0, limit));
 }
 
-int convert_params_start(t_instr instr, int start, int limit)
+int convert_params_start(t_instr *instr, int start, int limit)
 {
 	int i;
 
 	i = start - 1;
 	while (++i < limit)
 	{
-		if (instr.params[i].type == T_REG)
+		if (instr->params[i].type == T_REG)
 		{
-			if (!valid_reg(--instr.params[i].value))
+			if (!valid_reg(--instr->params[i].value))
 				return (0);
-			instr.params[i].value = instr.process->reg[instr.params[i].value];
+			instr->params[i].value = instr->process->reg[instr->params[i].value];
 		}
-		else if (instr.params[i].type == T_IND)
-			instr.params[i].value =
-			byte_to_int(instr.vm->map, get_address((instr.process->pc
-			+ (instr.params[i].value % IDX_MOD))), DIR_SIZE);
+		else if (instr->params[i].type == T_IND)
+			instr->params[i].value =
+			byte_to_int(instr->vm->map, get_address((instr->process->pc
+			+ (instr->params[i].value % IDX_MOD))), DIR_SIZE);
 	}
 	return (1);
 }
 
-int convert_params_unrestrained(t_instr instr, int limit)
+int convert_params_unrestrained(t_instr *instr, int limit)
 {
 	int i;
 
 	i = -1;
 	while (++i < limit)
 	{
-		if (instr.params[i].type == T_REG)
+		if (instr->params[i].type == T_REG)
 		{
-			if (!valid_reg(--instr.params[i].value))
+			if (!valid_reg(--instr->params[i].value))
 				return (0);
-			instr.params[i].value = instr.process->reg[instr.params[i].value];
+			instr->params[i].value = instr->process->reg[instr->params[i].value];
 		}
-		else if (instr.params[i].type == T_IND)
-			instr.params[i].value =
-			byte_to_int(instr.vm->map, get_address((instr.process->pc
-			+ instr.params[i].value)), DIR_SIZE);
+		else if (instr->params[i].type == T_IND)
+			instr->params[i].value =
+			byte_to_int(instr->vm->map, get_address((instr->process->pc
+			+ instr->params[i].value)), DIR_SIZE);
 	}
 	return (1);
 }
