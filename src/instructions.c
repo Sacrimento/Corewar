@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/21 17:24:11 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/22 15:38:44 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ int	live(t_instr instr)
 	instr.vm->last = thischamp;
 	// ft_printf("P %4d | %s %d\n", instr.process->id, "live", byte_to_int(instr.vm->map, instr.process->pc + 1, 4));
 	!instr.vm->visu ? ft_printf("Player %d (%s) is said to be alive\n", thischamp->id, thischamp->name) : 0;
-	//ft_printf("[%d] - {BLUE}Champion %s (id:%d) is alive{EOC}\n",
-	//thischamp->lives, thischamp->name, thischamp->id);
 	return (decal_pc(instr, 5, 1));
 }
 
@@ -167,16 +165,13 @@ int	zjmp(t_instr instr)
 {
 	//INFO("ZJMP");
 	if (instr.process->carry == 0)
-	{
-		// ft_printf("P %4d | %s %d FAILED\n", instr.process->id, "zjmp", get_address(instr.process->pc + byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD));
 		return (decal_pc(instr, DECAL, 0));
-	}
 	instr.process->pc = get_address(instr.process->pc +
 		byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD);
-	// ft_printf("P %4d | %s %d OK\n", instr.process->id, "zjmp", get_address(instr.process->pc + byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD));
+	if (!instr.vm->visu)
+		ft_printf("P %4d | %s %d OK\n", instr.process->id, "zjmp", instr.process->pc);
 	instr.process->cycles_left = -1;
-	// SUCCESS("INSTRUCTION SUCCEED zjmp");
-	return (1);
+	return (decal_pc(instr, 0, 1));
 }
 
 int	ldi(t_instr instr)
@@ -190,7 +185,7 @@ int	ldi(t_instr instr)
 	= instr.vm->map[get_address(instr.process->pc
 	+ (instr.params[0].value + instr.params[1].value) % IDX_MOD)];
 	// ft_printf("P %4d | %s %d %d r%d\n", instr.process->id, "ldi", instr.process->reg[instr.params[0].value], instr.process->reg[instr.params[1].value], instr.params[2].value + 1);
-	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
+	// instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
 	return (free_params(instr, 1));
 }
 
@@ -204,7 +199,7 @@ int	sti(t_instr instr)
 		return (free_params(instr, 0));
 	int_to_bytes(instr.process->reg[instr.params[0].value],
 	get_address(instr.process->pc +
-	(instr.params[1].value + instr.params[2].value) % IDX_MOD), instr.vm->map, instr);
+	(instr.params[1].value + instr.params[2].value)), instr.vm->map, instr);
 	// ft_printf("P %4d | %s r%d %d %d\n", instr.process->id, "sti", instr.params[0].value + 1, instr.params[1].value, instr.params[2].value);
 	// print_param(instr.params);
 	return (free_params(instr, 1));
@@ -262,6 +257,7 @@ int	lldi(t_instr instr)
 	instr.process->reg[instr.params[2].value]
 	= instr.vm->map[get_address(instr.process->pc
 	+ (instr.params[0].value + instr.params[1].value))];
+	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
 	// ft_printf("P %4d | %s %d %d r%d\n", instr.process->id, "lldi", instr.params[0].value, instr.params[1].value, instr.params[2].value + 1);
 	return (free_params(instr, 1));
 }
@@ -295,6 +291,5 @@ int	aff(t_instr instr)
 	//ft_printf("{CYAN}[%d] - %s:%c{EOC}\n", instr.process->reg[1],
 	//get_champ_by_num(instr.vm->champ, instr.process->reg[1])->name,
 	//instr.process->reg[instr.params[0].value]);
-	instr.process->carry = instr.process->reg[instr.params[0].value] == 0;
 	return (free_params(instr, 1));
 }
