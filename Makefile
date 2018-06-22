@@ -6,7 +6,7 @@
 #    By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/25 17:38:12 by abouvero          #+#    #+#              #
-#    Updated: 2018/06/22 12:26:28 by mfonteni         ###   ########.fr        #
+#    Updated: 2018/06/21 17:28:24 by mfonteni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC_NAME = main.c \
 	   get_champ.c \
 	   init_champs.c \
 	   init.c \
+		 init_score.c \
 	   process.c \
 	   option.c \
 	   init_tools.c \
@@ -36,7 +37,7 @@ CPPFLAGS = -Iinclude
 LIBFT = libft/libft.a
 LIBDIR = libft
 CC = gcc
-CFLAGS = -Werror -Wall -Wextra #-fsanitize=address -g3
+CFLAGS = -Werror -Wall -Wextra -fsanitize=address -g3
 
 INC_PATH = include
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
@@ -51,7 +52,7 @@ $(NAME): $(LIBFT) $(OBJ)
 
 $(OBJ_PATH)/%.o: $(SRC_PATH)/%.c
 	@mkdir $(OBJ_PATH) 2> /dev/null || true
-	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $< 
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ -c $<
 
 $(LIBFT):
 	@make -C $(LIBDIR)
