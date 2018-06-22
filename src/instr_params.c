@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/22 12:40:36 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/22 12:47:18 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,17 +78,11 @@ void			get_params(t_instr *instr)
 t_instr		instr_params(t_vm *vm, t_process *process, int opc)
 {
 	t_instr	instr;
-	int		i;
 
-	i = -1;
 	instr.vm = vm;
 	instr.process = process;
 	instr.opcode = opc;
-	while (++i < 3)
-	{
-		instr.params[i].value = 0;
-		instr.params[i].type = 0;
-	}
+	ft_bzero((void*)instr.params, (sizeof(instr.params)));
 	return (instr);
 }
 
