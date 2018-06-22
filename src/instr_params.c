@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/21 17:58:40 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/21 18:02:12 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ unsigned char byte, t_instr instr)
 
 	i = -1;
 	get_ocp(byte, ocp);
-	ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
+	// ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
 	while (++i < g_op_tab[instr.opcode - 1].nb_param)
 	{
 		if (!ft_strncmp("11", &ocp[2 * i], 2))
@@ -50,8 +50,8 @@ unsigned char byte, t_instr instr)
 		else
 			parameters[i].type = 0;
 	}
-	for (int i = 0; i < 3; i++)
-		ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
+	// for (int i = 0; i < 3; i++)
+	// 	ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
 	return (parameters);
 }
 
@@ -87,11 +87,11 @@ t_instr		instr_params(t_vm *vm, t_process *process, int opc)
 int			decal_pc(t_instr instr, int decal, int ret)
 {
 
-/*  	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 0)
+ 	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 0)
 		ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
 	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 1)
 		ft_printf("{GREEN}INSTRUCTION SUCCEED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
-	ft_printf("ADV %d (%#.4x -> ", decal, instr.process->pc); */
+	ft_printf("ADV %d (%#.4x -> ", decal, instr.process->pc);
 	instr.process->pc = (instr.process->pc + decal) % MEM_SIZE;
 	instr.process->cycles_left = -1;
 	return (ret);
