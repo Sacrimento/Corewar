@@ -58,7 +58,7 @@ int	ld(t_instr instr)
 	|| !valid_reg(--instr.params[1].value))
 		return (free_params(instr, 0));
 	if (instr.params[0].type == T_DIR)
-		instr.process->reg[instr.params[1].value] = instr.params[0].value;
+		instr.process->reg[instr.params[1].value] = instr.params[0].value/* % IDX_MOD*/;
 	else
 	{
 		instr.process->reg[instr.params[1].value]
@@ -187,7 +187,7 @@ int	ldi(t_instr instr)
 		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
 	= instr.vm->map[get_address(instr.process->pc
-	+ (instr.params[0].value + instr.params[1].value) % IDX_MOD)];
+	+ ((instr.params[0].value + instr.params[1].value) % IDX_MOD))];
 /* 	ft_printf("{MAGENTA}P %d LDI %d(%d) + %d(%d) = %d | address %d | res %d{EOC}\n",
 	instr.process->id,
 	instr.params[0].value,

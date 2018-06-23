@@ -60,8 +60,8 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 	init_pair(10,COLOR_BLACK,  COLOR_BLUE);
 	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
 	init_pair(12, COLOR_BLACK, COLOR_MAGENTA);
-	init_pair(13, COLOR_BLACK, COLOR_MAGENTA);
-	init_pair(14, COLOR_BLACK, COLOR_CYAN);
+	init_pair(13, COLOR_BLACK, COLOR_CYAN);
+	init_pair(14, COLOR_BLACK, COLOR_WHITE);
 
 	wattron(score, COLOR_PAIR(7));
 	mvwprintw(score, 45, 5, "Press 'Enter' to start");
