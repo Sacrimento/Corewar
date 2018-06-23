@@ -141,8 +141,8 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, i
 		mvwprintw(score, 15 + k, 5, "Current lives: ");
 		wattroff(score, COLOR_PAIR(7));
 		wattron(score, COLOR_PAIR(n));
-		mvwprintw(score, 13 + k, 26, "%s", vm.champ->name);
-		mvwprintw(score, 15 + k, 26, "%2d", vm.champ->lives);
+		mvwprintw(score, 13 + k, 29, "%s", vm.champ->name);
+		mvwprintw(score, 15 + k, 29, "%-6d", vm.champ->lives);
 		k += 8;
 		vm.champ = vm.champ->next;
 		n++;
