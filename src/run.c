@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/22 18:49:14 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/25 15:06:58 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,7 @@ static int	exec_process(t_process *process, t_vm *vm)
 			else if (process->cycles_left == -1)
 				process->cycles_left = g_op_tab[opc - 1].nb_cycle - 1;
 			else
-			{
-				// ft_printf("\n----------------------------\n");
-				// ft_printf("Process %d|execs %s|\n", process->id, g_op_tab[opc -1].name);
 				vm->instr_tab[opc - 1](instr_params(vm, process, opc));
-			}
-			//ft_printf("NEW PC : %d\n", process->pc);
 		}
 		process = process->next;
 	}
@@ -83,13 +78,11 @@ static void	check_vm(t_vm *vm, int *check)
 	t_champ *ch;
 
 	ch = vm->champ;
-	//INFO("CHECKS");
 	check_process(vm);
 	if (*check == MAX_CHECKS || vm->lives >= NBR_LIVE)
 	{
 		*check = 0;
 		vm->ctd -= CYCLE_DELTA;
-//		ft_printf("Cycle to die is now %d\n", vm->ctd);
 	}
 	vm->cycle = 0;
 	vm->lives = 0;
@@ -132,7 +125,6 @@ int			run(t_vm *vm)
 		vm->cycle++;
 		vm->tt_cycle++;
 		start = 1;
-		//ft_printf("{CYAN}processes nb:%d{EOC}\n", vm->processes_nbr);
 	}
 	vm->visu ? endwin() : 0;
 	return (1);

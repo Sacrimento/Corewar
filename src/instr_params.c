@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/22 18:43:28 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/25 15:02:29 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ unsigned char byte, t_instr *instr)
 
 	i = -1;
 	get_ocp(byte, ocp);
-	if (!instr->vm->visu)
-		ft_printf("OCP : %.2x %d %s\n", byte, byte, ocp);
 	while (++i < g_op_tab[instr->opcode - 1].nb_param)
 	{
 		if (!ft_strncmp("11", &ocp[2 * i], 2))
@@ -49,11 +47,6 @@ unsigned char byte, t_instr *instr)
 		else
 			parameters[i].type = 0;
 		parameters[i].value = 0;
-	}
-	if (!instr->vm->visu)
-	{
-		for (int i = 0; i < 3; i++)
-			ft_printf("OCP : PARAM%d : %d\n", i, parameters[i].type);
 	}
 	return (parameters);
 }
@@ -90,10 +83,6 @@ t_instr		instr_params(t_vm *vm, t_process *process, int opc)
 
 int			decal_pc(t_instr instr, int decal, int ret)
 {
- 	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 0 && !instr.vm->visu)
-		ft_printf("{RED}INSTRUCTION FAILED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
-	if (instr.opcode - 1 < 16 && instr.opcode > 0 && ret == 1 && !instr.vm->visu)
-		ft_printf("{GREEN}INSTRUCTION SUCCEED %s{EOC}\n", g_op_tab[instr.opcode - 1].name);
 	instr.process->pc = (instr.process->pc + decal) % MEM_SIZE;
 	instr.process->cycles_left = -1;
 	return (ret);

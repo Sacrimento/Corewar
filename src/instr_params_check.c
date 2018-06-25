@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/22 19:03:23 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/25 15:06:07 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,7 @@ int compare_params(t_param *params, int opcode)
 	{
 		if (g_op_tab[opcode].type_param[i]
 		&& !((params[i].type & g_op_tab[opcode].type_param[i])))
-		{
-/* 			ft_printf("{RED}Wrong param type for instruction %s{EOC}\n",
-			g_op_tab[opcode].name);
-			ft_printf("{RED}Param number %d code %d{EOC}\n", i, params[i].type); */
 			return (0);
-		}
 		else if (!g_op_tab[opcode].type_param[i])
 			params[i].type = 0;
 	}

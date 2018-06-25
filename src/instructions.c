@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/22 19:04:02 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/25 15:02:03 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,10 @@
 #include "../include/corewar.h"
 #define DECAL 3
 
-void print_reg(t_instr instr)
-{
-	int i = -1;
-	if (!instr.vm->visu)
-	{
-	ft_putstr("registre tab\n");
-	while (++i < REG_NUMBER)
-		ft_printf("index:%d|value:%d\n", i, instr.process->reg[i]);
-	}
-}
-
 int	live(t_instr instr)
 {
 	t_champ *thischamp;
-	//INFO("LIVE");
+
 	instr.process->alive = 1;
 	instr.vm->lives++;
 	if (!instr.vm || !instr.vm->champ
@@ -51,44 +40,33 @@ int	live(t_instr instr)
 
 int	ld(t_instr instr)
 {
-	//INFO("LD");
 	get_params(&instr);
-	print_reg(instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[1].value))
 		return (free_params(instr, 0));
 	if (instr.params[0].type == T_DIR)
 		instr.process->reg[instr.params[1].value] = instr.params[0].value/* % IDX_MOD*/;
 	else
-	{
 		instr.process->reg[instr.params[1].value]
 		= byte_to_int(instr.vm->map,
 		get_address(instr.process->pc + (instr.params[0].value % IDX_MOD)), 4);
-	}
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(instr, 1));
 }
 
 int	st(t_instr instr)
 {
-	//INFO("ST");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value))
 		return (free_params(instr, 0));
 	if (instr.params[1].type == T_REG && instr.params[1].value <= REG_NUMBER)
-	{
 		instr.process->reg[instr.params[1].value]
 		= instr.process->reg[instr.params[0].value];
-		// ft_printf("P %4d | %s r%d %d\n", instr.process->id, "st", instr.params[1].value + 1, instr.process->reg[instr.params[0].value]);
-	}
 	else if (instr.params[1].type == T_IND)
-	{
 		int_to_bytes(instr.process->reg[instr.params[0].value],
 		get_address(instr.process->pc + (instr.params[1].value % IDX_MOD)),
 		instr.vm->map, instr);
-		// ft_printf("P %4d | %s r%d %d\n", instr.process->id, "st", instr.params[1].value + 1, instr.process->reg[instr.params[0].value]);
-	}
 	else
 		return (free_params(instr, 0));
 	return (free_params(instr, 1));
@@ -96,7 +74,6 @@ int	st(t_instr instr)
 
 int	add(t_instr instr)
 {
-	//INFO("ADD");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value)
@@ -112,7 +89,6 @@ int	add(t_instr instr)
 
 int	sub(t_instr instr)
 {
-	//INFO("SUB");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value)
@@ -128,21 +104,18 @@ int	sub(t_instr instr)
 
 int	and(t_instr instr)
 {
-	//INFO("AND");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[2].value) || !convert_params(&instr, 2))
 		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value & instr.params[1].value;
-	// ft_printf("P %4d | %s %d %d r%d\n", instr.process->id, "and", instr.process->reg[instr.params[0].value], instr.process->reg[instr.params[1].value], instr.params[2].value + 1);
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
 	return (free_params(instr, 1));
 }
 
 int	or(t_instr instr)
 {
-	//INFO("OR");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[2].value) || !convert_params(&instr, 2))
@@ -150,13 +123,11 @@ int	or(t_instr instr)
 	instr.process->reg[instr.params[2].value]
 	= instr.params[0].value | instr.params[1].value;
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
-	// ft_printf("P %4d | %s %d %d r%d\n", instr.process->id, "or", instr.process->reg[instr.params[0].value], instr.process->reg[instr.params[1].value], instr.params[2].value + 1);
 	return (free_params(instr, 1));
 }
 
 int	xor(t_instr instr)
 {
-	//INFO("XOR");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[2].value) || !convert_params(&instr, 2))
@@ -166,10 +137,9 @@ int	xor(t_instr instr)
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
 	return (free_params(instr, 1));
 }
-//TODO: Check this one :
+
 int	zjmp(t_instr instr)
 {
-	//INFO("ZJMP");
 	if (instr.process->carry == 0)
 		return (decal_pc(instr, DECAL, 0));
 	instr.process->pc = get_address(instr.process->pc +
@@ -180,7 +150,6 @@ int	zjmp(t_instr instr)
 
 int	ldi(t_instr instr)
 {
-	//INFO("LDI");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[2].value) || !convert_params(&instr, 2))
@@ -188,22 +157,11 @@ int	ldi(t_instr instr)
 	instr.process->reg[instr.params[2].value]
 	= byte_to_int(instr.vm->map, get_address(instr.process->pc
 	+ ((instr.params[0].value + instr.params[1].value) % IDX_MOD)), 4);
-/* 	ft_printf("{MAGENTA}P %d LDI %d(%d) + %d(%d) = %d | address %d | res %d{EOC}\n",
-	instr.process->id,
-	instr.params[0].value,
-	instr.params[0].type,
-	instr.params[1].value,
-	instr.params[1].type,
-	instr.params[0].value + instr.params[1].value,
-	get_address(instr.process->pc
-	+ (instr.params[0].value + instr.params[1].value) % IDX_MOD),
-	instr.process->reg[instr.params[2].value]); */
 	return (free_params(instr, 1));
 }
 
 int	sti(t_instr instr)
 {
-	//INFO("STI");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value)
@@ -220,14 +178,12 @@ int	core_fork(t_instr instr)
 	int i;
 
 	i = -1;
-	//INFO("FORK");
 	add_process(instr.vm, get_address(instr.process->pc +
 	(byte_to_int(instr.vm->map, instr.process->pc + 1, 2) % IDX_MOD)),
 	instr.process->reg[1]);
 	instr.vm->processes->carry = instr.process->carry;
 	instr.vm->processes->alive = instr.process->alive;
 	instr.vm->processes->color = instr.process->color;
-	// ft_printf("P %4d | %s %d (%d)\n", instr.process->id, "fork",byte_to_int(instr.vm->map, instr.process->pc + 1, 2), instr.vm->processes->pc);
 	while (++i < REG_NUMBER)
 		instr.vm->processes->reg[i] = instr.process->reg[i];
 	return (decal_pc(instr, DECAL, 1));
@@ -235,7 +191,6 @@ int	core_fork(t_instr instr)
 
 int	lld(t_instr instr)
 {
-	//INFO("LLD");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[1].value))
@@ -254,7 +209,6 @@ int	lld(t_instr instr)
 
 int	lldi(t_instr instr)
 {
-	//INFO("LLDI");
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[2].value)
@@ -264,7 +218,6 @@ int	lldi(t_instr instr)
 	= instr.vm->map[get_address(instr.process->pc
 	+ (instr.params[0].value + instr.params[1].value))];
 	instr.process->carry = instr.process->reg[instr.params[2].value] == 0;
-	// ft_printf("P %4d | %s %d %d r%d\n", instr.process->id, "lldi", instr.params[0].value, instr.params[1].value, instr.params[2].value + 1);
 	return (free_params(instr, 1));
 }
 
@@ -273,7 +226,6 @@ int	core_lfork(t_instr instr)
 	int i;
 
 	i = -1;
-	//INFO("CORE_LFORK");
 	add_process(instr.vm, get_address(instr.process->pc +
 	byte_to_int(instr.vm->map, instr.process->pc + 1, 2)),
 	instr.process->reg[1]);
@@ -287,7 +239,6 @@ int	core_lfork(t_instr instr)
 
 int	aff(t_instr instr)
 {
-	//INFO("AFF"); 
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value)
