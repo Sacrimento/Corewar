@@ -45,7 +45,7 @@ int	ld(t_instr instr)
 	|| !valid_reg(--instr.params[1].value))
 		return (free_params(instr, 0));
 	if (instr.params[0].type == T_DIR)
-		instr.process->reg[instr.params[1].value] = instr.params[0].value/* % IDX_MOD*/;
+		instr.process->reg[instr.params[1].value] = instr.params[0].value;
 	else
 		instr.process->reg[instr.params[1].value]
 		= byte_to_int(instr.vm->map,
@@ -60,7 +60,7 @@ int	st(t_instr instr)
 	if (!compare_params(instr.params, instr.opcode)
 	|| !valid_reg(--instr.params[0].value))
 		return (free_params(instr, 0));
-	if (instr.params[1].type == T_REG && instr.params[1].value <= REG_NUMBER)
+	if (instr.params[1].type == T_REG && --instr.params[1].value <= REG_NUMBER)
 		instr.process->reg[instr.params[1].value]
 		= instr.process->reg[instr.params[0].value];
 	else if (instr.params[1].type == T_IND)
