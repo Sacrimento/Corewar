@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/25 15:06:58 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/25 16:47:36 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,19 +99,17 @@ int			run(t_vm *vm)
 	int		check;
 	WINDOW	*win;
 	WINDOW	*score;
-	WINDOW	*test;
 	t_visu	*visu;
-	int		start;
 
 	check = 0;
-	start = 0;
 	win = NULL;
+	visu = NULL;
 	vm->visu ? visu = ft_memalloc(sizeof(t_visu)) : 0;
+	visu->start = 0;
 	init_instr_tab(vm);
 	vm->visu ? win = init_visu(visu) : 0;
 	vm->visu ? score = init_score(visu) : 0;
 	vm->visu ? visu->slow = 30000 : 0;
-	vm->visu ? test = subwin(stdscr, LINES, COLS * 0.1, 0, COLS * 0.9) : 0;
 	vm->ctd = CYCLE_TO_DIE;
 	while (vm->processes_nbr && vm->ctd > 0)
 	{
@@ -119,12 +117,12 @@ int			run(t_vm *vm)
 		if (vm->cycle == vm->ctd)
 			check_vm(vm, &check);
 		exec_process(vm->processes, vm);
-		vm->visu ? visu_run(*vm, win, visu, score, test, start) : 0;
+		vm->visu ? visu_run(*vm, win, visu, score) : 0;
 		if (vm->tt_cycle == vm->dump)
 			return (vm->visu ? 1 : mem_dump(vm->map));
 		vm->cycle++;
 		vm->tt_cycle++;
-		start = 1;
+		visu->start = 1;
 	}
 	vm->visu ? endwin() : 0;
 	return (1);
