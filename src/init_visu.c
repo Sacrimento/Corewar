@@ -6,13 +6,13 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:21:02 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/22 15:11:24 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/25 17:11:30 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-WINDOW	*init_visu(t_visu *visu)
+WINDOW	*init_visu()
 {
 	WINDOW	*win;
 
@@ -20,10 +20,6 @@ WINDOW	*init_visu(t_visu *visu)
 	curs_set(0);
 	start_color();
     init_pair(3, COLOR_BLUE, COLOR_BLACK);
-	visu->height = 80;
-	visu->width = 250;
-	visu->start_y = 1;
-	visu->start_x = 20;
 	win = subwin(stdscr, LINES, COLS * 0.7, 0, 0);
 	wbkgd(win, COLOR_PAIR(3));
 	refresh();
