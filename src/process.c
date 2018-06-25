@@ -19,12 +19,11 @@ void		check_process(t_vm *vm)
 
 	pro = vm->processes;
 	while (pro->next)
-	{
 		if (pro->next->alive == 0)
 		{
 			del = pro->next;
 			pro->next = pro->next->next;
-			if (vm->map[del->pc] - 1 >= 0 && vm->map[del->pc] - 1 < 16)
+			//if (vm->map[del->pc] - 1 >= 0 && vm->map[del->pc] - 1 < 16)
 			// ft_printf("{MAGENTA}%dKILLED:%d|Pc:%d|Instr:%s|Instr cycles %d|Cycle to die %d|Cycles left %d{EOC}\n",
 			// del->alive, del->id, del->pc, g_op_tab[vm->map[del->pc] - 1].name,
 			// g_op_tab[vm->map[del->pc] - 1].nb_cycle, vm->ctd, del->cycles_left);
@@ -33,12 +32,11 @@ void		check_process(t_vm *vm)
 		}
 		else if (pro->next)
 			pro = pro->next;
-	}
 	if (vm->processes->alive == 0)
 	{
 		del = vm->processes;
 		vm->processes = vm->processes->next;
-		if (vm->map[del->pc] - 1 >= 0 && vm->map[del->pc] - 1 < 16)
+		//if (vm->map[del->pc] - 1 >= 0 && vm->map[del->pc] - 1 < 16)
 		// ft_printf("{MAGENTA}%dKILLED:%d|Pc:%d|Instr:%s|Instr cycles %d|Cycle to die %d|Cycles left %d{EOC}\n",
 		// del->alive, del->id, del->pc, g_op_tab[vm->map[del->pc] - 1].name,
 		// g_op_tab[vm->map[del->pc] - 1].nb_cycle, vm->ctd, del->cycles_left);

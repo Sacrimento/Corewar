@@ -186,8 +186,8 @@ int	ldi(t_instr instr)
 	|| !valid_reg(--instr.params[2].value) || !convert_params(&instr, 2))
 		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
-	= instr.vm->map[get_address(instr.process->pc
-	+ ((instr.params[0].value + instr.params[1].value) % IDX_MOD))];
+	= byte_to_int(instr.vm->map, get_address(instr.process->pc
+	+ ((instr.params[0].value + instr.params[1].value) % IDX_MOD)), 4);
 /* 	ft_printf("{MAGENTA}P %d LDI %d(%d) + %d(%d) = %d | address %d | res %d{EOC}\n",
 	instr.process->id,
 	instr.params[0].value,
