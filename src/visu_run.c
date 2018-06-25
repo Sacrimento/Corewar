@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:24:18 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/25 16:52:41 by rkrief           ###   ########.fr       */
+/*   Updated: 2018/06/25 17:41:50 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,9 @@ void	print_header(WINDOW *win)
 	wrefresh(win);
 }
 
-void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score)
-{
-	int x;
-	int y;
-	int k;
-	t_champ *champ;
 
-	visu->pos = 0;
-	x = 5;
-	y = 7;
-	visu->ind = 0;
+void	init_pairy(WINDOW *score)
+{
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	init_pair(2, COLOR_RED, COLOR_BLACK);
 	init_pair(3, COLOR_BLUE, COLOR_BLACK);
@@ -56,7 +48,6 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score)
 	init_pair(12, COLOR_BLACK, COLOR_MAGENTA);
 	init_pair(13, COLOR_BLACK, COLOR_CYAN);
 	init_pair(14, COLOR_BLACK, COLOR_WHITE);
-
 	wattron(score, COLOR_PAIR(7));
 	mvwprintw(score, 45, 5, "Press 'Enter' to start");
 	mvwprintw(score, 47, 5, "Press 'Space' to pause");
@@ -66,6 +57,20 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score)
 	mvwprintw(score, 55, 5, "Press 'T' to delete delay");
 	mvwprintw(score, 57, 5, "Press 'R' to go step by step");
 	wattroff(score, COLOR_PAIR(7));
+}
+
+void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score)
+{
+	int x;
+	int y;
+	int k;
+	t_champ *champ;
+
+	visu->pos = 0;
+	x = 5;
+	y = 7;
+	visu->ind = 0;
+	init_pairy(score);
 	print_header(win);
 	if (!(visu->pc = (int*)ft_memalloc(sizeof(int) * (vm.processes_nbr))))
 		exit (0);
