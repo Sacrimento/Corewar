@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/22 18:59:35 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/25 16:40:28 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,17 +93,20 @@ typedef struct			s_vm
 
 typedef struct			s_visu
 {
-	int					height;
-	int					width;
-	int					start_x;
-	int					start_y;
 	int					slow;
+	int					ch;
+	int					*pc;
+	int					pcx;
+	int					pcy;
+	int					start;
+	int					pos;
+	int					ind;
 }						t_visu;
 
 //visu
 WINDOW	*init_visu(t_visu *visu);
 WINDOW	*init_score(t_visu *visu);
-void    visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score, WINDOW *test, int start);
+void    visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score);
 
 //run.c
 int 					run(t_vm *vm);
