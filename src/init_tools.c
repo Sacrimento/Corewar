@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/06 11:12:03 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/22 13:44:06 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/26 16:39:44 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,13 @@ int		check_inputs(void)
 	if (CYCLE_TO_DIE < 1 || CYCLE_DELTA < 1 || NBR_LIVE < 1
 											|| MAX_CHECKS < 1)
 		err = 0;
-	if (PROG_NAME_LENGTH < 1 || COMMENT_LENGTH < 1)
+	if (PROG_NAME_LENGTH < 1 || COMMENT_LENGTH < 1 || IDX_MOD < 1)
+		err = 0;
+	if (IND_SIZE != 2 || REG_SIZE != 4 || REG_SIZE != 4 ||
+												MAX_PLAYERS > 6)
 		err = 0;
 	if (!err)
-		ft_dprintf(2, "Invalid values in \"op.h\"\n");
+		ft_dprintf(2, "Invalid values in op.h\n");
 	return (err);
 }
 
