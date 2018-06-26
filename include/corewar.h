@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/26 15:53:18 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/26 16:15:33 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ int 					run(t_vm *vm);
 //free.c
 t_vm					*free_vm(t_vm *vm);
 t_champ					*rec_free_champs(t_champ *champs);
+int						free_visu(t_visu *visu);
 
 //init_champs.c
 int						init_champs(int ac, char **av, t_vm *vm);
