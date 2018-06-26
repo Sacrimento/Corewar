@@ -6,7 +6,7 @@
 #    By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/25 17:38:12 by abouvero          #+#    #+#              #
-#    Updated: 2018/06/26 15:16:03 by rkrief           ###   ########.fr        #
+#    Updated: 2018/06/26 15:47:06 by rkrief           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRC_NAME = main.c \
 	   process.c \
 	   option.c \
 	   init_tools.c \
+	   inti_visu.c \
 	   run.c \
 	   instr_params.c \
 	   instr_tools.c \

@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/26 15:15:51 by rkrief           ###   ########.fr       */
+/*   Updated: 2018/06/26 15:46:36 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,8 @@ typedef struct			s_visu
 	int					start;
 	int					pos;
 	int					ind;
+	WINDOW  			*win;
+	WINDOW  			*score;
 }						t_visu;
 
 //visu
@@ -109,6 +111,7 @@ WINDOW	*init_score(t_visu *visu);
 void    visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score);
 void	init_pairy_print_header(WINDOW *score, WINDOW *win);
 void    print_score(t_visu *visu, WINDOW *score, t_vm vm, WINDOW *win);
+t_visu *inti_visu(void);
 
 //run.c
 int 					run(t_vm *vm);
