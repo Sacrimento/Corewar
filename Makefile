@@ -6,7 +6,7 @@
 #    By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/25 17:38:12 by abouvero          #+#    #+#              #
-#    Updated: 2018/06/26 14:59:34 by mfonteni         ###   ########.fr        #
+#    Updated: 2018/06/26 15:12:50 by mfonteni         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,11 @@ SRC_NAME = main.c \
 	   init_tools.c \
 	   run.c \
 	   instr_params.c \
-	   instructions.c \
+	   instr_tools.c \
+	   instr_loaders.c \
+	   instr_operators.c \
+	   instr_storage.c \
+	   instr_forks.c \
 	   getters.c \
 	   convert.c \
 	   instr_params_check.c \
