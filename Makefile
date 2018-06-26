@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+         #
+#    By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/25 17:38:12 by abouvero          #+#    #+#              #
-#    Updated: 2018/06/26 14:59:34 by mfonteni         ###   ########.fr        #
+#    Updated: 2018/06/26 14:50:45 by rkrief           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ SRC_NAME = main.c \
 	   get_champ.c \
 	   init_champs.c \
 	   init.c \
-		 init_score.c \
+	   init_score.c \
+	   init_pairy_print_header.c \
+	   print_score.c \
 	   process.c \
 	   option.c \
 	   init_tools.c \
@@ -37,7 +39,7 @@ CPPFLAGS = -Iinclude
 LIBFT = libft/libft.a
 LIBDIR = libft
 CC = gcc
-CFLAGS = -Werror -Wall -Wextra -fsanitize=address -g3
+CFLAGS = -Werror -Wall -Wextra #-fsanitize=address -g3
 
 INC_PATH = include
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
