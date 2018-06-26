@@ -6,13 +6,13 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:21:02 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/26 14:49:41 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/25 17:11:30 by rkrief           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-WINDOW	*init_visu(void)
+WINDOW	*init_visu()
 {
 	WINDOW	*win;
 
@@ -24,17 +24,4 @@ WINDOW	*init_visu(void)
 	wbkgd(win, COLOR_PAIR(3));
 	refresh();
 	return (win);
-}
-
-t_visu	*init_vars_visu(void)
-{
-	t_visu	*visu;
-
-	if (!(visu = (t_visu*)ft_memalloc(sizeof(t_visu))))
-		return (NULL);
-	visu->start = 0;
-	visu->win = init_visu();
-	visu->score = init_score();
-	visu->slow = 30000;
-	return (visu);
 }
