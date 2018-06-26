@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/26 15:15:51 by rkrief           ###   ########.fr       */
+/*   Updated: 2018/06/26 15:50:43 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ typedef struct			s_process
 	int					carry;
 	int					reg[REG_NUMBER];
 	int					cycles_left;
-	int 				id;
 	struct s_process	*next;
 }						t_process;
 
