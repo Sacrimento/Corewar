@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instructions.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/25 17:45:40 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/26 15:20:31 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	live(t_instr instr)
 	t_champ *thischamp;
 
 	if (!instr.vm->visu)
-		ft_printf("attempting live for %d\n", byte_to_int(instr.vm->map, instr.process->pc + 1, 4));
+		ft_printf("Attempting to live %d\n", byte_to_int(instr.vm->map, instr.process->pc + 1, 4));
 	instr.process->alive = 1;
 	instr.vm->lives++;
 	if (!instr.vm || !instr.vm->champ
