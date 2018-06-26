@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/26 13:19:53 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/26 14:45:32 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,14 +97,10 @@ static void	check_vm(t_vm *vm, int *check)
 int			run(t_vm *vm)
 {
 	int		check;
-	WINDOW	*win;
-	WINDOW	*score;
 	t_visu	*visu;
 
 	check = 0;
-	win = NULL;
-	score = NULL;
-	if (!(visu = init_vars_visu(win, score)))
+	if (vm->visu && !(visu = init_vars_visu()))
 		return (error_mall(0));
 	init_instr_tab(vm);
 	vm->ctd = CYCLE_TO_DIE;
@@ -114,7 +110,7 @@ int			run(t_vm *vm)
 		if (vm->cycle == vm->ctd)
 			check_vm(vm, &check);
 		exec_process(vm->processes, vm);
-		vm->visu ? visu_run(*vm, win, visu, score) : 0;
+		vm->visu ? visu_run(*vm, visu) : 0;
 		if (vm->tt_cycle == vm->dump)
 			return (vm->visu ? free_visu(visu) : mem_dump(vm->map));
 		vm->cycle++;

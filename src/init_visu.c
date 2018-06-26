@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:21:02 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/26 13:09:45 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/26 14:49:41 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ WINDOW	*init_visu(void)
 	return (win);
 }
 
-t_visu	*init_vars_visu(WINDOW *win, WINDOW *score)
+t_visu	*init_vars_visu(void)
 {
 	t_visu	*visu;
 
 	if (!(visu = (t_visu*)ft_memalloc(sizeof(t_visu))))
 		return (NULL);
 	visu->start = 0;
-	win = init_visu();
-	score = init_score(visu);
+	visu->win = init_visu();
+	visu->score = init_score();
 	visu->slow = 30000;
 	return (visu);
 }

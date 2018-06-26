@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:24:18 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/25 17:41:50 by rkrief           ###   ########.fr       */
+/*   Updated: 2018/06/26 14:50:05 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	init_pairy(WINDOW *score)
 	wattroff(score, COLOR_PAIR(7));
 }
 
-void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score)
+void	visu_run(t_vm vm, t_visu *visu)
 {
 	int x;
 	int y;
@@ -70,8 +70,8 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score)
 	x = 5;
 	y = 7;
 	visu->ind = 0;
-	init_pairy(score);
-	print_header(win);
+	init_pairy(visu->score);
+	print_header(visu->win);
 	if (!(visu->pc = (int*)ft_memalloc(sizeof(int) * (vm.processes_nbr))))
 		exit (0);
 	while (visu->ind < vm.processes_nbr)
@@ -96,8 +96,8 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score)
 	}
 	if (visu->ch == 32)
 	{
-		mvwprintw(score, 1, 5, "***PAUSED***");
-		wrefresh(score);
+		mvwprintw(visu->score, 1, 5, "***PAUSED***");
+		wrefresh(visu->score);
 		nodelay(stdscr, FALSE);
 		while (visu->ch != 112)
 			visu->ch = getch();
@@ -112,44 +112,44 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score)
 		while (visu->ch != 49)
 			visu->ch = getch();
 	}
-	wattron(score, COLOR_PAIR(7));
-	box(score, ACS_VLINE, ACS_HLINE);
+	wattron(visu->score, COLOR_PAIR(7));
+	box(visu->score, ACS_VLINE, ACS_HLINE);
 	if (!visu->start)
-		mvwprintw(score, 1, 5, "***PAUSED***");
+		mvwprintw(visu->score, 1, 5, "***PAUSED***");
 	else
-		mvwprintw(score, 1, 5, "**RUNNING***");
-	mvwprintw(score, 6, 5, "Cycle number : %d\n", vm.tt_cycle);
-	mvwprintw(score, 8, 5, "nbr processus: %d\n", vm.processes_nbr);
-	mvwprintw(score, 10, 5, "Delay :  %d\n", visu->slow);
+		mvwprintw(visu->score, 1, 5, "**RUNNING***");
+	mvwprintw(visu->score, 6, 5, "Cycle number : %d\n", vm.tt_cycle);
+	mvwprintw(visu->score, 8, 5, "nbr processus: %d\n", vm.processes_nbr);
+	mvwprintw(visu->score, 10, 5, "Delay :  %d\n", visu->slow);
 	champ = vm.champ;
 	visu->ind = 1;
 	k = 2;
 	while (vm.champ)
 	{	
-		wattron(score, COLOR_PAIR(7));
-		mvwprintw(score, 13 + k, 5, "Player %d name: ", vm.champ->id);
-		mvwprintw(score, 15 + k, 5, "Current lives: ");
-		wattroff(score, COLOR_PAIR(7));
-		wattron(score, COLOR_PAIR(visu->ind));
-		mvwprintw(score, 13 + k, 29, "%s", vm.champ->name);
-		mvwprintw(score, 15 + k, 29, "%-6d", vm.champ->lives);
+		wattron(visu->score, COLOR_PAIR(7));
+		mvwprintw(visu->score, 13 + k, 5, "Player %d name: ", vm.champ->id);
+		mvwprintw(visu->score, 15 + k, 5, "Current lives: ");
+		wattroff(visu->score, COLOR_PAIR(7));
+		wattron(visu->score, COLOR_PAIR(visu->ind));
+		mvwprintw(visu->score, 13 + k, 29, "%s", vm.champ->name);
+		mvwprintw(visu->score, 15 + k, 29, "%-6d", vm.champ->lives);
 		k += 8;
 		vm.champ = vm.champ->next;
 		visu->ind++;
 	}
 	vm.champ = champ;
-	wattroff(score, COLOR_PAIR(7));
+	wattroff(visu->score, COLOR_PAIR(7));
 	while (visu->pos < MEM_SIZE)
 	{
 
-		wattron(win, COLOR_PAIR(vm.colors_map[visu->pos]));
-		mvwprintw(win, y, x, "%.2x", vm.map[visu->pos++]);
+		wattron(visu->win, COLOR_PAIR(vm.colors_map[visu->pos]));
+		mvwprintw(visu->win, y, x, "%.2x", vm.map[visu->pos++]);
 		x += 2;
 		if (!(visu->pos % 64) && visu->pos != 0){
-			mvwprintw(win, y, x, "\n"); x = 5, y++;}
+			mvwprintw(visu->win, y, x, "\n"); x = 5, y++;}
 		else{
-			mvwprintw(win, y, x, " ");x++;}
-		wattroff(win, COLOR_PAIR(vm.colors_map[visu->pos - 1]));
+			mvwprintw(visu->win, y, x, " ");x++;}
+		wattroff(visu->win, COLOR_PAIR(vm.colors_map[visu->pos - 1]));
 	}
 	visu->ind = 0;
 	while (visu->ind < vm.processes_nbr)
@@ -166,11 +166,11 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score)
 		attroff(COLOR_PAIR(vm.colors_map[visu->pc[visu->ind]] + 7));
 		visu->ind++;
 	}
-	wattron(score, COLOR_PAIR(7));
-	box(score, ACS_VLINE, ACS_HLINE);
-	wattroff(score, COLOR_PAIR(7));
-	wrefresh(win);
-	wrefresh(score);
+	wattron(visu->score, COLOR_PAIR(7));
+	box(visu->score, ACS_VLINE, ACS_HLINE);
+	wattroff(visu->score, COLOR_PAIR(7));
+	wrefresh(visu->win);
+	wrefresh(visu->score);
 	if (!visu->start)
 		nodelay(stdscr,FALSE);
 		visu->ch = getch();
