@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/21 17:23:15 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/25 18:24:22 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	byte_to_int(unsigned char *map, int cursor, int amount_of_bytes)
 	return (amount_of_bytes == 2 ? (short)ret : ret);
 }
 
-int get_address(int value)
+int	get_address(int value)
 {
 	if (value < 0)
 		value = MEM_SIZE + (value % MEM_SIZE);
@@ -36,9 +36,9 @@ int	int_to_bytes(int n, int cursor, unsigned char *map, t_instr instr)
 	if (!map)
 		return (0);
 	map[get_address(cursor + 3)] = (unsigned char)(n & 0x000000FF);
-    map[get_address(cursor + 2)] = (unsigned char)((n & 0x0000FF00) >> 8);
-    map[get_address(cursor + 1)] = (unsigned char)((n & 0x00FF0000) >> 16);
-    map[get_address(cursor + 0)] = (unsigned char)((n & 0xff000000) >> 24);
+	map[get_address(cursor + 2)] = (unsigned char)((n & 0x0000FF00) >> 8);
+	map[get_address(cursor + 1)] = (unsigned char)((n & 0x00FF0000) >> 16);
+	map[get_address(cursor + 0)] = (unsigned char)((n & 0xff000000) >> 24);
 	instr.vm->colors_map[get_address(cursor + 0)] = instr.process->color;
 	instr.vm->colors_map[get_address(cursor + 1)] = instr.process->color;
 	instr.vm->colors_map[get_address(cursor + 2)] = instr.process->color;
@@ -46,7 +46,7 @@ int	int_to_bytes(int n, int cursor, unsigned char *map, t_instr instr)
 	return (1);
 }
 
-int type_to_size(int type, int opc)
+int	type_to_size(int type, int opc)
 {
 	if (type == T_DIR)
 		return (g_op_tab[opc - 1].oct ? 2 : DIR_SIZE);

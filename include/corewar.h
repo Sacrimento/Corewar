@@ -6,26 +6,17 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/26 15:10:19 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/26 15:11:32 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
-#define COREWAR_H
+# define COREWAR_H
 
-#include "../libft/includes/libft.h"
-#include "op.h"
-#include <ncurses.h>
-#include <fcntl.h>
-
-/********************DEBUG KINGDOM*********************/
-#define FD open("/dev/ttys005", O_RDWR)
-#define ERROR(message) ft_dprintf(FD, "{RED}%s{EOC}\n", message)
-#define SUCCESS(message) ft_dprintf(FD, "{GREEN}%s{EOC}\n", message)
-#define INFO(message) ft_dprintf(FD, "{BLUE}%s{EOC}\n", message)
-#define INFONUM(message) ft_dprintf(FD, "{BLUE}%d{EOC}\n", message)
-/******************************************************/
-
+# include "../libft/includes/libft.h"
+# include "op.h"
+# include <ncurses.h>
+# include <fcntl.h>
 # define STATS_W		48
 # define ARENA_W		197
 # define HEADER_W		(ARENA_W + STATS_W)
@@ -42,8 +33,8 @@ typedef struct			s_champ
 	int					color;
 	int					size;
 	unsigned int		lives;
-	char 				name[PROG_NAME_LENGTH + 1];
-	char 				comment[COMMENT_LENGTH + 1];
+	char				name[PROG_NAME_LENGTH + 1];
+	char				comment[COMMENT_LENGTH + 1];
 	unsigned char		*code;
 	struct s_champ		*next;
 }						t_champ;
@@ -84,7 +75,7 @@ typedef struct			s_vm
 	int					visu;
 	unsigned char		*map;
 	char				*colors_map;
-	int 				(*instr_tab[16])(t_instr);
+	int					(*instr_tab[16])(t_instr);
 	struct s_champ		*champ;
 	struct s_process	*processes;
 	int					ctd;
@@ -126,14 +117,14 @@ t_vm					*init_vm(int argc, char **argv);
 int						sort_champs(t_vm *vm);
 
 //get_champ.c
-t_champ					*parse_champ(char *file_name , t_champ *champ);
+t_champ					*parse_champ(char *file_name, t_champ *champ);
 int						fill_id_champs(t_vm *vm);
 
 //error.c
 int						usage(int ret);
 t_champ					*error_file(char *str, char *file, t_champ *champ);
 int						error_mall(int err);
-int 					illegal_opt(char *opt, int ret);
+int						illegal_opt(char *opt, int ret);
 int						check_num(t_champ *ch, int num);
 
 //getters.c
@@ -162,7 +153,7 @@ int						compare_params(t_param *params, int opcode);
 
 //instructions.c
 int						continue_process(t_vm *vm, t_process *process);
-int 					type_to_size(int type, int oct);
+int						type_to_size(int type, int oct);
 int						byte_to_int(unsigned char *map, int cursor,
 						int amount_of_bytes);
 int						int_to_bytes(int n, int cursor,
