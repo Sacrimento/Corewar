@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:10:02 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/26 15:10:17 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/26 15:43:46 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ int	ldi(t_instr instr)
 {
 	get_params(&instr);
 	if (!compare_params(instr.params, instr.opcode)
-	|| !valid_reg(--instr.params[2].value) || !convert_params(&instr, 2))
+	|| !valid_reg(--instr.params[2].value)
+	|| !convert_params(&instr, 2))
 		return (free_params(instr, 0));
 	instr.process->reg[instr.params[2].value]
 	= byte_to_int(instr.vm->map, get_address(instr.process->pc
