@@ -6,10 +6,11 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/26 15:53:34 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/26 15:54:51 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../include/corewar.h"
 
 static void	init_instr_tab(t_vm *vm)
 {
