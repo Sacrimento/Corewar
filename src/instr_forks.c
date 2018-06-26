@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:10:23 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/26 15:10:29 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/26 15:39:25 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	core_lfork(t_instr instr)
 	instr.vm->processes->carry = instr.process->carry;
 	instr.vm->processes->alive = instr.process->alive;
 	instr.vm->processes->color = instr.process->color;
-	while (++i <= REG_NUMBER)
+	while (++i < REG_NUMBER)
 		instr.vm->processes->reg[i] = instr.process->reg[i];
 	return (decal_pc(instr, 3, 1));
 }

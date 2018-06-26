@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/22 15:22:46 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/26 15:39:01 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ static int	load_champs(t_vm *vm, int index)
 		size = ch->size;
 		while (++i < size)
 		{
-			vm->map[sta + i] = ch->code[i];
-			vm->colors_map[sta + i] = ch->color;
+			vm->map[(sta + i) % MEM_SIZE] = ch->code[i];
+			vm->colors_map[(sta + i) % MEM_SIZE] = ch->color;
 		}
 		sta += index;
 		ch = ch->next;
