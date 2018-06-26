@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/25 17:11:50 by rkrief           ###   ########.fr       */
+/*   Updated: 2018/06/26 13:20:23 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,10 +110,12 @@ void    visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score);
 
 //run.c
 int 					run(t_vm *vm);
+t_visu					*init_vars_visu(WINDOW *win, WINDOW *score);
 
 //free.c
 t_vm					*free_vm(t_vm *vm);
 t_champ					*rec_free_champs(t_champ *champs);
+int						free_visu(t_visu *visu);
 
 //init_champs.c
 int						init_champs(int ac, char **av, t_vm *vm);

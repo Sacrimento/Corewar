@@ -6,11 +6,17 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:14:11 by abouvero          #+#    #+#             */
-/*   Updated: 2018/05/28 17:00:32 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/26 13:19:28 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
+
+int		free_visu(t_visu *visu)
+{
+	ft_memdel((void**)&visu);
+	return (1);
+}
 
 t_champ	*rec_free_champs(t_champ *champs)
 {
