@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/26 15:39:01 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/27 15:02:30 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ static int	introduce_champs(t_champ *champs)
 		ft_dprintf(2, "Too much champs loaded\n");
 		return (0);
 	}
-	ft_printf("Introducing contestants...\n");
+	ft_printf("Preparez vous a accueillir ...\n");
 	while (champs)
 	{
-		ft_printf("* Player %d, weighing %d bytes, ", champs->id, champs->size);
+		ft_printf("* Le joueur %d, du haut de ses %d bytes, ", champs->id, champs->size);
 		ft_printf("\"%s\" (\"%s\") !\n", champs->name, champs->comment);
 		champs = champs->next;
 	}

@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:21:02 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/25 17:11:30 by rkrief           ###   ########.fr       */
+/*   Updated: 2018/06/27 14:52:57 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ WINDOW	*init_visu()
 	WINDOW	*win;
 
 	initscr();
+	noecho();
 	curs_set(0);
 	start_color();
     init_pair(3, COLOR_BLUE, COLOR_BLACK);

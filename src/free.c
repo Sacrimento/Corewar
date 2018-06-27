@@ -6,15 +6,17 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:14:11 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/26 13:19:28 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/27 15:05:24 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-int		free_visu(t_visu *visu)
+int		free_visu(t_visu *visu, t_vm *vm)
 {
 	ft_memdel((void**)&visu);
+	vm->visu ? endwin() : 0;
+	vm->dump != -1 ? mem_dump(vm->map) : 0;
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/26 16:15:03 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/27 15:02:34 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static int	exec_process(t_process *process, t_vm *vm)
 	return (1);
 }
 
-static int	mem_dump(unsigned char *map)
+int			mem_dump(unsigned char *map)
 {
 	int		i;
 
@@ -111,11 +111,10 @@ int			run(t_vm *vm)
 		exec_process(vm->processes, vm);
 		vm->visu ? visu_run(*vm, visu->win, visu, visu->score) : 0;
 		if (vm->tt_cycle == vm->dump)
-			return (vm->visu ? free_visu(visu) : mem_dump(vm->map));
+			return (vm->visu ? free_visu(visu, vm) : mem_dump(vm->map));
 		vm->cycle++;
 		vm->tt_cycle++;
 		vm->visu ? visu->start = 1 : 0;
 	}
-	vm->visu ? endwin() : 0;
-	return (vm->visu ? free_visu(visu) : 1);
+	return (vm->visu ? free_visu(visu, vm) : 1);
 }

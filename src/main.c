@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/26 13:06:59 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/27 14:49:45 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static void			winner(t_champ *ch)
 {
 	if (ch)
-		ft_printf("Contestant %d(%s) has won !\n", ch->id, ch->name);
+		ft_printf("Le joueur %d(%s) a gagne !\n", ch->id, ch->name);
 	else
-		ft_printf("None lived, draw !\n");
+		ft_printf("Une hecatombe ... Personne ne gagne :(\n");
 }
 
 int					main(int argc, char **argv)
