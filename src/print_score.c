@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_score.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rkrief <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:49:14 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/26 14:51:30 by rkrief           ###   ########.fr       */
+/*   Updated: 2018/06/27 15:28:04 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,11 @@ void    print_score(t_visu *visu, WINDOW *score, t_vm vm, WINDOW *win)
 	if (!visu->start)
 		mvwprintw(score, 1, 5, "***PAUSED***");
 	else
-		mvwprintw(score, 1, 5, "**RUNNING***");
-	mvwprintw(score, 6, 5, "Cycle number : %d\n", vm.tt_cycle);
-	mvwprintw(score, 8, 5, "nbr processus: %d\n", vm.processes_nbr);
-	mvwprintw(score, 10, 5, "Delay :  %d\n", visu->slow);
+		mvwprintw(score, 1, 5, "***RUNNING***");
+	mvwprintw(score, 5, 5, "Cycle number :     %d\n", vm.tt_cycle);
+	mvwprintw(score, 7, 5, "Cycle to die :     %d\n", vm.ctd);
+	mvwprintw(score, 9, 5, "Processus number : %d\n", vm.processes_nbr);
+	mvwprintw(score, 11, 5, "Delay :            %d\n", visu->slow);
 	visu->ind = 1;
 	while (vm.champ)
 	{
