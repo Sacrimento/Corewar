@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/27 14:49:45 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/27 15:33:46 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int					main(int argc, char **argv)
 		return (1);
 	if (run(vm))
 		winner(vm->last);
+	else
+		return (1);
 	free_vm(vm);
 	return (0);
 }
