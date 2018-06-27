@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/25 15:06:07 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/26 18:26:33 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int convert_params_unrestrained(t_instr *instr, int limit)
 			if (!valid_reg(--instr->params[i].value))
 				return (0);
 			instr->params[i].value = instr->process->reg[instr->params[i].value];
+			
 		}
 		else if (instr->params[i].type == T_IND)
 			instr->params[i].value =

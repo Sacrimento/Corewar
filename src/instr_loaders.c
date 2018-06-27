@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_loaders.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:10:02 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/26 15:53:26 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/26 17:23:25 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ int	ld(t_instr instr)
 		return (free_params(instr, 0));
 	if (instr.params[0].type == T_DIR)
 		instr.process->reg[instr.params[1].value] = instr.params[0].value;
-	else
+	else if (instr.params[0].type == T_IND)
 		instr.process->reg[instr.params[1].value]
 		= byte_to_int(instr.vm->map,
 		get_address(instr.process->pc + (instr.params[0].value % IDX_MOD)), 4);
+	else
+		return (free_params(instr, 0));
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(instr, 1));
 }
@@ -36,12 +38,12 @@ int	lld(t_instr instr)
 		return (free_params(instr, 0));
 	if (instr.params[0].type == T_DIR)
 		instr.process->reg[instr.params[1].value] = instr.params[0].value;
-	else
-	{
+	else if (instr.params[0].type == T_IND)
 		instr.process->reg[instr.params[1].value]
 		= byte_to_int(instr.vm->map,
-		get_address(instr.process->pc + instr.params[0].value), 4);
-	}
+		get_address(instr.process->pc + (instr.params[0].value)), 4);
+	else
+		return (free_params(instr, 0));
 	instr.process->carry = instr.process->reg[instr.params[1].value] == 0;
 	return (free_params(instr, 1));
 }
