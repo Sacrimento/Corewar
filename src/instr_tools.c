@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instr_tools.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/27 14:47:22 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/28 15:04:35 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	live(t_instr instr)
 	byte_to_int(instr.vm->map, instr.process->pc + 1, 4))))
 	{
 		if (instr.vm && instr.vm->champ && !instr.vm->visu)
-			ft_printf("Failed live instruction for player %d\n",
+			ft_printf("Une instruction live en faveur du joueur %d a echoue\n",
 			byte_to_int(instr.vm->map, instr.process->pc + 1, 4));
 		return (decal_pc(instr, 5, 0));
 	}
