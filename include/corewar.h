@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/28 15:19:47 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/28 15:30:27 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ typedef struct			s_champ
 	int					color;
 	int					size;
 	unsigned int		lives;
-	char 				name[PROG_NAME_LENGTH + 1];
-	char 				comment[COMMENT_LENGTH + 1];
+	char				name[PROG_NAME_LENGTH + 1];
+	char				comment[COMMENT_LENGTH + 1];
 	unsigned char		*code;
 	struct s_champ		*next;
 }						t_champ;
@@ -76,7 +76,7 @@ typedef struct			s_vm
 	int					visu;
 	unsigned char		*map;
 	char				*colors_map;
-	int 				(*instr_tab[16])(t_instr);
+	int					(*instr_tab[16])(t_instr);
 	struct s_champ		*champ;
 	struct s_process	*processes;
 	int					ctd;
@@ -92,72 +92,60 @@ typedef struct			s_visu
 	int					start;
 	int					pos;
 	int					ind;
-	WINDOW  			*win;
-	WINDOW  			*score;
+	WINDOW				*win;
+	WINDOW				*score;
 }						t_visu;
 
-//visu
-WINDOW	*init_visu(void);
-WINDOW	*init_score(void);
-void    visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score);
-void	init_pairy_print_header(WINDOW *score, WINDOW *win);
-void    print_score(t_visu *visu, WINDOW *score, t_vm vm, WINDOW *win);
-t_visu *inti_visu(void);
+WINDOW					*init_visu(void);
+WINDOW					*init_score(void);
+void					visu_run(t_vm vm, WINDOW *win,
+									t_visu *visu, WINDOW *score);
+void					init_pairy_print_header(WINDOW *score, WINDOW *win);
+void					print_score(t_visu *visu, WINDOW *score,
+													t_vm vm, WINDOW *win);
+t_visu					*inti_visu(void);
 
-//run.c
-int 					run(t_vm *vm);
+int						run(t_vm *vm);
 int						mem_dump(unsigned char *map);
 
-//free.c
 t_vm					*free_vm(t_vm *vm);
 t_champ					*rec_free_champs(t_champ *champs);
 int						free_visu(t_visu *visu, t_vm *vm);
 
-//init_champs.c
 int						init_champs(int ac, char **av, t_vm *vm);
 
-//init.c
 t_vm					*init_vm(int argc, char **argv);
 int						sort_champs(t_vm *vm);
 
-//get_champ.c
-t_champ					*parse_champ(char *file_name , t_champ *champ);
+t_champ					*parse_champ(char *file_name, t_champ *champ);
 int						fill_id_champs(t_vm *vm);
 
-//error.c
 int						usage(int ret);
 t_champ					*error_file(char *str, char *file, t_champ *champ);
 int						error_mall(int err);
-int 					illegal_opt(char *opt, int ret);
+int						illegal_opt(char *opt, int ret);
 int						check_num(t_champ *ch, int num);
 
-//getters.c
 t_champ					*get_champ_by_num(t_champ *list, int num);
 
-//process.c
 int						add_process(t_vm *vm, int pc, int id);
 void					check_process(t_vm *vm);
 
-//option.c
 int						opt(char **av, int ac, int *i, t_vm *vm);
 
-//init_tools.c
 int						known_opt(char *opt);
 int						check_inputs(void);
 int						list_length(t_champ *champ);
 int						activate_visu(t_vm *vm, int *i, int ac);
 
-//instr_params.c
 void					get_params(t_instr *instr);
 t_instr					instr_params(t_vm *vm, t_process *process, int opc);
 int						continue_process(t_vm *vm, t_process *process);
 
-//instr_params_checks.c
 int						compare_params(t_param *params, int opcode);
 
-//instructions.c
 int						continue_process(t_vm *vm, t_process *process);
-int 					type_to_size(int type, int oct);
+int						type_to_size(int type, int oct);
 int						byte_to_int(unsigned char *map, int cursor,
 						int amount_of_bytes);
 int						int_to_bytes(int n, int cursor,
