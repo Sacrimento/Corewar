@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/28 16:15:15 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/28 16:40:59 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	int_to_bytes(int n, int cursor, unsigned char *map, t_instr instr)
 int	type_to_size(int type, int opc)
 {
 	if (type == T_DIR)
-		return (g_op_tab[opc - 1].oct ? 2 : DIR_SIZE);
+		return (g_op_tab[opc - 1].label_size ? 2 : DIR_SIZE);
 	else if (type == T_IND)
 		return (IND_SIZE);
 	else if (type == T_REG)

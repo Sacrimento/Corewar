@@ -6,11 +6,11 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2018/06/28 16:44:12 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/28 16:35:07 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/op.h"
+#include "../includes/asm.h"
 
 t_op	g_op_tab[17] =
 {
@@ -38,3 +38,17 @@ t_op	g_op_tab[17] =
 	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0},
 	{0, 0, {0}, 0, 0, 0, 0, 0}
 };
+
+t_op	*ft_search_op(char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (i < 17)
+	{
+		if (ft_strequ(g_op_tab[i].name, str))
+			return (g_op_tab + i);
+		i++;
+	}
+	return (NULL);
+}

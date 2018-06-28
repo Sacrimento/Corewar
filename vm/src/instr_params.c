@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/28 15:25:23 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/28 16:42:39 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ unsigned char byte, t_instr *instr)
 
 	i = -1;
 	get_ocp(byte, ocp);
-	while (++i < g_op_tab[instr->opcode - 1].nb_param)
+	while (++i < g_op_tab[instr->opcode - 1].nb_args)
 	{
 		if (!ft_strncmp("11", &ocp[2 * i], 2))
 			parameters[i].type = T_IND;
