@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/28 14:54:13 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/28 15:25:23 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,13 +79,6 @@ t_instr				instr_params(t_vm *vm, t_process *process, int opc)
 	instr.opcode = opc;
 	ft_bzero((void*)instr.params, (sizeof(instr.params)));
 	return (instr);
-}
-
-int			decal_pc(t_instr instr, int decal, int ret)
-{
-	instr.process->pc = (instr.process->pc + decal) % MEM_SIZE;
-	instr.process->cycles_left = -1;
-	return (ret);
 }
 
 int					free_params(t_instr instr, int ret)

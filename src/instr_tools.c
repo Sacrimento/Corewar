@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/28 15:23:02 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/28 15:25:54 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,11 @@ int	aff(t_instr instr)
 	|| !get_champ_by_num(instr.vm->champ, instr.process->reg[1]))
 		return (free_params(instr, 0));
 	return (free_params(instr, 1));
+}
+
+int	decal_pc(t_instr instr, int decal, int ret)
+{
+	instr.process->pc = (instr.process->pc + decal) % MEM_SIZE;
+	instr.process->cycles_left = -1;
+	return (ret);
 }
