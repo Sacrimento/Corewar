@@ -6,25 +6,17 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/27 15:11:25 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/28 15:19:47 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COREWAR_H
-#define COREWAR_H
+# define COREWAR_H
 
-#include "../libft/includes/libft.h"
-#include "op.h"
-#include <ncurses.h>
-#include <fcntl.h>
-
-/********************DEBUG KINGDOM*********************/
-#define FD open("/dev/ttys005", O_RDWR)
-#define ERROR(message) ft_dprintf(FD, "{RED}%s{EOC}\n", message)
-#define SUCCESS(message) ft_dprintf(FD, "{GREEN}%s{EOC}\n", message)
-#define INFO(message) ft_dprintf(FD, "{BLUE}%s{EOC}\n", message)
-#define INFONUM(message) ft_dprintf(FD, "{BLUE}%d{EOC}\n", message)
-/******************************************************/
+# include "../libft/includes/libft.h"
+# include "op.h"
+# include <ncurses.h>
+# include <fcntl.h>
 
 # define STATS_W		48
 # define ARENA_W		197
