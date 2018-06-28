@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:24:18 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/26 15:53:27 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/28 15:17:11 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	user_key2(t_visu *visu)
 {
-	nodelay(stdscr,TRUE);
+	nodelay(stdscr, TRUE);
 	if (visu->ch == 114)
 		visu->slow = 300000;
 	if (visu->ch == 116)
@@ -28,7 +28,7 @@ void	user_key2(t_visu *visu)
 
 void	user_key(WINDOW *score, t_visu *visu)
 {
-	nodelay(stdscr,TRUE);
+	nodelay(stdscr, TRUE);
 	visu->ch = getch();
 	if (visu->ch == 100)
 	{
@@ -40,7 +40,7 @@ void	user_key(WINDOW *score, t_visu *visu)
 	if (visu->ch == 3)
 	{
 		clear();
-		exit (0);
+		exit(0);
 	}
 	if (visu->ch == 32)
 	{
@@ -55,12 +55,12 @@ void	user_key(WINDOW *score, t_visu *visu)
 
 void	take_in_pc(t_visu *visu, t_vm vm)
 {
-		while (visu->ind < vm.processes_nbr)
+	while (visu->ind < vm.processes_nbr)
 	{
 		visu->pc[visu->ind] = vm.processes->pc;
 		vm.processes = vm.processes->next;
 		visu->ind++;
-	}	
+	}
 }
 
 void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score)
@@ -69,9 +69,9 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score)
 	visu->ind = 0;
 	init_pairy_print_header(score, win);
 	if (!(visu->pc = (int*)ft_memalloc(sizeof(int) * (vm.processes_nbr))))
-		exit (0);
+		exit(0);
 	take_in_pc(visu, vm);
-	user_key(score, visu);	
+	user_key(score, visu);
 	wattron(score, COLOR_PAIR(7));
 	box(score, ACS_VLINE, ACS_HLINE);
 	print_score(visu, score, vm, win);
@@ -81,8 +81,8 @@ void	visu_run(t_vm vm, WINDOW *win, t_visu *visu, WINDOW *score)
 	wrefresh(win);
 	wrefresh(score);
 	if (!visu->start)
-		nodelay(stdscr,FALSE);
-		visu->ch = getch();
+		nodelay(stdscr, FALSE);
+	visu->ch = getch();
 	usleep(visu->slow);
 	ft_memdel((void**)&visu->pc);
 }

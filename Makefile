@@ -6,7 +6,7 @@
 #    By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/05/25 17:38:12 by abouvero          #+#    #+#              #
-#    Updated: 2018/06/26 15:47:06 by rkrief           ###   ########.fr        #
+#    Updated: 2018/06/28 15:17:57 by abouvero         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,7 @@ INC_PATH = include
 SRC = $(addprefix $(SRC_PATH)/,$(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH)/,$(OBJ_NAME))
 
-.PHONY: all, clean, fclean, re
+.PHONY: all, clean, fclean, re, norme
 
 all: $(NAME)
 
@@ -66,7 +66,7 @@ $(LIBFT):
 
 norme:
 	norminette $(SRC)
-	norminette $(INC_PATH)*.h
+	norminette $(INC_PATH)/*.h
 
 clean:
 	@rm -fv $(OBJ)

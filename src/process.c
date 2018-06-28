@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/30 15:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/26 15:10:08 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/28 15:10:39 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			add_process(t_vm *vm, int pc, int id)
 {
 	t_process	*pro;
 	t_process	*new;
-	
+
 	pro = vm->processes;
 	if (!(new = (t_process*)ft_memalloc(sizeof(t_process))))
 		return (error_mall(0));

@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/03 11:22:38 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/27 15:02:34 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/28 14:58:15 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int			run(t_vm *vm)
 	t_visu	*visu;
 
 	check = 0;
-	if (vm->visu &&	!(visu = inti_visu()))
+	if (vm->visu && !(visu = inti_visu()))
 		return (0);
 	init_instr_tab(vm);
 	vm->ctd = CYCLE_TO_DIE;

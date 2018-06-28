@@ -6,13 +6,13 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 14:49:14 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/27 15:28:04 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/28 15:11:20 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-void    print_pc(t_visu *visu, t_vm vm)
+void	print_pc(t_visu *visu, t_vm vm)
 {
 	visu->ind = 0;
 	while (visu->ind < vm.processes_nbr)
@@ -29,10 +29,9 @@ void    print_pc(t_visu *visu, t_vm vm)
 		attroff(COLOR_PAIR(vm.colors_map[visu->pc[visu->ind]] + 7));
 		visu->ind++;
 	}
-
 }
 
-void    print_map_and_pc(t_visu *visu, WINDOW *win, t_vm vm)
+void	print_map_and_pc(t_visu *visu, WINDOW *win, t_vm vm)
 {
 	int x;
 	int y;
@@ -44,16 +43,31 @@ void    print_map_and_pc(t_visu *visu, WINDOW *win, t_vm vm)
 		wattron(win, COLOR_PAIR(vm.colors_map[visu->pos]));
 		mvwprintw(win, y, x, "%.2x", vm.map[visu->pos++]);
 		x += 2;
-		if (!(visu->pos % 64) && visu->pos != 0){
-			mvwprintw(win, y, x, "\n"); x = 5, y++;}
-		else{
-			mvwprintw(win, y, x, " ");x++;}
+		if (!(visu->pos % 64) && visu->pos != 0)
+		{
+			mvwprintw(win, y, x, "\n");
+			x = 5;
+			y++;
+		}
+		else
+		{
+			mvwprintw(win, y, x, " ");
+			x++;
+		}
 		wattroff(win, COLOR_PAIR(vm.colors_map[visu->pos - 1]));
 	}
 	print_pc(visu, vm);
 }
 
-void    print_score(t_visu *visu, WINDOW *score, t_vm vm, WINDOW *win)
+void	print_infos(t_visu *visu, t_vm vm, WINDOW *score)
+{
+	mvwprintw(score, 5, 5, "Cycle number :     %d\n", vm.tt_cycle);
+	mvwprintw(score, 7, 5, "Cycle to die :     %d\n", vm.ctd);
+	mvwprintw(score, 9, 5, "Processus number : %d\n", vm.processes_nbr);
+	mvwprintw(score, 11, 5, "Delay :            %d\n", visu->slow);
+}
+
+void	print_score(t_visu *visu, WINDOW *score, t_vm vm, WINDOW *win)
 {
 	int k;
 
@@ -62,10 +76,7 @@ void    print_score(t_visu *visu, WINDOW *score, t_vm vm, WINDOW *win)
 		mvwprintw(score, 1, 5, "***PAUSED***");
 	else
 		mvwprintw(score, 1, 5, "***RUNNING***");
-	mvwprintw(score, 5, 5, "Cycle number :     %d\n", vm.tt_cycle);
-	mvwprintw(score, 7, 5, "Cycle to die :     %d\n", vm.ctd);
-	mvwprintw(score, 9, 5, "Processus number : %d\n", vm.processes_nbr);
-	mvwprintw(score, 11, 5, "Delay :            %d\n", visu->slow);
+	print_infos(visu, vm, score);
 	visu->ind = 1;
 	while (vm.champ)
 	{

@@ -6,7 +6,7 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/21 12:36:15 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/27 14:47:22 by abouvero         ###   ########.fr       */
+/*   Updated: 2018/06/28 14:57:17 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int	live(t_instr instr)
 	}
 	thischamp->lives++;
 	instr.vm->last = thischamp;
-	!instr.vm->visu ? ft_printf("Un processus dit que le joueur %d(%s) est en vie\n",
+	!instr.vm->visu ?
+	ft_printf("Un processus dit que le joueur %d(%s) est en vie\n",
 	thischamp->id, thischamp->name) : 0;
 	return (decal_pc(instr, 5, 1));
 }
