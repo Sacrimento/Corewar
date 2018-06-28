@@ -32,8 +32,6 @@ int					main(int argc, char **argv)
 		return (1);
 	if (run(vm))
 		winner(vm->last);
-	else
-		return (1);
 	free_vm(vm);
 	return (0);
 }
