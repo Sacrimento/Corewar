@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:10:07 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/26 15:10:16 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/28 15:14:23 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ int	st(t_instr instr)
 	&& valid_reg(instr.params[1].value - 1))
 	{
 		instr.params[1].value--;
-		instr.process->reg[instr.params[1].value]
-		= instr.process->reg[instr.params[0].value];
+		instr.process->reg[instr.params[1].value] =
+		instr.process->reg[instr.params[0].value];
 	}
 	else if (instr.params[1].type == T_IND)
 		int_to_bytes(instr.process->reg[instr.params[0].value],

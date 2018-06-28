@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by abouvero          #+#    #+#             */
-/*   Updated: 2018/06/25 18:30:21 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/28 14:54:13 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ unsigned char byte, t_instr *instr)
 	return (parameters);
 }
 
-void			get_params(t_instr *instr)
+void				get_params(t_instr *instr)
 {
 	int		i;
 	int		cursor;
@@ -70,7 +70,7 @@ void			get_params(t_instr *instr)
 	}
 }
 
-t_instr		instr_params(t_vm *vm, t_process *process, int opc)
+t_instr				instr_params(t_vm *vm, t_process *process, int opc)
 {
 	t_instr	instr;
 
@@ -88,7 +88,7 @@ int			decal_pc(t_instr instr, int decal, int ret)
 	return (ret);
 }
 
-int			free_params(t_instr instr, int ret)
+int					free_params(t_instr instr, int ret)
 {
 	int to_decal;
 	int cursor;

@@ -6,15 +6,15 @@
 /*   By: abouvero <abouvero@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/20 16:24:18 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/26 14:43:19 by rkrief           ###   ########.fr       */
+/*   Updated: 2018/06/28 15:09:35 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-void    print_header(WINDOW *win)
+void	print_header(WINDOW *win)
 {
-	int x_offset;
+	int		x_offset;
 
 	x_offset = 79;
 	wattron(win, COLOR_PAIR(1));
@@ -31,8 +31,7 @@ void    print_header(WINDOW *win)
 	wrefresh(win);
 }
 
-
-void    init_pairy_print_header(WINDOW *score, WINDOW *win)
+void	init_pairy_print_header(WINDOW *score, WINDOW *win)
 {
 	init_pair(1, COLOR_GREEN, COLOR_BLACK);
 	init_pair(2, COLOR_RED, COLOR_BLACK);
@@ -43,7 +42,7 @@ void    init_pairy_print_header(WINDOW *score, WINDOW *win)
 	init_pair(7, COLOR_WHITE, COLOR_BLACK);
 	init_pair(8, COLOR_BLACK, COLOR_GREEN);
 	init_pair(9, COLOR_BLACK, COLOR_RED);
-	init_pair(10,COLOR_BLACK,  COLOR_BLUE);
+	init_pair(10, COLOR_BLACK, COLOR_BLUE);
 	init_pair(11, COLOR_BLACK, COLOR_YELLOW);
 	init_pair(12, COLOR_BLACK, COLOR_MAGENTA);
 	init_pair(13, COLOR_BLACK, COLOR_CYAN);
@@ -59,4 +58,3 @@ void    init_pairy_print_header(WINDOW *score, WINDOW *win)
 	wattroff(score, COLOR_PAIR(7));
 	print_header(win);
 }
-

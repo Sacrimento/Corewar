@@ -6,13 +6,13 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/26 15:45:08 by rkrief            #+#    #+#             */
-/*   Updated: 2018/06/27 19:15:40 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/28 15:23:07 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/corewar.h"
 
-t_visu *inti_visu(void)
+t_visu	*inti_visu(void)
 {
 	t_visu *visu;
 
