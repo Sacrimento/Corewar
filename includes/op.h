@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2018/06/28 16:54:27 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/28 17:04:42 by abouvero         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,17 @@ typedef struct					s_header
 	char						comment[COMMENT_LENGTH + 1];
 }								t_header;
 
-typedef struct			s_op
+typedef struct					s_op
 {
-	char				*str;
-	int					nb_args;
-	int					args[3];
-	int					opcode;
-	int					nb_cycles;
-	char				*name;
-	int					ocp;
-	int					label_size;
-}						t_op;
+	char						*str;
+	int							nb_args;
+	int							args[3];
+	int							opcode;
+	int							nb_cycles;
+	char						*name;
+	int							ocp;
+	int							label_size;
+}								t_op;
 
 extern t_op				g_op_tab[17];
 
