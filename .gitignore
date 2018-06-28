@@ -3,7 +3,6 @@
 *.a
 */*.a
 a.out
-main.c
 *.swp
 *.swo
 *.ghc
