@@ -6,7 +6,7 @@
 /*   By: mfonteni <mfonteni@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/09 17:40:13 by mfonteni          #+#    #+#             */
-/*   Updated: 2018/06/28 15:35:43 by mfonteni         ###   ########.fr       */
+/*   Updated: 2018/06/28 16:26:18 by mfonteni         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define COREWAR_H
 
 # include "../libft/includes/libft.h"
-# include "op.h"
+# include "../../includes/op.h"
 # include <ncurses.h>
 # include <fcntl.h>
 
@@ -161,5 +161,7 @@ int						lld(t_instr instr);
 int						lldi(t_instr instr);
 int						core_lfork(t_instr instr);
 int						aff(t_instr instr);
+
+extern t_op				g_op_tab[17];
 
 #endif
